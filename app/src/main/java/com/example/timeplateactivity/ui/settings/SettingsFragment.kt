@@ -1,4 +1,4 @@
-package com.example.timeplateactivity.ui.gallery
+package com.example.timeplateactivity.ui.settings
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.timeplateactivity.databinding.FragmentGalleryBinding
 
-class GalleryFragment : Fragment() {
+class SettingsFragment : Fragment() {
 
     private var _binding: FragmentGalleryBinding? = null
 
@@ -23,7 +23,7 @@ class GalleryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val galleryViewModel =
-            ViewModelProvider(this).get(GalleryViewModel::class.java)
+            ViewModelProvider(this).get(SettingsViewModel::class.java)
 
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
