@@ -19,6 +19,6 @@
         <item>preset2</item>
     </string-array>
 
-
+    <string name="test">ViewBindingSample</string>
 
 </resources>
