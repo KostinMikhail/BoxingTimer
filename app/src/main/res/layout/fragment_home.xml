@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
+
     <TextView
         android:id="@+id/text_home"
         android:layout_width="match_parent"
@@ -17,27 +18,30 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.794" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="57dp"
-        android:layout_height="23dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="71dp"
+        android:layout_height="59dp"
         android:text="режим:"
         android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/spinner"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="44dp" />
+        tools:layout_editor_absoluteY="-1dp"
+
+
+        />
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.669"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -61,6 +65,20 @@
         app:layout_constraintTop_toTopOf="parent"
 
         />
+
+    <TextView
+        android:id="@+id/amountOfRounds"
+        android:layout_width="165dp"
+        android:layout_height="33dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="Round"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/text_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

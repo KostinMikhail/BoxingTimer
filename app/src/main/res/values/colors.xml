@@ -9,4 +9,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#828282</color>
     <color name="yellow">#FFFF00</color>
+
+    <color name="colorGradientGreenStart">#42E695</color>
+    <color name="colorGradientGreenStop">#3BB2B8</color>
+
+    <color name="colorGradientPinkStart">#F54EA2</color>
+    <color name="colorGradientPinkStop">#FF7676</color>
+
+    <color name="colorGradientBlueStart">#17EAD9</color>
+    <color name="colorGradientBlueStop">#6078EA</color>
 </resources>
