@@ -31,7 +31,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
    var setRoundsAmount: Int = 1
    var timer: CountDownTimer? = null
    var timerRunning: Boolean = false
-   var millisUntilFinished: Int = 3000
+   var timePlus: Long = 1000
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,6 +52,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         root.setBackgroundResource(R.drawable.blue_gradient)
 
         binding.btnStart.setOnClickListener{
+        newTimer(3000 + timePlus, 1000, 1000, 1)
         if (timerRunning) {
 
         }   else {
@@ -61,56 +63,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             val amountOfRounds: TextView = binding.amountOfRounds
             amountOfRounds.text = "Round  " + setRoundsAmount
 
-            timer =  object : CountDownTimer(3000, 1000) {
-
-                override fun onTick(millisUntilFinished: Long) {
-                    val date = Date(millisUntilFinished)
-                    var formatter = SimpleDateFormat("mm:ss")
-                    val a = formatter.format(date)
-                    textView.setText("seconds remaining: " + a)
-
-                }
-
-                override fun onFinish() {
-
-
-                    amountOfRounds.text = "Round  " + setRoundsAmount
-
-                    while (true) {
-                        setRoundsAmount < 4
-                        setRoundsAmount ++
-                        millisUntilFinished + 1000
-                        timer!!.start()
-
-                        if (setRoundsAmount == 4){
-                            textView.setText("done!")
-                            root.setBackgroundResource(R.drawable.blue_gradient)
-                            binding.btnStart.isEnabled = true
-                            setRoundsAmount = 1
-                            binding.amountOfRounds.setText("start again")
-                            break
-                        }
-                    }
-
-/*                    if (setRoundsAmount < 4) {
-
-                        timer!!.start()
-
-                    } else {
-                        textView.setText("done!")
-                        root.setBackgroundResource(R.drawable.blue_gradient)
-                        binding.btnStart.isEnabled = true
-                        setRoundsAmount = 1
-                        binding.amountOfRounds.setText ("start again")
-
-                   }
-*/
-                }
-            }.start()
-                root.setBackgroundResource(R.drawable.green_gradient)
-
                 }
         return root
+
     }
 
     override fun onDestroyView() {
@@ -118,12 +73,52 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         _binding = null
 
     }
+    fun newTimer (roundTime: Long, tick: Long, timePlus: Long, setRoundsAmount: Int){
 
+        var currentRound = setRoundsAmount
+        binding.amountOfRounds.text = "Round  " + currentRound
+
+        timer =  object : CountDownTimer(roundTime, tick) {
+
+            override fun onTick(roundTime: Long) {
+                val date = Date(roundTime)
+                var formatter = SimpleDateFormat("mm:ss")
+                val a = formatter.format(date)
+                binding.textHome.setText("seconds remaining: " + a)
+
+            }
+
+            override fun onFinish() {
+                binding.amountOfRounds.text = "Round  " + currentRound
+
+                if (currentRound < 4) {
+                    currentRound ++
+                    newTimer(roundTime, 1000, 1000,currentRound )
+
+                } else {
+
+                    binding.textView2.setText("done!")
+                    binding.root.setBackgroundResource(R.drawable.green_gradient)
+                    binding.btnStart.isEnabled = true
+                    currentRound = 1
+                    binding.amountOfRounds.setText("start again")
+
+                }
+                /*
+                                   if (setRoundsAmount < 4) {
+                                       timer!!.start()
+
+                                   } else {
+                                       textView.setText("done!")
+                                       root.setBackgroundResource(R.drawable.blue_gradient)
+                                       binding.btnStart.isEnabled = true
+                                       setRoundsAmount = 1
+                                       binding.amountOfRounds.setText ("start again")
+
+                                  }
+*/
+            }
+        }.start()
+
+    }
 }
-
-//добавить 1 минуту в новый раунд
-//вынести таймер в отдельную функцию, которая принимает значения и условно попробовал её вызвать в замыкании
-//почитать замыкание
-//в замыкании проверяю, нужно ли мне вызвать новое замыкание
-//попробовать цикл while
-//синхронное и асинхронное действия
