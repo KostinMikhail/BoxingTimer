@@ -31,7 +31,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
    var setRoundsAmount: Int = 1
    var timer: CountDownTimer? = null
    var timerRunning: Boolean = false
-   var timePlus: Long = 1000
+
 
 
     override fun onCreateView(
@@ -52,7 +52,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         root.setBackgroundResource(R.drawable.blue_gradient)
 
         binding.btnStart.setOnClickListener{
-        newTimer(3000 + timePlus, 1000, 1000, 1)
+        newTimer(4000, 3000, 1000, 1)
         if (timerRunning) {
 
         }   else {
@@ -73,7 +73,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         _binding = null
 
     }
-    fun newTimer (roundTime: Long, tick: Long, timePlus: Long, setRoundsAmount: Int){
+    fun newTimer (roundTime: Long, restTime: Long, tick: Long,  setRoundsAmount: Int ){
 
         var currentRound = setRoundsAmount
         binding.amountOfRounds.text = "Round  " + currentRound
@@ -88,35 +88,24 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             }
 
+
             override fun onFinish() {
                 binding.amountOfRounds.text = "Round  " + currentRound
 
-                if (currentRound < 4) {
+                if (currentRound < 3) {
                     currentRound ++
-                    newTimer(roundTime, 1000, 1000,currentRound )
+                    newTimer(roundTime, 3000,1000, currentRound )
 
                 } else {
 
-                    binding.textView2.setText("done!")
+                    binding.textHome.setText("done!")
                     binding.root.setBackgroundResource(R.drawable.green_gradient)
                     binding.btnStart.isEnabled = true
                     currentRound = 1
                     binding.amountOfRounds.setText("start again")
 
                 }
-                /*
-                                   if (setRoundsAmount < 4) {
-                                       timer!!.start()
 
-                                   } else {
-                                       textView.setText("done!")
-                                       root.setBackgroundResource(R.drawable.blue_gradient)
-                                       binding.btnStart.isEnabled = true
-                                       setRoundsAmount = 1
-                                       binding.amountOfRounds.setText ("start again")
-
-                                  }
-*/
             }
         }.start()
 
