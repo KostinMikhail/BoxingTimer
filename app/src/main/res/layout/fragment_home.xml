@@ -7,6 +7,31 @@
     tools:context=".ui.home.HomeFragment">
 
 
+    <Button
+        android:id="@+id/btnPause"
+        android:layout_width="141dp"
+        android:layout_height="43dp"
+        android:text="stop"
+        app:layout_constraintBottom_toTopOf="@+id/text_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.583"
+        android:visibility="invisible"
+        />
+
+    <Button
+        android:id="@+id/btnResume"
+        android:layout_width="141dp"
+        android:layout_height="43dp"
+        android:text="resume"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/text_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.664" />
+
     <TextView
         android:id="@+id/text_home"
         android:layout_width="match_parent"
@@ -24,7 +49,7 @@
         app:layout_constraintVertical_bias="0.794" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/profile"
         android:layout_width="71dp"
         android:layout_height="59dp"
         android:text="режим:"
@@ -55,8 +80,8 @@
 
     <Button
         android:id="@+id/btnStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="141dp"
+        android:layout_height="43dp"
         android:text="start"
         app:layout_constraintBottom_toTopOf="@+id/text_home"
         app:layout_constraintEnd_toEndOf="parent"
