@@ -36,7 +36,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
    var timerOnRest: Boolean = false
 
    var roundTime: Long = 4000
-   var restTime: Long = 8000
+   var restTime: Long = 5000
    val tick: Long = 1000
    var setRoundsAmount1: Int = 1
 
@@ -218,7 +218,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 /*
 1) сделать кнопку пауза  24.04
 2) кнопку продолжить/стоп 01.05 *так же продолжать с отдыха
-3) создать возможность настраивать раунды   08.05     читать: sqlite, room
+3) создать возможность настраивать раунды   08.05     читать: sqlite, room  !!!!сделать пустой проект по документации!!!!
 4) подвязать раунды к режимам 12.05
 5) изменить цвет цифр в зависимости от времени, изменить цвет режима 15.05
 6) добавить звук начала/конца раунда  17.05
