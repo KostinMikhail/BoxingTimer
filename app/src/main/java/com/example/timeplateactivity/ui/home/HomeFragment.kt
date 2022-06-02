@@ -1,30 +1,26 @@
 package com.example.timeplateactivity.ui.home
 
-import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
-import androidx.compose.ui.graphics.Color.Companion.Red
+import android.widget.Toast.LENGTH_LONG
+import androidx.compose.ui.semantics.SemanticsProperties.Text
+import androidx.compose.ui.text.input.KeyboardType.Companion.Text
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.Room
 import com.example.timeplateactivity.R
+import com.example.timeplateactivity.data.repository.AppDatabase
+import com.example.timeplateactivity.data.repository.Profile
 import com.example.timeplateactivity.databinding.FragmentHomeBinding
-import kotlinx.coroutines.NonCancellable.start
-import java.lang.String.format
-import java.text.MessageFormat.format
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
-import kotlin.properties.Delegates
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
@@ -35,10 +31,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
    var timerRunning: Boolean = false
    var timerOnRest: Boolean = false
 
-   var roundTime: Long = 4000
-   var restTime: Long = 8000
+   var roundTime: Long = 0
+   var restTime: Long = 0
    val tick: Long = 1000
    var setRoundsAmount1: Int = 1
+
+   var roundTimeString: String? = null
+   var restTimeString: String? = null
 
    var currentRoundTime: Long? = null
    var currentRestTime: Long? = null
@@ -68,12 +67,52 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val root: View = binding.root
         val textView: TextView = binding.textHome
 
-        homeViewModel.text.observe(viewLifecycleOwner) {
+           homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
 
         }
         root.setBackgroundResource(R.drawable.blue_gradient)
 
+
+        val applicationContext = context
+        val db = Room.databaseBuilder(
+            this.requireContext(),
+            AppDatabase::class.java, "UserBase"
+        ).allowMainThreadQueries()
+            .build()
+
+        val userDao = db.profileDao()
+        var users: List<Profile> = userDao.getAll()
+
+        for (profileName in users) {
+
+            println(profileName[users])
+        }
+
+        val spinner = binding.spinner
+ //       ArrayAdapter.createFromResource(this.requireContext(), )
+
+        binding.nmbr.setOnClickListener{
+            roundTimeString = binding.nmbr.text.toString()
+            var roundTimeString1: Long = roundTimeString!!.toLong()
+            roundTime = roundTimeString1 * 1000
+            userDao.insertAll(Profile(0, "Profile1", roundTime, restTime, 3, false))
+
+        }
+        binding.nmbr2.setOnClickListener{
+            restTimeString = binding.nmbr2.text.toString()
+            var restTimeString1: Long = restTimeString!!.toLong()
+            restTime = restTimeString1 * 1000
+            userDao.insertAll(Profile(0, "Profile1", roundTime, restTime, 3, false))
+
+        }
+
+
+
+        binding.BtnToast.setOnClickListener{
+
+            Toast.makeText(applicationContext, restTimeString, LENGTH_LONG).show()
+        }
         fun cancelTimer() {
 //            timerStatus = 0
             timer?.cancel()
