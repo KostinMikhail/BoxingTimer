@@ -21,6 +21,9 @@ import androidx.core.view.WindowCompat
 import com.example.timeplateactivity.databinding.ActivityMainBinding
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.room.Room
+import com.example.timeplateactivity.data.repository.AppDatabase
+import com.example.timeplateactivity.data.repository.Profile
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,16 +33,32 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//Обратиться к базе данных, вытащить все элементы, что есть в БД, если их 0 - то инициализировать БД
 
+        val db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "AppDatabase"
+        ).allowMainThreadQueries()
+            .build()
+
+        val userDao = db.profileDao()
+        val profiles: List<Profile> = userDao.getAll()
+        if (profiles.size == 0){
+              userDao.insertAll(Profile(0, "mma", 5000, 2000, 3, false))
+              userDao.insertAll(Profile(0, "box", 4000, 2000, 3, false))
+              userDao.insertAll(Profile(0, "interval", 3000, 2000, 3,false))
+          } else {
+
+          }
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-
-
         setContentView(binding.root)
-
-
-
         setSupportActionBar(binding.appBarMain.toolbar)
+
+
+
+
+
 
         binding.appBarMain.fab.setOnClickListener { view ->
             Snackbar.make(view, "no action here", Snackbar.LENGTH_LONG)
@@ -74,3 +93,8 @@ class MainActivity : AppCompatActivity() {
 
 
 }
+
+//разобраться с циклами. самые важные if, for
+
+//создать адаптер для спинера, что бы он брал значения из БД
+//добавлять и удалять режимы
