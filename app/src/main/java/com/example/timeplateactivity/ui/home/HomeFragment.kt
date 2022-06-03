@@ -5,9 +5,7 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import android.widget.Toast.LENGTH_LONG
 import androidx.compose.ui.semantics.SemanticsProperties.Text
 import androidx.compose.ui.text.input.KeyboardType.Companion.Text
@@ -77,17 +75,37 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val applicationContext = context
         val db = Room.databaseBuilder(
             this.requireContext(),
-            AppDatabase::class.java, "UserBase"
+            AppDatabase::class.java, "AppDatabase"
         ).allowMainThreadQueries()
             .build()
 
         val userDao = db.profileDao()
         var users: List<Profile> = userDao.getAll()
 
-        for (profileName in users) {
 
-            println(profileName[users])
+
+//        создать пустой массив стрингов и каждый элемент массива положить в новый массив
+
+        var ProfilesTitles: ArrayList<String?> = arrayListOf()
+        for (list in users) {
+            ProfilesTitles.add(list.profileName)
+            println(list.profileName)
+            }
+        var customSpinnerAdapter = ArrayAdapter (this.requireContext(),
+            android.R.layout.simple_spinner_item,
+            ProfilesTitles). also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinner.adapter = adapter
+            }
+        fun onNothingSelected(parent: AdapterView<*>) {
+
         }
+
+        binding.spinner.onItemSelectedListener
+//        ArrayAdapter.createFromResource()
+//        val customSpinnerAdapter = SpinnerAdapter (this.requireContext(),ProfilesTitles, )
+//        val adapter = CursorAdapter(this.requireContext(), binding.spinner, ProfilesTitles)
+
 
         val spinner = binding.spinner
  //       ArrayAdapter.createFromResource(this.requireContext(), )
