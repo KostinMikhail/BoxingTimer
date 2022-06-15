@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//Обратиться к базе данных, вытащить все элементы, что есть в БД, если их 0 - то инициализировать БД
 
         val db = Room.databaseBuilder(
             applicationContext,
@@ -55,11 +54,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.appBarMain.toolbar)
 
-
-
-
-
-
         binding.appBarMain.fab.setOnClickListener { view ->
             Snackbar.make(view, "no action here", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -67,8 +61,7 @@ class MainActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
@@ -76,25 +69,16 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
-//string
+
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-
 }
-
-//разобраться с циклами. самые важные if, for
-
-//создать адаптер для спинера, что бы он брал значения из БД
-//добавлять и удалять режимы

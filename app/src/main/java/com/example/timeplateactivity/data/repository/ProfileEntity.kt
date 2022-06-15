@@ -11,6 +11,6 @@ data class Profile(
     @ColumnInfo(name = "name") val profileName: String?,
     @ColumnInfo(name = "roundTime") val roundTime: Long?,
     @ColumnInfo(name = "restTime") val restTime: Long?,
-    @ColumnInfo(name = "roundAmount") val roundAmount: Long?,
+    @ColumnInfo(name = "roundAmount") val roundAmount: Int?,
     @ColumnInfo(name = "isDeletable") val isDeletable: Boolean
 )

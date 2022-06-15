@@ -11,13 +11,7 @@
     <string name="menu_gallery">settings</string>
     <string name="menu_slideshow">nutrition calculator</string>
 
-    <string-array name="modes">
-        <item>mma</item>
-        <item>box</item>
-        <item>interval</item>
-        <item>preset1</item>
-        <item>preset2</item>
-    </string-array>
+
 
     <string name="test">ViewBindingSample</string>
 
