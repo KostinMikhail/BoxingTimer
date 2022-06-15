@@ -1,5 +1,7 @@
 package com.example.timeplateactivity.ui.home
 
+import android.media.AudioManager
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -13,12 +15,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
+import com.example.boxingtimer.model.profile
 import com.example.timeplateactivity.R
 import com.example.timeplateactivity.data.repository.AppDatabase
 import com.example.timeplateactivity.data.repository.Profile
 import com.example.timeplateactivity.databinding.FragmentHomeBinding
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
@@ -33,21 +37,35 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
    var restTime: Long = 0
    val tick: Long = 1000
    var setRoundsAmount1: Int = 1
+   var makeRounds: Int = 0
 
    var roundTimeString: String? = null
    var restTimeString: String? = null
+   var roundAmountString: String? = null
+   var profileName: String? = null
 
    var currentRoundTime: Long? = null
    var currentRestTime: Long? = null
    var whatRound: Int? = null
 
-//   var timerStatus: Int = 0 //0 is for not in work, 1 is for roundTime, 2 is for restTime
+   var currentProfile: Profile? = null
+
+   var isDeleatableNow: Boolean = false
+
+   var mMediaPlayer: MediaPlayer? = null
+
+ /*   fun playSound(){
+        if (mMediaPlayer == null) {
+            mMediaPlayer = MediaPlayer.create(this.requireContext(), R.raw.gong)
+             mMediaPlayer!!.start()
+        } else {
+            mMediaPlayer!!.start()
+        }
+    }*/
 
 
     fun resumeTimer(){
-//        timerStatus = 1
         roundTimer(currentRoundTime!!, tick, whatRound!!)
-
     }
 
     fun resumeRestTimer(){
@@ -66,13 +84,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val textView: TextView = binding.textHome
 
            homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+           textView.text = it
 
         }
         root.setBackgroundResource(R.drawable.blue_gradient)
 
-
-        val applicationContext = context
         val db = Room.databaseBuilder(
             this.requireContext(),
             AppDatabase::class.java, "AppDatabase"
@@ -80,69 +96,86 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             .build()
 
         val userDao = db.profileDao()
-        var users: List<Profile> = userDao.getAll()
 
-
-
-//        создать пустой массив стрингов и каждый элемент массива положить в новый массив
-
-        var ProfilesTitles: ArrayList<String?> = arrayListOf()
-        for (list in users) {
-            ProfilesTitles.add(list.profileName)
-            println(list.profileName)
+        fun spinnerRefresh(){
+        var profiles: List<Profile> = userDao.getAll()
+        var profilesTitles: ArrayList<String?> = arrayListOf()
+        for (list in profiles) {
+            profilesTitles.add(list.profileName)
             }
+
+//        binding.spinner.onItemSelectedListener
+
+            binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                 currentProfile = profiles.get(position)
+                 roundTime = currentProfile!!.roundTime!!
+                 restTime = currentProfile!!.restTime!!
+                 makeRounds = currentProfile!!.roundAmount!!
+                 isDeleatableNow = currentProfile!!.isDeletable
+                }
+
+            }
+
         var customSpinnerAdapter = ArrayAdapter (this.requireContext(),
             android.R.layout.simple_spinner_item,
-            ProfilesTitles). also { adapter ->
+            profilesTitles). also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinner.adapter = adapter
             }
-        fun onNothingSelected(parent: AdapterView<*>) {
-
         }
-
-        binding.spinner.onItemSelectedListener
-//        ArrayAdapter.createFromResource()
-//        val customSpinnerAdapter = SpinnerAdapter (this.requireContext(),ProfilesTitles, )
-//        val adapter = CursorAdapter(this.requireContext(), binding.spinner, ProfilesTitles)
-
-
-        val spinner = binding.spinner
- //       ArrayAdapter.createFromResource(this.requireContext(), )
+        spinnerRefresh()
 
         binding.nmbr.setOnClickListener{
             roundTimeString = binding.nmbr.text.toString()
             var roundTimeString1: Long = roundTimeString!!.toLong()
             roundTime = roundTimeString1 * 1000
-            userDao.insertAll(Profile(0, "Profile1", roundTime, restTime, 3, false))
-
         }
+
         binding.nmbr2.setOnClickListener{
             restTimeString = binding.nmbr2.text.toString()
             var restTimeString1: Long = restTimeString!!.toLong()
             restTime = restTimeString1 * 1000
-            userDao.insertAll(Profile(0, "Profile1", roundTime, restTime, 3, false))
 
         }
-
-
-
-        binding.BtnToast.setOnClickListener{
-
-            Toast.makeText(applicationContext, restTimeString, LENGTH_LONG).show()
+        binding.nmbr3.setOnClickListener{
+            roundAmountString = binding.nmbr3.text.toString()
+            var roundAmountString1: Int = roundAmountString!!.toInt()
+            makeRounds = roundAmountString1
         }
+
+        binding.nmbr4.setOnClickListener{
+            profileName = binding.nmbr4.text.toString()
+        }
+
+        binding.create.setOnClickListener{
+            userDao.insertAll(Profile(0, profileName, roundTime, restTime, makeRounds, true))
+            Toast.makeText(this.requireContext(),"saved", LENGTH_LONG).show()
+            spinnerRefresh()
+        }
+        binding.delete.setOnClickListener{
+            if (isDeleatableNow){
+            userDao.delete(currentProfile!!)
+            Toast.makeText(this.requireContext(),"deleted", LENGTH_LONG).show()
+            spinnerRefresh()
+            } else {
+            Toast.makeText(this.requireContext(),"you can't delete this", LENGTH_LONG).show()
+            }
+        }
+
         fun cancelTimer() {
-//            timerStatus = 0
+
             timer?.cancel()
         }
-
-
 
         binding.btnStart.setOnClickListener{
         roundTimer(roundTime, tick, setRoundsAmount1)
         timerRunning = true
         binding.btnPause.isVisible = true
-//        timerStatus = 1
 
         if (timerRunning) {
             binding.btnStart.setOnClickListener{
@@ -150,34 +183,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 roundTimer(roundTime,tick, 1)
                 binding.btnPause.isVisible = true
                 binding.btnResume.isVisible = false
-//                timerStatus = 1
-
+   //             playSound()
             }
-
-
-        }   else {
+        } else {
 
         }
-
- /*       if (timerOnStop){
-
-        }   else {
-
-        }*/
 
             val amountOfRounds: TextView = binding.amountOfRounds
             amountOfRounds.text = "Round  " + setRoundsAmount1
-
-                }
+                }  //amountofrounds.color
         binding.btnPause.setOnClickListener{
             cancelTimer()
-//            timerStatus = 0
             binding.btnStart.setText("restart")
             binding.btnResume.isVisible = true
-
         }
-
-
 
         binding.btnResume.setOnClickListener{
             if (timerOnRest){
@@ -188,19 +207,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
-
-
         return root
-
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-
     }
-
 
     fun roundTimer (roundTime: Long, tick: Long,  setRoundsAmount: Int ){
 
@@ -216,21 +229,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 currentRoundTime = roundTime
                 whatRound = currentRound
 
-
                 binding.textHome.setText("seconds remaining: " + a)
-
-
             }
 
             override fun onFinish() {
                 binding.amountOfRounds.text = "Round  " + currentRound
 
-                if (currentRound < 3) {
+                if (currentRound < makeRounds) {
                     setRoundsAmount1 ++
                     restTimer (restTime, tick)
 
                 } else {
-
                     binding.textHome.setText("done!")
                     binding.root.setBackgroundResource(R.drawable.green_gradient)
 //                    binding.btnStart.isEnabled = true
@@ -239,10 +248,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     binding.btnPause.isVisible = false
                     binding.btnResume.isVisible = false
                 }
-
             }
         }.start()
-
     }
     fun restTimer (restTime: Long, tick: Long){
 
@@ -258,20 +265,32 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 binding.textHome.setText("resting: " + b)
                 currentRestTime = restTime
                 timerOnRest = true
-
-
             }
 
             override fun onFinish() {
                 timerOnRest = false
                 roundTimer(roundTime, tick, currentRound )
-
             }
         }.start()
 
     }
 
 }
+
+
+
+
+//Threading
+//Callbacks
+//Futures, promises, and others
+//Reactive extensions
+//Coroutines
+
+
+//звук сделать
+//*цвет цифр в зависимости от времени
+
+
 /*
 1) сделать кнопку пауза  24.04
 2) кнопку продолжить/стоп 01.05 *так же продолжать с отдыха
@@ -283,4 +302,5 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 8) добавить счётчик калорий  22.05
 
 9) раскидать всё по разным директориям (clean)
+10) тестировка, отлов ошибок
  */

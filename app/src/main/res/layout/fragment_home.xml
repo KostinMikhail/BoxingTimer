@@ -8,17 +8,42 @@
 
 
     <Button
+        android:id="@+id/delete"
+        android:layout_width="245dp"
+        android:layout_height="43dp"
+        android:text="delete"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.978" />
+
+    <Button
         android:id="@+id/btnPause"
         android:layout_width="141dp"
         android:layout_height="43dp"
         android:text="stop"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/text_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.583"
-        android:visibility="invisible"
-        />
+        app:layout_constraintVertical_bias="0.573" />
+
+    <Button
+        android:id="@+id/create"
+        android:layout_width="245dp"
+        android:layout_height="43dp"
+        android:text="create"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.915" />
 
     <Button
         android:id="@+id/btnResume"
@@ -30,29 +55,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.664" />
+        app:layout_constraintVertical_bias="0.814" />
 
     <TextView
         android:id="@+id/text_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.794" />
+        app:layout_constraintTop_toTopOf="@+id/profile"
+        app:layout_constraintVertical_bias="0.315" />
 
     <TextView
         android:id="@+id/profile"
         android:layout_width="71dp"
         android:layout_height="59dp"
-        android:text="режим:"
+        android:text="profile:"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/spinner"
@@ -74,7 +98,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="58dp"
         tools:layout_editor_absoluteY="44dp"
-        android:entries="@array/modes"
+
         android:textColor="@color/yellow"
         />
 
@@ -85,23 +109,22 @@
         android:text="start"
         app:layout_constraintBottom_toTopOf="@+id/text_home"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
 
-        />
+        app:layout_constraintVertical_bias="0.331" />
 
     <TextView
         android:id="@+id/amountOfRounds"
         android:layout_width="165dp"
         android:layout_height="33dp"
         android:layout_gravity="center"
+        android:layout_marginBottom="0dp"
         android:gravity="center"
         android:text="Round"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/text_home"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
@@ -110,38 +133,56 @@
         android:layout_width="243dp"
         android:layout_height="55dp"
         android:ems="10"
-        android:hint="секунд в раунде"
+        android:hint="round time"
         android:inputType="number"
         android:maxLength="1"
-        app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.58" />
+        app:layout_constraintVertical_bias="0.579" />
 
     <EditText
         android:id="@+id/nmbr2"
         android:layout_width="243dp"
         android:layout_height="61dp"
         android:ems="10"
-        android:hint="секунды отдыха"
+        android:hint="rest time"
+        android:inputType="number"
+        android:maxLength="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.667" />
+
+    <EditText
+        android:id="@+id/nmbr3"
+        android:layout_width="243dp"
+        android:layout_height="61dp"
+        android:ems="10"
+        android:hint="round amount"
         android:inputType="number"
         android:maxLength="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.667" />
+        app:layout_constraintVertical_bias="0.758" />
 
-    <Button
-        android:id="@+id/BtnToast"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"
-        android:text="WTF"
+    <EditText
+        android:id="@+id/nmbr4"
+        android:layout_width="243dp"
+        android:layout_height="61dp"
+        android:ems="10"
+        android:hint="profile name"
+        android:inputType="text"
+        android:maxLength="15"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.849" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
