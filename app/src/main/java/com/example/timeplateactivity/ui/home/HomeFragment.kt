@@ -2,6 +2,7 @@ package com.example.timeplateactivity.ui.home
 
 import android.media.AudioManager
 import android.media.MediaPlayer
+import android.media.SoundPool
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -52,17 +53,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
    var isDeleatableNow: Boolean = false
 
-   var mMediaPlayer: MediaPlayer? = null
 
- /*   fun playSound(){
-        if (mMediaPlayer == null) {
-            mMediaPlayer = MediaPlayer.create(this.requireContext(), R.raw.gong)
-             mMediaPlayer!!.start()
-        } else {
-            mMediaPlayer!!.start()
-        }
-    }*/
+    fun playSound() {
+        var  mediaPlayer = MediaPlayer.create(this.requireContext(),R.raw.gongsound)
+        mediaPlayer.start()
 
+    }
 
     fun resumeTimer(){
         roundTimer(currentRoundTime!!, tick, whatRound!!)
@@ -83,11 +79,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val root: View = binding.root
         val textView: TextView = binding.textHome
 
+
            homeViewModel.text.observe(viewLifecycleOwner) {
            textView.text = it
 
         }
         root.setBackgroundResource(R.drawable.blue_gradient)
+
+
+
+
 
         val db = Room.databaseBuilder(
             this.requireContext(),
@@ -176,6 +177,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         roundTimer(roundTime, tick, setRoundsAmount1)
         timerRunning = true
         binding.btnPause.isVisible = true
+            playSound()
 
         if (timerRunning) {
             binding.btnStart.setOnClickListener{
@@ -183,7 +185,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 roundTimer(roundTime,tick, 1)
                 binding.btnPause.isVisible = true
                 binding.btnResume.isVisible = false
-   //             playSound()
+                playSound()
             }
         } else {
 
@@ -209,6 +211,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         return root
     }
+
+
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -287,8 +293,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 //Coroutines
 
 
-//звук сделать
-//*цвет цифр в зависимости от времени
+
+//цвет цифр в зависимости от остатки времени
+//перенести настройки на другой экран
 
 
 /*
