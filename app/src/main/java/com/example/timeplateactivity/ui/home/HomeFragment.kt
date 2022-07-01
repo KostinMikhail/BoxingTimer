@@ -1,5 +1,6 @@
 package com.example.timeplateactivity.ui.home
 
+import android.graphics.Color.rgb
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.media.SoundPool
@@ -57,7 +58,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     fun playSound() {
         var  mediaPlayer = MediaPlayer.create(this.requireContext(),R.raw.gongsound)
         mediaPlayer.start()
-
     }
 
     fun resumeTimer(){
@@ -79,16 +79,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val root: View = binding.root
         val textView: TextView = binding.textHome
 
-
            homeViewModel.text.observe(viewLifecycleOwner) {
            textView.text = it
 
         }
         root.setBackgroundResource(R.drawable.blue_gradient)
-
-
-
-
 
         val db = Room.databaseBuilder(
             this.requireContext(),
@@ -105,7 +100,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             profilesTitles.add(list.profileName)
             }
 
-//        binding.spinner.onItemSelectedListener
+
 
             binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -193,7 +188,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             val amountOfRounds: TextView = binding.amountOfRounds
             amountOfRounds.text = "Round  " + setRoundsAmount1
-                }  //amountofrounds.color
+                }
         binding.btnPause.setOnClickListener{
             cancelTimer()
             binding.btnStart.setText("restart")
@@ -232,10 +227,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 val round = Date(roundTime)
                 var formatter = SimpleDateFormat("mm:ss")
                 val a = formatter.format(round)
+
                 currentRoundTime = roundTime
                 whatRound = currentRound
 
                 binding.textHome.setText("seconds remaining: " + a)
+                binding.textHome.setTextColor(rgb(255, 255, 0))
             }
 
             override fun onFinish() {
@@ -248,7 +245,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 } else {
                     binding.textHome.setText("done!")
                     binding.root.setBackgroundResource(R.drawable.green_gradient)
-//                    binding.btnStart.isEnabled = true
+
                     setRoundsAmount1 = 1
                     binding.amountOfRounds.setText("start again")
                     binding.btnPause.isVisible = false
@@ -294,7 +291,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
 
-//цвет цифр в зависимости от остатки времени
+//цвет цифр в зависимости от остатки времени attributedString, либо Spans
 //перенести настройки на другой экран
 
 
