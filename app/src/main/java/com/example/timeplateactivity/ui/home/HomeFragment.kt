@@ -1,18 +1,29 @@
 package com.example.timeplateactivity.ui.home
 
+import android.annotation.SuppressLint
 import android.graphics.Color.rgb
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.media.SoundPool
+import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import android.widget.Toast.LENGTH_LONG
+import androidx.annotation.RequiresApi
+import androidx.compose.ui.graphics.BlendMode.Companion.Color
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.SemanticsProperties.Text
 import androidx.compose.ui.text.input.KeyboardType.Companion.Text
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +33,7 @@ import com.example.timeplateactivity.R
 import com.example.timeplateactivity.data.repository.AppDatabase
 import com.example.timeplateactivity.data.repository.Profile
 import com.example.timeplateactivity.databinding.FragmentHomeBinding
+import com.google.android.material.color.MaterialColors.getColor
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -55,6 +67,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
    var isDeleatableNow: Boolean = false
 
 
+
     fun playSound() {
         var  mediaPlayer = MediaPlayer.create(this.requireContext(),R.raw.gongsound)
         mediaPlayer.start()
@@ -67,6 +80,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     fun resumeRestTimer(){
         restTimer(currentRestTime!!, tick)
     }
+    @RequiresApi(Build.VERSION_CODES.M)
+    @SuppressLint("ResourceAsColor")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -78,6 +93,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val textView: TextView = binding.textHome
+
+        val spannable = SpannableStringBuilder("seconds remaining: ")
+        spannable.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(this.requireContext(), R.color.yellow)),
+            0,
+            5,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannable.setSpan(RelativeSizeSpan(2f), 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        binding.span.setText(spannable)
+
+
+
+
+
 
            homeViewModel.text.observe(viewLifecycleOwner) {
            textView.text = it
@@ -223,6 +253,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         timer =  object : CountDownTimer(roundTime, tick) {
 
+            @SuppressLint("ResourceAsColor")
             override fun onTick(roundTime: Long) {
                 val round = Date(roundTime)
                 var formatter = SimpleDateFormat("mm:ss")
@@ -230,6 +261,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 currentRoundTime = roundTime
                 whatRound = currentRound
+
+
 
                 binding.textHome.setText("seconds remaining: " + a)
                 binding.textHome.setTextColor(rgb(255, 255, 0))
@@ -291,7 +324,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
 
-//цвет цифр в зависимости от остатки времени attributedString, либо Spans
 //перенести настройки на другой экран
 
 
