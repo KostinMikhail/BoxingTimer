@@ -52,6 +52,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
    val tick: Long = 1000
    var setRoundsAmount1: Int = 1
    var makeRounds: Int = 0
+   var beforeTime: Long = 5
 
    var roundTimeString: String? = null
    var restTimeString: String? = null
@@ -98,16 +99,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         spannable.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(this.requireContext(), R.color.yellow)),
             0,
-            5,
+            7,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        spannable.setSpan(RelativeSizeSpan(2f), 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+//        spannable.setSpan(RelativeSizeSpan(2f), 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-        binding.span.setText(spannable)
-
-
-
-
-
+//        binding.span.setText("hey" + spannable)
 
            homeViewModel.text.observe(viewLifecycleOwner) {
            textView.text = it
@@ -199,6 +195,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         binding.btnStart.setOnClickListener{
+        beforeTimer(beforeTime, tick)                                                               //HERE NEW
         roundTimer(roundTime, tick, setRoundsAmount1)
         timerRunning = true
         binding.btnPause.isVisible = true
@@ -206,6 +203,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         if (timerRunning) {
             binding.btnStart.setOnClickListener{
+                beforeTimer(beforeTime, tick)                                                       //HERE NEW
                 cancelTimer()
                 roundTimer(roundTime,tick, 1)
                 binding.btnPause.isVisible = true
@@ -237,10 +235,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         return root
     }
 
-
-
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -250,6 +244,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         var currentRound = setRoundsAmount
         binding.amountOfRounds.text = "Round  " + currentRound
+
+        var spannable = SpannableStringBuilder("seconds remaining: ")
+        spannable.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(this.requireContext(), R.color.yellow)),
+            0,
+            18,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannable.toString()
+
 
         timer =  object : CountDownTimer(roundTime, tick) {
 
@@ -265,7 +268,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
                 binding.textHome.setText("seconds remaining: " + a)
-                binding.textHome.setTextColor(rgb(255, 255, 0))
+
+   //             binding.textHome.setTextColor(rgb(255, 255, 0))
             }
 
             override fun onFinish() {
@@ -311,6 +315,29 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     }
 
+    fun beforeTimer (beforeTime: Long, tick: Long){
+
+        var currentRound = setRoundsAmount1
+        binding.amountOfRounds.text = "First round"
+
+        timer =  object : CountDownTimer(beforeTime, tick) {
+
+            override fun onTick(beforeTime: Long) {
+                val before = Date(beforeTime)
+                var formatter = SimpleDateFormat("mm:ss")
+                val c = formatter.format(before)
+                binding.textHome.setText("get ready: " + c)
+//                currentRestTime = beforeTime
+//                timerOnRest = true
+            }
+
+            override fun onFinish() {
+//                timerOnRest = false
+                roundTimer(roundTime, tick, currentRound )
+            }
+        }.start()
+
+    }
 }
 
 
@@ -324,19 +351,24 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
 
-//перенести настройки на другой экран
+//mvvm архитектура
 
 
 /*
-1) сделать кнопку пауза  24.04
-2) кнопку продолжить/стоп 01.05 *так же продолжать с отдыха
-3) создать возможность настраивать раунды   08.05     читать: sqlite, room
-4) подвязать раунды к режимам 12.05
-5) изменить цвет цифр в зависимости от времени, изменить цвет режима 15.05
-6) добавить звук начала/конца раунда  17.05
-7) добавить 5 сек перед началом старта таймера 19.05
-8) добавить счётчик калорий  22.05
+1) сделать кнопку пауза  24.06
+2) кнопку продолжить/стоп 01.06 *так же продолжать с отдыха
+3) создать возможность настраивать раунды   08.07     читать: sqlite, room
+4) подвязать раунды к режимам 12.07
+5) изменить цвет цифр в зависимости от времени, изменить цвет режима 15.07
+6) добавить звук начала/конца раунда  17.07
+7) добавить 5 сек перед началом старта таймера 24.07
+8) добавить счётчик калорий  05.08
 
-9) раскидать всё по разным директориям (clean)
-10) тестировка, отлов ошибок
+9) раскидать всё по разным директориям (clean) 05.08
+10) тестировка, отлов ошибок 16.08
+11) выложить в гугл плей 29.08
+
+не использовать "!!", вместо него проверку через "?", через "let" или элвис-оператор ":?"
+val и var
+в лэйаутах - в ресурсы переделать
  */
