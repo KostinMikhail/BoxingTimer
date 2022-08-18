@@ -12,13 +12,15 @@
         android:layout_width="245dp"
         android:layout_height="43dp"
         android:text="delete"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.978" />
+        app:layout_constraintVertical_bias="0.978"
+
+        />
 
     <Button
         android:id="@+id/btnPause"
@@ -37,7 +39,7 @@
         android:layout_width="245dp"
         android:layout_height="43dp"
         android:text="create"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
@@ -136,11 +138,14 @@
         android:hint="round time"
         android:inputType="number"
         android:maxLength="1"
-                app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.579" />
+        app:layout_constraintVertical_bias="0.579"
+        android:visibility="invisible"
+        />
+
 
     <EditText
         android:id="@+id/nmbr2"
@@ -150,11 +155,13 @@
         android:hint="rest time"
         android:inputType="number"
         android:maxLength="1"
-                app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.667" />
+        app:layout_constraintVertical_bias="0.667"
+        android:visibility="invisible"
+        />
 
     <EditText
         android:id="@+id/nmbr3"
@@ -168,7 +175,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.758" />
+        app:layout_constraintVertical_bias="0.758"
+        android:visibility="invisible"
+        />
 
     <EditText
         android:id="@+id/nmbr4"
@@ -182,17 +191,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.849" />
+        app:layout_constraintVertical_bias="0.849"
+        android:visibility="invisible"
+        />
 
-    <TextView
-        android:id="@+id/span"
-        android:layout_width="235dp"
-        android:layout_height="72dp"
 
-        app:layout_constraintBottom_toTopOf="@+id/nmbr"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_home" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

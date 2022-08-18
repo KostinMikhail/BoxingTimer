@@ -4,17 +4,36 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.room.Room
+import com.example.timeplateactivity.R
+import com.example.timeplateactivity.data.repository.AppDatabase
+import com.example.timeplateactivity.data.repository.Profile
 import com.example.timeplateactivity.databinding.FragmentGalleryBinding
+
 
 class SettingsFragment : Fragment() {
 
     private var _binding: FragmentGalleryBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    var roundTime: Long = 0
+    var restTime: Long = 0
+    var makeRounds: Int = 0
+
+    var roundTimeString: String? = null
+    var restTimeString: String? = null
+    var roundAmountString: String? = null
+    var profileName: String? = null
+
+    var currentProfile: Profile? = null
+
+    var isDeleatableNow: Boolean = false
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -24,9 +43,101 @@ class SettingsFragment : Fragment() {
     ): View {
         val galleryViewModel =
             ViewModelProvider(this).get(SettingsViewModel::class.java)
-
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        root.setBackgroundResource(R.drawable.blue_gradient)
+
+        val db = Room.databaseBuilder(
+            this.requireContext(),
+            AppDatabase::class.java, "AppDatabase"
+        ).allowMainThreadQueries()
+            .build()
+        val userDao = db.profileDao()
+
+        fun spinnerRefresh(){
+            var profiles: List<Profile> = userDao.getAll()
+            var profilesTitles: ArrayList<String?> = arrayListOf()
+            for (list in profiles) {
+                profilesTitles.add(list.profileName)
+            }
+
+
+
+            binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    currentProfile = profiles.get(position)
+                    roundTime = currentProfile!!.roundTime!!
+                    restTime = currentProfile!!.restTime!!
+                    makeRounds = currentProfile!!.roundAmount!!
+                    isDeleatableNow = currentProfile!!.isDeletable
+                }
+
+            }
+
+            var customSpinnerAdapter = ArrayAdapter (this.requireContext(),
+                android.R.layout.simple_spinner_item,
+                profilesTitles). also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spinner.adapter = adapter
+            }
+        }
+        spinnerRefresh()
+
+        binding.nmbr.setOnClickListener{
+            roundTimeString = binding.nmbr.text.toString()
+            var roundTimeString1: Long = roundTimeString!!.toLong()
+            roundTime = roundTimeString1 * 1000
+        }
+
+        binding.nmbr2.setOnClickListener{
+            restTimeString = binding.nmbr2.text.toString()
+            var restTimeString1: Long = restTimeString!!.toLong()
+            restTime = restTimeString1 * 1000
+
+        }
+        binding.nmbr3.setOnClickListener{
+            roundAmountString = binding.nmbr3.text.toString()
+            var roundAmountString1: Int = roundAmountString!!.toInt()
+            makeRounds = roundAmountString1
+        }
+
+        binding.nmbr4.setOnClickListener{
+            profileName = binding.nmbr4.text.toString()
+        }
+
+
+        binding.create.setOnClickListener{
+            if (profileName == null){
+                Toast.makeText(this.requireContext(),"не заполнено название", Toast.LENGTH_LONG).show()
+            } else if(roundAmountString == null){
+                Toast.makeText(this.requireContext(),"не указанно количество раундов", Toast.LENGTH_LONG).show()
+            } else if(restTimeString == null){
+                Toast.makeText(this.requireContext(),"не указанно время отдыха", Toast.LENGTH_LONG).show()
+            } else if(roundTimeString == null){
+                Toast.makeText(this.requireContext(),"не указанно время раунда", Toast.LENGTH_LONG).show()
+            }
+
+            else {
+                userDao.insertAll(Profile(0, profileName, roundTime, restTime, makeRounds, true))
+                Toast.makeText(this.requireContext(),"saved", Toast.LENGTH_LONG).show()
+                spinnerRefresh()
+            }
+
+        }
+
+        binding.delete.setOnClickListener{
+            if (isDeleatableNow){
+                userDao.delete(currentProfile!!)
+                Toast.makeText(this.requireContext(),"deleted", Toast.LENGTH_LONG).show()
+                spinnerRefresh()
+            } else {
+                Toast.makeText(this.requireContext(),"you can't delete this", Toast.LENGTH_LONG).show()
+            }
+        }
 
 
         return root
