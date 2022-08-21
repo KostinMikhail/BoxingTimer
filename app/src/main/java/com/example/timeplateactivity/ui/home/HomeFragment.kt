@@ -1,112 +1,102 @@
 package com.example.timeplateactivity.ui.home
 
 import android.annotation.SuppressLint
-import android.graphics.Color.rgb
-import android.media.AudioManager
 import android.media.MediaPlayer
-import android.media.SoundPool
 import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Spannable
 import android.text.SpannableStringBuilder
-import android.text.Spanned
 import android.text.style.ForegroundColorSpan
-import android.text.style.RelativeSizeSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import android.widget.Toast.LENGTH_LONG
 import androidx.annotation.RequiresApi
-import androidx.compose.ui.graphics.BlendMode.Companion.Color
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.SemanticsProperties.Text
-import androidx.compose.ui.text.input.KeyboardType.Companion.Text
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
-import com.example.boxingtimer.model.profile
 import com.example.timeplateactivity.R
 import com.example.timeplateactivity.data.repository.AppDatabase
 import com.example.timeplateactivity.data.repository.Profile
 import com.example.timeplateactivity.databinding.FragmentHomeBinding
-import com.google.android.material.color.MaterialColors.getColor
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
-   private var _binding: FragmentHomeBinding? = null
-   private val binding get() = _binding!!
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
-   var timer: CountDownTimer? = null
-   var timerRunning: Boolean = false
-   var timerOnRest: Boolean = false
+    var timer: CountDownTimer? = null
+    var timerRunning: Boolean = false
+    var timerOnRest: Boolean = false
 
-   var roundTime: Long = 0
-   var restTime: Long = 0
-   val tick: Long = 1000
-   var setRoundsAmount1: Int = 1
-   var makeRounds: Int = 0
-   var beforeTime: Long = 5
+    var roundTime: Long = 0
+    var restTime: Long = 0
+    val tick: Long = 1000
+    var setRoundsAmount1: Int = 1
+    var makeRounds: Int = 0
+    var beforeTime: Long = 5
 
-   var roundTimeString: String? = null
-   var restTimeString: String? = null
-   var roundAmountString: String? = null
-   var profileName: String? = null
+    var roundTimeString: String? = null
+    var restTimeString: String? = null
+    var roundAmountString: String? = null
+    var profileName: String? = null
 
-   var currentRoundTime: Long? = null
-   var currentRestTime: Long? = null
-   var whatRound: Int? = null
+    var currentRoundTime: Long? = null
+    var currentRestTime: Long? = null
+    var whatRound: Int? = null
 
-   var currentProfile: Profile? = null
+    var currentProfile: Profile? = null
 
-   var isDeleatableNow: Boolean = false
+    var isDeleatableNow: Boolean = false
 
 
-
-    fun playSound() {
-        var  mediaPlayer = MediaPlayer.create(this.requireContext(),R.raw.gongsound)
+    private fun playSound() {
+        val mediaPlayer = MediaPlayer.create(this.requireContext(), R.raw.gongsound)
         mediaPlayer.start()
     }
 
-    fun resumeTimer(){
+    fun resumeTimer() {
         roundTimer(currentRoundTime!!, tick, whatRound!!)
     }
 
-    fun resumeRestTimer(){
+    fun resumeRestTimer() {
         restTimer(currentRestTime!!, tick)
     }
+
     @RequiresApi(Build.VERSION_CODES.M)
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint("ResourceAsColor", "SetTextI18n")
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    )  : View {
+    ): View {
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
         val textView: TextView = binding.textHome
 
-        val spannable = SpannableStringBuilder("seconds remaining: ")
+        val spannable = SpannableStringBuilder(getString(R.string.secondsRemaining))
         spannable.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(this.requireContext(), R.color.yellow)),
             0,
             7,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
 //        spannable.setSpan(RelativeSizeSpan(2f), 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
 //        binding.span.setText("hey" + spannable)
 
-           homeViewModel.text.observe(viewLifecycleOwner) {
-           textView.text = it
+        homeViewModel.text.observe(viewLifecycleOwner) {
+            textView.text = it
 
         }
         root.setBackgroundResource(R.drawable.blue_gradient)
@@ -119,73 +109,85 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val userDao = db.profileDao()
 
-        fun spinnerRefresh(){
-        var profiles: List<Profile> = userDao.getAll()
-        var profilesTitles: ArrayList<String?> = arrayListOf()
-        for (list in profiles) {
-            profilesTitles.add(list.profileName)
+        fun spinnerRefresh() {
+            val profiles: List<Profile> = userDao.getAll()
+            val profilesTitles: ArrayList<String?> = arrayListOf()
+            for (list in profiles) {
+                profilesTitles.add(list.profileName)
             }
 
 
 
-            binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
 
                 }
 
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                 currentProfile = profiles.get(position)
-                 roundTime = currentProfile!!.roundTime!!
-                 restTime = currentProfile!!.restTime!!
-                 makeRounds = currentProfile!!.roundAmount!!
-                 isDeleatableNow = currentProfile!!.isDeletable
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    currentProfile = profiles.get(position)
+                    roundTime = currentProfile!!.roundTime!!
+                    restTime = currentProfile!!.restTime!!
+                    makeRounds = currentProfile!!.roundAmount!!
+                    isDeleatableNow = currentProfile!!.isDeletable
                 }
 
             }
 
-        var customSpinnerAdapter = ArrayAdapter (this.requireContext(),
-            android.R.layout.simple_spinner_item,
-            profilesTitles). also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.spinner.adapter = adapter
+            var customSpinnerAdapter = ArrayAdapter(
+                this.requireContext(),
+                android.R.layout.simple_spinner_item,
+                profilesTitles
+            ).also { adapter ->
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spinner.adapter = adapter
             }
         }
         spinnerRefresh()
 
-        binding.nmbr.setOnClickListener{
+        binding.nmbr.setOnClickListener {
             roundTimeString = binding.nmbr.text.toString()
-            var roundTimeString1: Long = roundTimeString!!.toLong()
+            val roundTimeString1: Long = roundTimeString!!.toLong()
             roundTime = roundTimeString1 * 1000
         }
 
-        binding.nmbr2.setOnClickListener{
+        binding.nmbr2.setOnClickListener {
             restTimeString = binding.nmbr2.text.toString()
-            var restTimeString1: Long = restTimeString!!.toLong()
+            val restTimeString1: Long = restTimeString!!.toLong()
             restTime = restTimeString1 * 1000
 
         }
-        binding.nmbr3.setOnClickListener{
+        binding.nmbr3.setOnClickListener {
             roundAmountString = binding.nmbr3.text.toString()
-            var roundAmountString1: Int = roundAmountString!!.toInt()
+            val roundAmountString1: Int = roundAmountString!!.toInt()
             makeRounds = roundAmountString1
         }
 
-        binding.nmbr4.setOnClickListener{
+        binding.nmbr4.setOnClickListener {
             profileName = binding.nmbr4.text.toString()
         }
 
-        binding.create.setOnClickListener{
+        binding.create.setOnClickListener {
             userDao.insertAll(Profile(0, profileName, roundTime, restTime, makeRounds, true))
-            Toast.makeText(this.requireContext(),"saved", LENGTH_LONG).show()
+            Toast.makeText(this.requireContext(), "saved", LENGTH_LONG).show()
             spinnerRefresh()
         }
-        binding.delete.setOnClickListener{
-            if (isDeleatableNow){
-            userDao.delete(currentProfile!!)
-            Toast.makeText(this.requireContext(),"deleted", LENGTH_LONG).show()
-            spinnerRefresh()
+        binding.delete.setOnClickListener {
+            if (isDeleatableNow) {
+                userDao.delete(currentProfile!!)
+                Toast.makeText(this.requireContext(), getString(R.string.deleted), LENGTH_LONG)
+                    .show()
+                spinnerRefresh()
             } else {
-            Toast.makeText(this.requireContext(),"you can't delete this", LENGTH_LONG).show()
+                Toast.makeText(
+                    this.requireContext(),
+                    getString(R.string.youCantDeleteThis),
+                    LENGTH_LONG
+                ).show()
             }
         }
 
@@ -194,41 +196,43 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             timer?.cancel()
         }
 
-        binding.btnStart.setOnClickListener{
-        beforeTimer(beforeTime, tick)                                                               //HERE NEW
-        roundTimer(roundTime, tick, setRoundsAmount1)
-        timerRunning = true
-        binding.btnPause.isVisible = true
+        binding.btnStart.setOnClickListener {
+            //  beforeTimer(beforeTime, tick)                                                               //HERE NEW
+            cancelTimer()
+            roundTimer(roundTime, tick, setRoundsAmount1)
+            timerRunning = true
+            binding.btnPause.isVisible = true
             playSound()
 
-        if (timerRunning) {
-            binding.btnStart.setOnClickListener{
-                beforeTimer(beforeTime, tick)                                                       //HERE NEW
-                cancelTimer()
-                roundTimer(roundTime,tick, 1)
-                binding.btnPause.isVisible = true
-                binding.btnResume.isVisible = false
-                playSound()
-            }
-        } else {
+            if (timerRunning) {
+                binding.btnStart.setOnClickListener {
+                    //    beforeTimer(beforeTime, tick)                                                       //HERE NEW
+                    cancelTimer()
+                    roundTimer(roundTime, tick, 1)
+                    binding.btnPause.isVisible = true
+                    binding.btnResume.isVisible = false
+                    playSound()
+                }
 
-        }
+            } else {
+
+            }
 
             val amountOfRounds: TextView = binding.amountOfRounds
-            amountOfRounds.text = "Round  " + setRoundsAmount1
-                }
-        binding.btnPause.setOnClickListener{
+            amountOfRounds.text = "Round $setRoundsAmount1"
+        }
+        binding.btnPause.setOnClickListener {
             cancelTimer()
             binding.btnStart.setText("restart")
             binding.btnResume.isVisible = true
         }
 
-        binding.btnResume.setOnClickListener{
-            if (timerOnRest){
+        binding.btnResume.setOnClickListener {
+            if (timerOnRest) {
                 resumeRestTimer()
             } else {
-            cancelTimer()
-            resumeTimer()
+                cancelTimer()
+                resumeTimer()
             }
         }
 
@@ -240,21 +244,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         _binding = null
     }
 
-    fun roundTimer (roundTime: Long, tick: Long,  setRoundsAmount: Int ){
+    fun roundTimer(roundTime: Long, tick: Long, setRoundsAmount: Int) {
 
         var currentRound = setRoundsAmount
-        binding.amountOfRounds.text = "Round  " + currentRound
+        binding.amountOfRounds.text = getString(R.string.round) + currentRound
 
-        var spannable = SpannableStringBuilder("seconds remaining: ")
+        var spannable = SpannableStringBuilder(getString(R.string.secondsRemaining))
         spannable.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(this.requireContext(), R.color.yellow)),
             0,
             18,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         spannable.toString()
 
 
-        timer =  object : CountDownTimer(roundTime, tick) {
+        timer = object : CountDownTimer(roundTime, tick) {
 
             @SuppressLint("ResourceAsColor")
             override fun onTick(roundTime: Long) {
@@ -267,73 +272,74 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
 
-                binding.textHome.setText("seconds remaining: " + a)
+                binding.textHome.setText(getString(R.string.secondRemaining) + a)
 
-   //             binding.textHome.setTextColor(rgb(255, 255, 0))
+                //             binding.textHome.setTextColor(rgb(255, 255, 0))
             }
 
             override fun onFinish() {
-                binding.amountOfRounds.text = "Round  " + currentRound
+                binding.amountOfRounds.text = getString(R.string.round) + currentRound
 
                 if (currentRound < makeRounds) {
-                    setRoundsAmount1 ++
-                    restTimer (restTime, tick)
+                    setRoundsAmount1++
+                    restTimer(restTime, tick)
 
                 } else {
-                    binding.textHome.setText("done!")
+                    binding.textHome.setText(getString(R.string.done))
                     binding.root.setBackgroundResource(R.drawable.green_gradient)
 
                     setRoundsAmount1 = 1
-                    binding.amountOfRounds.setText("start again")
+                    binding.amountOfRounds.setText(getString(R.string.startAgain))
                     binding.btnPause.isVisible = false
                     binding.btnResume.isVisible = false
                 }
             }
         }.start()
     }
-    fun restTimer (restTime: Long, tick: Long){
+
+    fun restTimer(restTime: Long, tick: Long) {
 
         var currentRound = setRoundsAmount1
-        binding.amountOfRounds.text = "Rest"
+        binding.amountOfRounds.text = getString(R.string.rest)
 
-        timer =  object : CountDownTimer(restTime, tick) {
+        timer = object : CountDownTimer(restTime, tick) {
 
             override fun onTick(restTime: Long) {
                 val rest = Date(restTime)
                 var formatter = SimpleDateFormat("mm:ss")
                 val b = formatter.format(rest)
-                binding.textHome.setText("resting: " + b)
+                binding.textHome.setText(getString(R.string.resting) + b)
                 currentRestTime = restTime
                 timerOnRest = true
             }
 
             override fun onFinish() {
                 timerOnRest = false
-                roundTimer(roundTime, tick, currentRound )
+                roundTimer(roundTime, tick, currentRound)
             }
         }.start()
 
     }
 
-    fun beforeTimer (beforeTime: Long, tick: Long){
+    fun beforeTimer(beforeTime: Long, tick: Long) {
 
         var currentRound = setRoundsAmount1
-        binding.amountOfRounds.text = "First round"
+        binding.amountOfRounds.text = getString(R.string.firstRound)
 
-        timer =  object : CountDownTimer(beforeTime, tick) {
+        timer = object : CountDownTimer(beforeTime, tick) {
 
             override fun onTick(beforeTime: Long) {
                 val before = Date(beforeTime)
                 var formatter = SimpleDateFormat("mm:ss")
                 val c = formatter.format(before)
-                binding.textHome.setText("get ready: " + c)
+                binding.textHome.setText(getString(R.string.getReady) + c)
 //                currentRestTime = beforeTime
 //                timerOnRest = true
             }
 
             override fun onFinish() {
 //                timerOnRest = false
-                roundTimer(roundTime, tick, currentRound )
+                roundTimer(roundTime, tick, currentRound)
             }
         }.start()
 
@@ -341,14 +347,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 }
 
 
-
-
 //Threading
 //Callbacks
 //Futures, promises, and others
 //Reactive extensions
 //Coroutines
-
 
 
 //mvvm архитектура
@@ -368,7 +371,27 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 10) тестировка, отлов ошибок 16.08
 11) выложить в гугл плей 29.08
 
-не использовать "!!", вместо него проверку через "?", через "let" или элвис-оператор ":?"
-val и var
-в лэйаутах - в ресурсы переделать
+1) не использовать "!!", вместо него проверку через "?", через "let" или элвис-оператор ":?"
+2) val и var
+3) перенести в хоум вью модель
+
+Private val
+стринги - в ресурсы переделать
+расставить скобки (ctrl+alt+l)
+ctrl+k = reformat code
+ctrl+shift+k = push
+observe = подписка
+with (binding){
+
+}
+homefragment 93 строчка
+удалить texthome: texthome, оставить только биндинг
+
+ViewPager2 - онбординг (индикатор? нижняя фигня с переходом)
+создать фрагмент launch
+sharePreferences start Android
+написать калькулятор калорий (кастомный seekBar)
+
+вопросы: приложение крашится, когда запускаю таймер и перехожу на новый фрагмент
+
  */
