@@ -39,10 +39,6 @@ class SettingsFragment : Fragment() {
         val root: View = binding.root
         root.setBackgroundResource(R.drawable.blue_gradient)
 
-        with(binding) {
-        }
-
-
         val db = Room.databaseBuilder(
             this.requireContext(),
             AppDatabase::class.java, "AppDatabase"
