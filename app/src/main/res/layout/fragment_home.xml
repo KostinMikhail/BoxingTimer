@@ -93,16 +93,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
+        android:textColor="@color/yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.669"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="44dp"
 
-        android:textColor="@color/yellow"
-        />
+        tools:layout_editor_absoluteY="44dp" />
 
     <Button
         android:id="@+id/btnStart"
@@ -138,13 +137,12 @@
         android:hint="round time"
         android:inputType="number"
         android:maxLength="1"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.579"
-        android:visibility="invisible"
-        />
+        app:layout_constraintVertical_bias="0.579" />
 
 
     <EditText
@@ -155,13 +153,12 @@
         android:hint="rest time"
         android:inputType="number"
         android:maxLength="1"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.667"
-        android:visibility="invisible"
-        />
+        app:layout_constraintVertical_bias="0.667" />
 
     <EditText
         android:id="@+id/nmbr3"
@@ -171,13 +168,12 @@
         android:hint="round amount"
         android:inputType="number"
         android:maxLength="1"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.758"
-        android:visibility="invisible"
-        />
+        app:layout_constraintVertical_bias="0.758" />
 
     <EditText
         android:id="@+id/nmbr4"
@@ -187,15 +183,12 @@
         android:hint="profile name"
         android:inputType="text"
         android:maxLength="15"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.849"
-        android:visibility="invisible"
-        />
-
-
+        app:layout_constraintVertical_bias="0.849" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

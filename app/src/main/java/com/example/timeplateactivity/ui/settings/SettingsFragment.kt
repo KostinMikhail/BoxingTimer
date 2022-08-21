@@ -40,7 +40,7 @@ class SettingsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val galleryViewModel =
+       // val galleryViewModel =
             ViewModelProvider(this).get(SettingsViewModel::class.java)
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -53,7 +53,7 @@ class SettingsFragment : Fragment() {
             .build()
         val userDao = db.profileDao()
 
-        fun spinnerRefresh(){
+        fun spinnerRefresh() {
             val profiles: List<Profile> = userDao.getAll()
             val profilesTitles: ArrayList<String?> = arrayListOf()
             for (list in profiles) {
@@ -67,74 +67,101 @@ class SettingsFragment : Fragment() {
 
                 }
 
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
                     currentProfile = profiles.get(position)
-                    roundTime = currentProfile!!.roundTime!!
-                    restTime = currentProfile!!.restTime!!
-                    makeRounds = currentProfile!!.roundAmount!!
-                    isDeleatableNow = currentProfile!!.isDeletable
+                    roundTime = currentProfile?.roundTime ?: 0
+                    restTime = currentProfile?.restTime ?: 0
+                    makeRounds = currentProfile?.roundAmount ?: 0
+                    isDeleatableNow = currentProfile?.isDeletable == true
                 }
 
             }
 
-            var customSpinnerAdapter = ArrayAdapter (this.requireContext(),
+            var customSpinnerAdapter = ArrayAdapter(
+                this.requireContext(),
                 android.R.layout.simple_spinner_item,
-                profilesTitles). also { adapter ->
+                profilesTitles
+            ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.spinner.adapter = adapter
             }
         }
         spinnerRefresh()
 
-        binding.nmbr.setOnClickListener{
+        binding.nmbr.setOnClickListener {
             roundTimeString = binding.nmbr.text.toString()
             val roundTimeString1: Long = roundTimeString!!.toLong()
             roundTime = roundTimeString1 * 1000
         }
 
-        binding.nmbr2.setOnClickListener{
+        binding.nmbr2.setOnClickListener {
             restTimeString = binding.nmbr2.text.toString()
             val restTimeString1: Long = restTimeString!!.toLong()
             restTime = restTimeString1 * 1000
 
         }
-        binding.nmbr3.setOnClickListener{
+        binding.nmbr3.setOnClickListener {
             roundAmountString = binding.nmbr3.text.toString()
             val roundAmountString1: Int = roundAmountString!!.toInt()
             makeRounds = roundAmountString1
         }
 
-        binding.nmbr4.setOnClickListener{
+        binding.nmbr4.setOnClickListener {
             profileName = binding.nmbr4.text.toString()
         }
 
 
-        binding.create.setOnClickListener{
-            if (profileName == null){
-                Toast.makeText(this.requireContext(),getString(R.string.noName), Toast.LENGTH_LONG).show()
-            } else if(roundAmountString == null){
-                Toast.makeText(this.requireContext(),getString(R.string.noRoundAmount), Toast.LENGTH_LONG).show()
-            } else if(restTimeString == null){
-                Toast.makeText(this.requireContext(),getString(R.string.noRestTime), Toast.LENGTH_LONG).show()
-            } else if(roundTimeString == null){
-                Toast.makeText(this.requireContext(),getString(R.string.noRoundTime), Toast.LENGTH_LONG).show()
-            }
-
-            else {
+        binding.create.setOnClickListener {
+            if (profileName == null) {
+                Toast.makeText(this.requireContext(), getString(R.string.noName), Toast.LENGTH_LONG)
+                    .show()
+            } else if (roundAmountString == null) {
+                Toast.makeText(
+                    this.requireContext(),
+                    getString(R.string.noRoundAmount),
+                    Toast.LENGTH_LONG
+                ).show()
+            } else if (restTimeString == null) {
+                Toast.makeText(
+                    this.requireContext(),
+                    getString(R.string.noRestTime),
+                    Toast.LENGTH_LONG
+                ).show()
+            } else if (roundTimeString == null) {
+                Toast.makeText(
+                    this.requireContext(),
+                    getString(R.string.noRoundTime),
+                    Toast.LENGTH_LONG
+                ).show()
+            } else {
                 userDao.insertAll(Profile(0, profileName, roundTime, restTime, makeRounds, true))
-                Toast.makeText(this.requireContext(),getString(R.string.saved), Toast.LENGTH_LONG).show()
+                Toast.makeText(this.requireContext(), getString(R.string.saved), Toast.LENGTH_LONG)
+                    .show()
                 spinnerRefresh()
             }
 
         }
 
-        binding.delete.setOnClickListener{
-            if (isDeleatableNow){
+        binding.delete.setOnClickListener {
+            if (isDeleatableNow) {
                 userDao.delete(currentProfile!!)
-                Toast.makeText(this.requireContext(),getString(R.string.deleted), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this.requireContext(),
+                    getString(R.string.deleted),
+                    Toast.LENGTH_LONG
+                ).show()
                 spinnerRefresh()
             } else {
-                Toast.makeText(this.requireContext(),getString(R.string.youCantDeleteThis), Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this.requireContext(),
+                    getString(R.string.youCantDeleteThis),
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
 

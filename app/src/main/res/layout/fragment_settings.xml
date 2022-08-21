@@ -25,16 +25,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
+        android:textColor="@color/yellow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.669"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="58dp"
-        tools:layout_editor_absoluteY="44dp"
 
-        android:textColor="@color/yellow"
-        />
+        tools:layout_editor_absoluteY="44dp" />
 
     <EditText
         android:id="@+id/nmbr"
