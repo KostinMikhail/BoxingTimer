@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -55,15 +54,15 @@ class SettingsFragment : Fragment() {
         val userDao = db.profileDao()
 
         fun spinnerRefresh(){
-            var profiles: List<Profile> = userDao.getAll()
-            var profilesTitles: ArrayList<String?> = arrayListOf()
+            val profiles: List<Profile> = userDao.getAll()
+            val profilesTitles: ArrayList<String?> = arrayListOf()
             for (list in profiles) {
                 profilesTitles.add(list.profileName)
             }
 
 
 
-            binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
 
                 }
@@ -89,13 +88,13 @@ class SettingsFragment : Fragment() {
 
         binding.nmbr.setOnClickListener{
             roundTimeString = binding.nmbr.text.toString()
-            var roundTimeString1: Long = roundTimeString!!.toLong()
+            val roundTimeString1: Long = roundTimeString!!.toLong()
             roundTime = roundTimeString1 * 1000
         }
 
         binding.nmbr2.setOnClickListener{
             restTimeString = binding.nmbr2.text.toString()
-            var restTimeString1: Long = restTimeString!!.toLong()
+            val restTimeString1: Long = restTimeString!!.toLong()
             restTime = restTimeString1 * 1000
 
         }
