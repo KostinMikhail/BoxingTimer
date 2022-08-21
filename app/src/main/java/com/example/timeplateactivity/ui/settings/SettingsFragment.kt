@@ -1,9 +1,12 @@
 package com.example.timeplateactivity.ui.settings
 
+import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -20,30 +23,25 @@ class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
 
-    var roundTime: Long = 0
-    var restTime: Long = 0
-    var makeRounds: Int = 0
-    var roundTimeString: String? = null
-    var restTimeString: String? = null
-    var roundAmountString: String? = null
-    var profileName: String? = null
-
-    var currentProfile: Profile? = null
-
-    var isDeleatableNow: Boolean = false
 
     private val binding get() = _binding!!
+    private var settingsViewModel: SettingsViewModel? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-       // val galleryViewModel =
+        settingsViewModel =
             ViewModelProvider(this).get(SettingsViewModel::class.java)
+
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val root: View = binding.root
         root.setBackgroundResource(R.drawable.blue_gradient)
+
+        with(binding) {
+        }
+
 
         val db = Room.databaseBuilder(
             this.requireContext(),
@@ -62,6 +60,8 @@ class SettingsFragment : Fragment() {
 
 
             binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+
                 override fun onNothingSelected(parent: AdapterView<*>?) {
 
                 }
@@ -72,11 +72,7 @@ class SettingsFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    currentProfile = profiles.get(position)
-                    roundTime = currentProfile?.roundTime ?: 0
-                    restTime = currentProfile?.restTime ?: 0
-                    makeRounds = currentProfile?.roundAmount ?: 0
-                    isDeleatableNow = currentProfile?.isDeletable == true
+                    settingsViewModel?.onItemSelectedMethod()
                 }
 
             }
@@ -92,53 +88,96 @@ class SettingsFragment : Fragment() {
         }
         spinnerRefresh()
 
-        binding.nmbr.setOnClickListener {
-            roundTimeString = binding.nmbr.text.toString()
-            val roundTimeString1: Long = roundTimeString!!.toLong()
-            roundTime = roundTimeString1 * 1000
+        binding.btnRoundTime.setOnKeyListener { view, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                settingsViewModel?.setRoundTime()
+                binding.btnRoundTime.text.toString()
+                val keyBoardCloser =
+                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                keyBoardCloser?.hideSoftInputFromWindow(view.windowToken, 0)
+                true
+            }
+            false
+
+        }
+        //roundTimeString = binding.nmbr.text.toString()
+        //
+        //            settingsViewModel?.roundTimeString1()
+        binding.btnRestTime.setOnKeyListener { view, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                settingsViewModel?.setRestTime()
+                binding.btnRestTime.text.toString()
+                val keyBoardCloser =
+                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                keyBoardCloser?.hideSoftInputFromWindow(view.windowToken, 0)
+                true
+            }
+            false
+
+        }
+        binding.btnRoundAmount.setOnKeyListener { view, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                settingsViewModel?.setRoundAmount()
+                binding.btnRoundAmount.text.toString()
+                val keyBoardCloser =
+                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                keyBoardCloser?.hideSoftInputFromWindow(view.windowToken, 0)
+                true
+            }
+            false
+
         }
 
-        binding.nmbr2.setOnClickListener {
-            restTimeString = binding.nmbr2.text.toString()
-            val restTimeString1: Long = restTimeString!!.toLong()
-            restTime = restTimeString1 * 1000
+        binding.btnProfileName.setOnKeyListener { view, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                settingsViewModel?.setProfileName() = binding.btnProfileName.text.toString()
+
+                val keyBoardCloser =
+                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                keyBoardCloser?.hideSoftInputFromWindow(view.windowToken, 0)
+                true
+            }
+            false
 
         }
-        binding.nmbr3.setOnClickListener {
-            roundAmountString = binding.nmbr3.text.toString()
-            val roundAmountString1: Int = roundAmountString!!.toInt()
-            makeRounds = roundAmountString1
-        }
-
-        binding.nmbr4.setOnClickListener {
-            profileName = binding.nmbr4.text.toString()
-        }
+        /*{
+            //было так       profileName = binding.btnProfileName.text.toString()
+            settingsViewModel?.profileName = binding.btnProfileName.text.toString()
+        }*/
 
 
         binding.create.setOnClickListener {
-            if (profileName == null) {
+            if (settingsViewModel?.profileName == null) {
                 Toast.makeText(this.requireContext(), getString(R.string.noName), Toast.LENGTH_LONG)
                     .show()
-            } else if (roundAmountString == null) {
+            } else if (settingsViewModel?.roundAmountString == null) {
                 Toast.makeText(
                     this.requireContext(),
                     getString(R.string.noRoundAmount),
                     Toast.LENGTH_LONG
                 ).show()
-            } else if (restTimeString == null) {
+            } else if (settingsViewModel?.restTimeString == null) {
                 Toast.makeText(
                     this.requireContext(),
                     getString(R.string.noRestTime),
                     Toast.LENGTH_LONG
                 ).show()
-            } else if (roundTimeString == null) {
+            } else if (settingsViewModel?.roundTimeString == null) {
                 Toast.makeText(
                     this.requireContext(),
                     getString(R.string.noRoundTime),
                     Toast.LENGTH_LONG
                 ).show()
             } else {
-                userDao.insertAll(Profile(0, profileName, roundTime, restTime, makeRounds, true))
+                userDao.insertAll(
+                    Profile(
+                        0, settingsViewModel?.profileName,
+                        settingsViewModel?.roundTime,
+                        settingsViewModel?.restTime,
+                        settingsViewModel?.makeRounds,
+                        true
+                    )
+                )
                 Toast.makeText(this.requireContext(), getString(R.string.saved), Toast.LENGTH_LONG)
                     .show()
                 spinnerRefresh()
@@ -147,8 +186,8 @@ class SettingsFragment : Fragment() {
         }
 
         binding.delete.setOnClickListener {
-            if (isDeleatableNow) {
-                userDao.delete(currentProfile!!)
+            if (settingsViewModel?.isDeleatableNow == false) {
+                userDao.delete(settingsViewModel?.currentProfile!!)
                 Toast.makeText(
                     this.requireContext(),
                     getString(R.string.deleted),
@@ -160,6 +199,8 @@ class SettingsFragment : Fragment() {
                     this.requireContext(),
                     getString(R.string.youCantDeleteThis),
                     Toast.LENGTH_LONG
+
+
                 ).show()
             }
         }
