@@ -219,11 +219,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
 
             val amountOfRounds: TextView = binding.amountOfRounds
-            amountOfRounds.text = "Round $setRoundsAmount1"
+            amountOfRounds.text = getString(R.string.showRound) + setRoundsAmount1
         }
         binding.btnPause.setOnClickListener {
             cancelTimer()
-            binding.btnStart.setText("restart")
+            binding.btnStart.setText(getString(R.string.start))
             binding.btnResume.isVisible = true
         }
 
@@ -246,10 +246,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     fun roundTimer(roundTime: Long, tick: Long, setRoundsAmount: Int) {
 
-        var currentRound = setRoundsAmount
-        binding.amountOfRounds.text = getString(R.string.round) + currentRound
+        val currentRound = setRoundsAmount
+        binding.amountOfRounds.text = getString(R.string.showRound) + currentRound
 
-        var spannable = SpannableStringBuilder(getString(R.string.secondsRemaining))
+        val spannable = SpannableStringBuilder(getString(R.string.secondsRemaining))
         spannable.setSpan(
             ForegroundColorSpan(ContextCompat.getColor(this.requireContext(), R.color.yellow)),
             0,
@@ -264,7 +264,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             @SuppressLint("ResourceAsColor")
             override fun onTick(roundTime: Long) {
                 val round = Date(roundTime)
-                var formatter = SimpleDateFormat("mm:ss")
+                val formatter = SimpleDateFormat("mm:ss")
                 val a = formatter.format(round)
 
                 currentRoundTime = roundTime
@@ -278,7 +278,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
 
             override fun onFinish() {
-                binding.amountOfRounds.text = getString(R.string.round) + currentRound
+                binding.amountOfRounds.text = " "
 
                 if (currentRound < makeRounds) {
                     setRoundsAmount1++
@@ -289,7 +289,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     binding.root.setBackgroundResource(R.drawable.green_gradient)
 
                     setRoundsAmount1 = 1
-                    binding.amountOfRounds.setText(getString(R.string.startAgain))
+//                    binding.amountOfRounds.setText(getString(R.string.startAgain))
                     binding.btnPause.isVisible = false
                     binding.btnResume.isVisible = false
                 }
@@ -308,7 +308,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 val rest = Date(restTime)
                 var formatter = SimpleDateFormat("mm:ss")
                 val b = formatter.format(rest)
-                binding.textHome.setText(getString(R.string.resting) + b)
+                binding.textHome.setText(getString(R.string.secondRemaining) + b)
                 currentRestTime = restTime
                 timerOnRest = true
             }
@@ -346,18 +346,32 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 }
 
-
-//Threading
-//Callbacks
-//Futures, promises, and others
-//Reactive extensions
-//Coroutines
-
-
-//mvvm архитектура
-
-
 /*
+1) не использовать "!!", вместо него проверку через "?", через "let" или элвис-оператор ":?"
+2) val и var
+3) перенести в хоум вью модель
+4)Private val
+5) стринги - в ресурсы переделать
+6) расставить скобки (ctrl+alt+l)
+7) reformat code (ctrl+k для гита)
+8) homefragment 93 строчка
+удалить texthome: texthome, оставить только биндинг
+9) создать фрагмент launch
+10) ViewPager2 - онбординг (индикатор? нижняя фигня с переходом) sharePreferences start Android
+11) написать калькулятор калорий (кастомный seekBar)
+
+***************************
+tips:
+ctrl+shift+k = push
+observe = подписка
+использовать with (binding){
+
+}
+***************************
+вопросы: приложение крашится, когда запускаю таймер и перехожу на новый фрагмент
+
+***************************
+ППР
 1) сделать кнопку пауза  24.06
 2) кнопку продолжить/стоп 01.06 *так же продолжать с отдыха
 3) создать возможность настраивать раунды   08.07     читать: sqlite, room
@@ -366,32 +380,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 6) добавить звук начала/конца раунда  17.07
 7) добавить 5 сек перед началом старта таймера 24.07
 8) добавить счётчик калорий  05.08
-
 9) раскидать всё по разным директориям (clean) 05.08
 10) тестировка, отлов ошибок 16.08
 11) выложить в гугл плей 29.08
-
-1) не использовать "!!", вместо него проверку через "?", через "let" или элвис-оператор ":?"
-2) val и var
-3) перенести в хоум вью модель
-
-Private val
-стринги - в ресурсы переделать
-расставить скобки (ctrl+alt+l)
-ctrl+k = reformat code
-ctrl+shift+k = push
-observe = подписка
-with (binding){
-
-}
-homefragment 93 строчка
-удалить texthome: texthome, оставить только биндинг
-
-ViewPager2 - онбординг (индикатор? нижняя фигня с переходом)
-создать фрагмент launch
-sharePreferences start Android
-написать калькулятор калорий (кастомный seekBar)
-
-вопросы: приложение крашится, когда запускаю таймер и перехожу на новый фрагмент
-
  */

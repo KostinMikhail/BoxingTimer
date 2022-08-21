@@ -23,7 +23,7 @@
     <string name="deleted">удалено</string>
     <string name="youCantDeleteThis">вы не можете удалить этот режим</string>
     <string name="secondsRemaining">\"секунд осталось: \"</string>
-    <string name="round">\"раунд  \"</string>
+
     <string name="start">старт</string>
     <string name="profile">режим:</string>
     <string name="resume">продолжить</string>
@@ -35,6 +35,14 @@
     <string name="firstRound">первый раунд</string>
     <string name="getReady">приготовьтесь</string>
     <string name="secondRemaining">"секунд осталось: "</string>
+    <string name="showRound">"раунд "</string>
+    <string name="restart">рестарт</string>
+    <string name="roundTime">время на раунд</string>
+    <string name="restTime">время на отдых</string>
+    <string name="roundAmount">количество раундов</string>
+    <string name="profileName">название режима</string>
+    <string name="create">создать</string>
+    <string name="delete">удалить</string>
 
 
 </resources>
