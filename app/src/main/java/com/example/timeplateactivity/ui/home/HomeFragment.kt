@@ -350,7 +350,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 1) не использовать "!!", вместо него проверку через "?", через "let" или элвис-оператор ":?"
 2) val и var
 3) перенести в хоум вью модель
-4)Private val
+4) Private val
 5) стринги - в ресурсы переделать
 6) расставить скобки (ctrl+alt+l)
 7) reformat code (ctrl+k для гита)
