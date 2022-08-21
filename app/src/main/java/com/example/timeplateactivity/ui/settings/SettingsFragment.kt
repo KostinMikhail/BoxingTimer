@@ -14,12 +14,12 @@ import androidx.room.Room
 import com.example.timeplateactivity.R
 import com.example.timeplateactivity.data.repository.AppDatabase
 import com.example.timeplateactivity.data.repository.Profile
-import com.example.timeplateactivity.databinding.FragmentGalleryBinding
+import com.example.timeplateactivity.databinding.FragmentSettingsBinding
 
 
 class SettingsFragment : Fragment() {
 
-    private var _binding: FragmentGalleryBinding? = null
+    private var _binding: FragmentSettingsBinding? = null
 
     var roundTime: Long = 0
     var restTime: Long = 0
@@ -43,7 +43,7 @@ class SettingsFragment : Fragment() {
     ): View {
         val galleryViewModel =
             ViewModelProvider(this).get(SettingsViewModel::class.java)
-        _binding = FragmentGalleryBinding.inflate(inflater, container, false)
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val root: View = binding.root
         root.setBackgroundResource(R.drawable.blue_gradient)
 
@@ -101,7 +101,7 @@ class SettingsFragment : Fragment() {
         }
         binding.nmbr3.setOnClickListener{
             roundAmountString = binding.nmbr3.text.toString()
-            var roundAmountString1: Int = roundAmountString!!.toInt()
+            val roundAmountString1: Int = roundAmountString!!.toInt()
             makeRounds = roundAmountString1
         }
 
@@ -112,18 +112,18 @@ class SettingsFragment : Fragment() {
 
         binding.create.setOnClickListener{
             if (profileName == null){
-                Toast.makeText(this.requireContext(),"не заполнено название", Toast.LENGTH_LONG).show()
+                Toast.makeText(this.requireContext(),getString(R.string.noName), Toast.LENGTH_LONG).show()
             } else if(roundAmountString == null){
-                Toast.makeText(this.requireContext(),"не указанно количество раундов", Toast.LENGTH_LONG).show()
+                Toast.makeText(this.requireContext(),getString(R.string.noRoundAmount), Toast.LENGTH_LONG).show()
             } else if(restTimeString == null){
-                Toast.makeText(this.requireContext(),"не указанно время отдыха", Toast.LENGTH_LONG).show()
+                Toast.makeText(this.requireContext(),getString(R.string.noRestTime), Toast.LENGTH_LONG).show()
             } else if(roundTimeString == null){
-                Toast.makeText(this.requireContext(),"не указанно время раунда", Toast.LENGTH_LONG).show()
+                Toast.makeText(this.requireContext(),getString(R.string.noRoundTime), Toast.LENGTH_LONG).show()
             }
 
             else {
                 userDao.insertAll(Profile(0, profileName, roundTime, restTime, makeRounds, true))
-                Toast.makeText(this.requireContext(),"saved", Toast.LENGTH_LONG).show()
+                Toast.makeText(this.requireContext(),getString(R.string.saved), Toast.LENGTH_LONG).show()
                 spinnerRefresh()
             }
 
@@ -132,10 +132,10 @@ class SettingsFragment : Fragment() {
         binding.delete.setOnClickListener{
             if (isDeleatableNow){
                 userDao.delete(currentProfile!!)
-                Toast.makeText(this.requireContext(),"deleted", Toast.LENGTH_LONG).show()
+                Toast.makeText(this.requireContext(),getString(R.string.deleted), Toast.LENGTH_LONG).show()
                 spinnerRefresh()
             } else {
-                Toast.makeText(this.requireContext(),"you can't delete this", Toast.LENGTH_LONG).show()
+                Toast.makeText(this.requireContext(),getString(R.string.youCantDeleteThis), Toast.LENGTH_LONG).show()
             }
         }
 

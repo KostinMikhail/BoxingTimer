@@ -14,5 +14,27 @@
 
 
     <string name="test">ViewBindingSample</string>
+    <string name="noName">не заполнено название</string>
+    <string name="noRoundAmount">не указанно количество раундов</string>
+    <string name="noRestTime">не указанно время отдыха</string>
+    <string name="noRoundTime">не указанно время раунда</string>
+
+    <string name="saved">сохранено</string>
+    <string name="deleted">удалено</string>
+    <string name="youCantDeleteThis">вы не можете удалить этот режим</string>
+    <string name="secondsRemaining">\"секунд осталось: \"</string>
+    <string name="round">\"раунд  \"</string>
+    <string name="start">старт</string>
+    <string name="profile">режим:</string>
+    <string name="resume">продолжить</string>
+    <string name="stop">стоп</string>
+    <string name="done">конец тренировки</string>
+    <string name="startAgain">начать заного</string>
+    <string name="rest">отдых</string>
+    <string name="resting">"отдых: "</string>
+    <string name="firstRound">первый раунд</string>
+    <string name="getReady">приготовьтесь</string>
+    <string name="secondRemaining">"секунд осталось: "</string>
+
 
 </resources>
