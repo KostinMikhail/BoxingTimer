@@ -23,7 +23,6 @@ class SettingsFragment : Fragment() {
     var roundTime: Long = 0
     var restTime: Long = 0
     var makeRounds: Int = 0
-
     var roundTimeString: String? = null
     var restTimeString: String? = null
     var roundAmountString: String? = null
