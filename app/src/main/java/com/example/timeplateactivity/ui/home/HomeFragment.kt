@@ -82,7 +82,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        val textView: TextView = binding.textHome
+        val textView = binding.textHome  //было  val textView : TextView = binding.textHome
 
         val spannable = SpannableStringBuilder(getString(R.string.secondsRemaining))
         spannable.setSpan(
@@ -149,7 +149,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
         spinnerRefresh()
 
-        binding.nmbr.setOnClickListener {
+    /*    binding.nmbr.setOnClickListener {
             roundTimeString = binding.nmbr.text.toString()
             val roundTimeString1: Long = roundTimeString!!.toLong()
             roundTime = roundTimeString1 * 1000
@@ -170,7 +170,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.nmbr4.setOnClickListener {
             profileName = binding.nmbr4.text.toString()
         }
-
+*/
         binding.create.setOnClickListener {
             userDao.insertAll(Profile(0, profileName, roundTime, restTime, makeRounds, true))
             Toast.makeText(this.requireContext(), "saved", LENGTH_LONG).show()
@@ -348,17 +348,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 /*
 1) не использовать "!!", вместо него проверку через "?", через "let" или элвис-оператор ":?"
-2) val и var
+2)+ val и var
 3) перенести в хоум вью модель
-4) Private val
-5) стринги - в ресурсы переделать
-6) расставить скобки (ctrl+alt+l)
-7) reformat code (ctrl+k для гита)
-8) homefragment 93 строчка
-удалить texthome: texthome, оставить только биндинг
+4)+ Private val
+5)+ стринги - в ресурсы переделать
+6)+ расставить скобки (ctrl+alt+l)
+7)+ reformat code (ctrl+k для гита)
+8)+ homefragment 85 строчка удалить texthome: texthome, оставить только биндинг
 9) создать фрагмент launch
 10) ViewPager2 - онбординг (индикатор? нижняя фигня с переходом) sharePreferences start Android
 11) написать калькулятор калорий (кастомный seekBar)
+12)+ вместо setOnClickListner заменить на setOnKeyListner
 
 ***************************
 tips:
@@ -368,8 +368,13 @@ observe = подписка
 
 }
 ***************************
-вопросы: приложение крашится, когда запускаю таймер и перехожу на новый фрагмент
-
+вопросы:
+1) 137-174 это я правильно сделал, что оставил во фрагменте, а не во вьюмодел? если нет, как исправить?
+Тоже самое строчка 177 и 178
+2) как пернести ДБ? не понимаю, что делать со строчкой 151
+3) 174 как убрать "!!", как использовать let в этом случае?
+4) 129 как присвоить стринг имени, который я получаю с setOnKeyListner в переменную, которая находится у меня в SettingViewModel?
+14) приложение крашится, когда запускаю таймер и перехожу на новый фрагмент
 ***************************
 ППР
 1) сделать кнопку пауза  24.06

@@ -1,0 +1,9 @@
+diff a/app/src/main/java/com/example/timeplateactivity/ui/settings/SettingsFragment.kt b/app/src/main/java/com/example/timeplateactivity/ui/settings/SettingsFragment.kt	(rejected hunks)
+@@ -23,7 +23,6 @@
+     var roundTime: Long = 0
+     var restTime: Long = 0
+     var makeRounds: Int = 0
+-
+     var roundTimeString: String? = null
+     var restTimeString: String? = null
+     var roundAmountString: String? = null

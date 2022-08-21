@@ -130,7 +130,7 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/nmbr"
+        android:id="@+id/btnRoundTime"
         android:layout_width="243dp"
         android:layout_height="55dp"
         android:ems="10"
@@ -146,7 +146,7 @@
 
 
     <EditText
-        android:id="@+id/nmbr2"
+        android:id="@+id/btnRestTime"
         android:layout_width="243dp"
         android:layout_height="61dp"
         android:ems="10"
@@ -161,7 +161,7 @@
         app:layout_constraintVertical_bias="0.667" />
 
     <EditText
-        android:id="@+id/nmbr3"
+        android:id="@+id/btnRoundAmount"
         android:layout_width="243dp"
         android:layout_height="61dp"
         android:ems="10"
@@ -176,7 +176,7 @@
         app:layout_constraintVertical_bias="0.758" />
 
     <EditText
-        android:id="@+id/nmbr4"
+        android:id="@+id/btnProfileName"
         android:layout_width="243dp"
         android:layout_height="61dp"
         android:ems="10"
