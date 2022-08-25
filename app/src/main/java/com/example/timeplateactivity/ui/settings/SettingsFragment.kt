@@ -12,10 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.room.Room
 import com.example.timeplateactivity.R
-import com.example.timeplateactivity.data.repository.AppDatabase
-import com.example.timeplateactivity.data.repository.Profile
 import com.example.timeplateactivity.databinding.FragmentSettingsBinding
 
 
@@ -33,79 +30,45 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         settingsViewModel =
-            ViewModelProvider(this).get(SettingsViewModel::class.java)
+            ViewModelProvider(this, SettingsViewModelFactory(requireContext())).get(
+                SettingsViewModel::class.java
+            )
 
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        root.setBackgroundResource(R.drawable.blue_gradient)
 
-        val db = Room.databaseBuilder(
-            this.requireContext(),
-            AppDatabase::class.java, "AppDatabase"
-        ).allowMainThreadQueries()
-            .build()
-        val userDao = db.profileDao()
+        settingsViewModel?.timerSuccsessCreated?.observe(viewLifecycleOwner) {
+            spinnerRefresh()
+            Toast.makeText(this@SettingsFragment.requireContext(), it, Toast.LENGTH_LONG)
+                .show()
+        }
 
-        fun spinnerRefresh() {
-            val profiles: List<Profile> = userDao.getAll()
-            val profilesTitles: ArrayList<String?> = arrayListOf()
-            for (list in profiles) {
-                profilesTitles.add(list.profileName)
-            }
-
-
-
-            binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-
-                }
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    settingsViewModel?.onItemSelectedMethod()
-                }
-
-            }
-
-            var customSpinnerAdapter = ArrayAdapter(
-                this.requireContext(),
-                android.R.layout.simple_spinner_item,
-                profilesTitles
-            ).also { adapter ->
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                binding.spinner.adapter = adapter
+        with(binding) {
+            root.setBackgroundResource(R.drawable.blue_gradient)
+            settingsViewModel?.errorData?.observe(viewLifecycleOwner) {
+                Toast.makeText(this@SettingsFragment.requireContext(), it, Toast.LENGTH_LONG)
+                    .show()
             }
         }
+
+
         spinnerRefresh()
 
         binding.btnRoundTime.setOnKeyListener { view, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                settingsViewModel?.setRoundTime()
+                settingsViewModel?.setRoundTime(binding.btnRoundTime.text.toString())
                 binding.btnRoundTime.text.toString()
-                val keyBoardCloser =
-                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-                keyBoardCloser?.hideSoftInputFromWindow(view.windowToken, 0)
+                keyBoardCloser(view)
                 true
             }
             false
 
         }
-        //roundTimeString = binding.nmbr.text.toString()
-        //
-        //            settingsViewModel?.roundTimeString1()
+
         binding.btnRestTime.setOnKeyListener { view, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                settingsViewModel?.setRestTime()
+                settingsViewModel?.setRestTime(binding.btnRestTime.text.toString())
                 binding.btnRestTime.text.toString()
-                val keyBoardCloser =
-                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-                keyBoardCloser?.hideSoftInputFromWindow(view.windowToken, 0)
+                keyBoardCloser(view)
                 true
             }
             false
@@ -113,11 +76,9 @@ class SettingsFragment : Fragment() {
         }
         binding.btnRoundAmount.setOnKeyListener { view, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                settingsViewModel?.setRoundAmount()
+                settingsViewModel?.setRoundAmount(binding.btnRoundAmount.text.toString())
                 binding.btnRoundAmount.text.toString()
-                val keyBoardCloser =
-                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-                keyBoardCloser?.hideSoftInputFromWindow(view.windowToken, 0)
+                keyBoardCloser(view)
                 true
             }
             false
@@ -126,87 +87,66 @@ class SettingsFragment : Fragment() {
 
         binding.btnProfileName.setOnKeyListener { view, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                settingsViewModel?.setProfileName() = binding.btnProfileName.text.toString()
+                settingsViewModel?.setNewProfileName(binding.btnProfileName.text.toString())
 
-                val keyBoardCloser =
-                    requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-                keyBoardCloser?.hideSoftInputFromWindow(view.windowToken, 0)
+                keyBoardCloser(view)
                 true
             }
             false
 
         }
-        /*{
-            //было так       profileName = binding.btnProfileName.text.toString()
-            settingsViewModel?.profileName = binding.btnProfileName.text.toString()
-        }*/
-
 
         binding.create.setOnClickListener {
-            if (settingsViewModel?.profileName == null) {
-                Toast.makeText(this.requireContext(), getString(R.string.noName), Toast.LENGTH_LONG)
-                    .show()
-            } else if (settingsViewModel?.roundAmountString == null) {
-                Toast.makeText(
-                    this.requireContext(),
-                    getString(R.string.noRoundAmount),
-                    Toast.LENGTH_LONG
-                ).show()
-            } else if (settingsViewModel?.restTimeString == null) {
-                Toast.makeText(
-                    this.requireContext(),
-                    getString(R.string.noRestTime),
-                    Toast.LENGTH_LONG
-                ).show()
-            } else if (settingsViewModel?.roundTimeString == null) {
-                Toast.makeText(
-                    this.requireContext(),
-                    getString(R.string.noRoundTime),
-                    Toast.LENGTH_LONG
-                ).show()
-            } else {
-                userDao.insertAll(
-                    Profile(
-                        0, settingsViewModel?.profileName,
-                        settingsViewModel?.roundTime,
-                        settingsViewModel?.restTime,
-                        settingsViewModel?.makeRounds,
-                        true
-                    )
-                )
-                Toast.makeText(this.requireContext(), getString(R.string.saved), Toast.LENGTH_LONG)
-                    .show()
-                spinnerRefresh()
-            }
+            settingsViewModel?.createNewTimerError()
 
         }
 
         binding.delete.setOnClickListener {
-            if (settingsViewModel?.isDeleatableNow == false) {
-                userDao.delete(settingsViewModel?.currentProfile!!)
-                Toast.makeText(
-                    this.requireContext(),
-                    getString(R.string.deleted),
-                    Toast.LENGTH_LONG
-                ).show()
-                spinnerRefresh()
-            } else {
-                Toast.makeText(
-                    this.requireContext(),
-                    getString(R.string.youCantDeleteThis),
-                    Toast.LENGTH_LONG
+            settingsViewModel?.deleteTimer()
 
-
-                ).show()
-            }
         }
 
+        return binding.root
 
-        return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun keyBoardCloser(view: View) {
+        val keyBoardCloser =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+        keyBoardCloser?.hideSoftInputFromWindow(view.windowToken, 0)
+
+    }
+
+    private fun spinnerRefresh() {
+
+        binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                settingsViewModel?.onItemSelectedMethod(position)
+            }
+
+        }
+
+        var customSpinnerAdapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            settingsViewModel?.spinnerRefresh() ?: emptyList()
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinner.adapter = adapter
+        }
     }
 }
