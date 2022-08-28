@@ -19,6 +19,11 @@
     <color name="colorGradientBlueStart">#17EAD9</color>
     <color name="colorGradientBlueStop">#6078EA</color>
     <color name="RED">#F54EA2</color>
+
     <color name="backGround">#464646</color>
+    <color name="bg2Dark">#302F2F</color>
+    <color name="primary50Transparent">#8CF59B59</color>
+    <color name="primary">#F59B59</color>
+
 
 </resources>

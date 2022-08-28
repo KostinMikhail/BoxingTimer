@@ -7,7 +7,7 @@
     android:background="@color/backGround"
     tools:context=".ui.calc.CalcFragment">
 
-    <TextView
+  <!--  <TextView
         android:id="@+id/text_slideshow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,17 +21,52 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.232" />
+        app:layout_constraintVertical_bias="0.232" />-->
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/sexTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="@string/sex"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="16dp"
         android:textSize="21sp"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/sexButtonMale"
+        android:layout_width="163dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/Male"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sexTV"
+        android:background="@drawable/btn_sex_male" />
+
+    <Button
+        android:id="@+id/sexButtonFemale"
+        android:layout_width="163dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="2dp"
+        android:text="@string/Female"
+        app:layout_constraintLeft_toRightOf="@+id/sexButtonMale"
+        app:layout_constraintTop_toBottomOf="@id/sexTV"
+        android:background="@drawable/btn_sex_female" />
+
+    <TextView
+        android:id="@+id/heightTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/height"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:textSize="21sp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sexButtonMale" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -42,6 +42,10 @@
     <string name="profileName">название режима</string>
     <string name="create">создать</string>
     <string name="delete">удалить</string>
+    <string name="Male">мужской</string>
+    <string name="Female">женский</string>
+    <string name="sex">Пол</string>
+    <string name="height">Рост</string>
 
 
 </resources>
