@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:insetLeft="0dp"
+    android:insetTop="5dp"
+    android:insetRight="5dp"
+    android:insetBottom="5dp">
+    <ripple android:color="?attr/colorControlHighlight">
+        <item>
+            <shape
+                android:shape="rectangle"
+                android:tint="@color/primary50Transparent">
+                <corners
+                    android:topLeftRadius="0dp"
+                    android:topRightRadius="10dp"
+                    android:bottomLeftRadius="0dp"
+                    android:bottomRightRadius="10dp" />
+                <solid android:color="@color/primary" />
+
+            </shape>
+        </item>
+    </ripple>
+</inset>
