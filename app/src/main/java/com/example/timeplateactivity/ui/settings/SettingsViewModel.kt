@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.room.Room
-import com.example.boxingtimer.model.profile
+
 import com.example.timeplateactivity.R
 import com.example.timeplateactivity.data.repository.AppDatabase
 import com.example.timeplateactivity.data.repository.Profile

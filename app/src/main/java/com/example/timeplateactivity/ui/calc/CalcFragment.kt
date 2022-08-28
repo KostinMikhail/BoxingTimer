@@ -28,6 +28,9 @@ class CalcFragment : Fragment() {
             ViewModelProvider(this).get(CalcViewModel::class.java)
 
         _binding = FragmentCalcBinding.inflate(inflater, container, false)
+with (binding){
+    spinner.getBackground().setColorFilter(resources)
+}
 
         //       binding.sexButtonMale.background.setTint(R.color.primary50Transparent)
 
