@@ -371,6 +371,7 @@ calc
 //todo сделать калькулятор
 ***************************
 tips:
+ctrl+k = commit
 ctrl+shift+k = push
 observe = подписка    settingsViewModel.error.Observe(viewLifecuycleOwner){
 toast.maketext
@@ -383,6 +384,7 @@ shift+F6 = переименование сразу во всём проекте
 ctrl+p = справка, что запихнуть в скобки
 }
 ***************************
+
 вопросы:
 1) не меняется цвет кнопки
 2) не совпадают размеры дизайна с экраном

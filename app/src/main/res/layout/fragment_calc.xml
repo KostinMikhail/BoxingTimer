@@ -7,22 +7,6 @@
     android:background="@color/backGround"
     tools:context=".ui.calc.CalcFragment">
 
-  <!--  <TextView
-        android:id="@+id/text_slideshow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.232" />-->
-
     <TextView
         android:id="@+id/sexTV"
         android:layout_width="wrap_content"
@@ -36,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/sexButtonMale"
+        android:id="@+id/sexBtnMale"
         android:layout_width="163dp"
         android:layout_height="39dp"
         android:layout_marginStart="16dp"
@@ -47,13 +31,13 @@
         android:background="@drawable/btn_sex_male" />
 
     <Button
-        android:id="@+id/sexButtonFemale"
+        android:id="@+id/sexBtnFemale"
         android:layout_width="163dp"
         android:layout_height="39dp"
         android:layout_marginTop="12dp"
         android:layout_marginStart="2dp"
         android:text="@string/Female"
-        app:layout_constraintLeft_toRightOf="@+id/sexButtonMale"
+        app:layout_constraintLeft_toRightOf="@+id/sexBtnMale"
         app:layout_constraintTop_toBottomOf="@id/sexTV"
         android:background="@drawable/btn_sex_female" />
 
@@ -67,6 +51,101 @@
         android:textSize="21sp"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sexButtonMale" />
+        app:layout_constraintTop_toBottomOf="@id/sexBtnMale" />
+
+  <SeekBar
+      android:id="@+id/heightSB"
+      android:layout_width="328dp"
+      android:layout_marginTop="68dp"
+      android:layout_height="5dp"
+      android:layout_marginStart="16dp"
+      tools:layout_editor_absoluteX="130dp"
+      tools:layout_editor_absoluteY="195dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/heightTV"
+      />
+
+  <TextView
+      android:id="@+id/ageTV"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/age"
+      android:layout_marginTop="20dp"
+      android:layout_marginStart="16dp"
+      android:textSize="21sp"
+      android:textColor="@color/white"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/heightSB" />
+
+  <SeekBar
+      android:id="@+id/ageSB"
+      android:layout_width="328dp"
+      android:layout_marginTop="26dp"
+      android:layout_height="5dp"
+      android:layout_marginStart="16dp"
+      tools:layout_editor_absoluteX="130dp"
+      tools:layout_editor_absoluteY="195dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/ageTV"
+      />
+
+  <TextView
+      android:id="@+id/weightTV"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/weight"
+      android:layout_marginTop="30dp"
+      android:layout_marginStart="16dp"
+      android:textSize="21sp"
+      android:textColor="@color/white"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/ageSB" />
+
+  <SeekBar
+      android:id="@+id/weightSB"
+      android:layout_width="328dp"
+      android:layout_marginTop="26dp"
+      android:layout_height="5dp"
+      android:layout_marginStart="16dp"
+      tools:layout_editor_absoluteX="130dp"
+      tools:layout_editor_absoluteY="195dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/weightTV"
+      />
+
+  <TextView
+      android:id="@+id/physicalActivityTV"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/physicalActivity"
+      android:layout_marginTop="16dp"
+      android:layout_marginStart="16dp"
+      android:textSize="21sp"
+      android:textColor="@color/white"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/weightSB" />
+
+  <Spinner
+      android:id="@+id/spinner"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      app:layout_constraintHorizontal_bias="0.669"
+      app:layout_constraintLeft_toRightOf="@id/physicalActivityTV"
+      app:layout_constraintTop_toBottomOf="@+id/weightSB"
+      tools:layout_editor_absoluteX="58dp"
+      tools:layout_editor_absoluteY="44dp" />
+
+  <Button
+      android:id="@+id/calculate"
+      android:layout_width="352dp"
+      android:layout_height="76dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:layout_margin="20dp"
+      android:text="@string/calculate"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:background="@drawable/btn_calculate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
