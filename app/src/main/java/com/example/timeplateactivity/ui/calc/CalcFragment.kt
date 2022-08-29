@@ -29,7 +29,9 @@ class CalcFragment : Fragment() {
 
         _binding = FragmentCalcBinding.inflate(inflater, container, false)
 with (binding){
-    spinner.getBackground().setColorFilter(resources)
+//    spinner.getBackground().setColorFilter(resources)
+
+
 }
 
         //       binding.sexButtonMale.background.setTint(R.color.primary50Transparent)
