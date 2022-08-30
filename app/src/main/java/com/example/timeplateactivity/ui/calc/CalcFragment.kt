@@ -16,6 +16,7 @@ class CalcFragment : Fragment() {
     private var _binding: FragmentCalcBinding? = null
 
 
+
     private val binding get() = _binding!!
 
     @SuppressLint("ResourceAsColor")

@@ -19,24 +19,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sexBtnMale"
-        android:layout_width="163dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="16dp"
+        android:textColor="@color/white"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="2dp"
         android:text="@string/Male"
+        app:layout_constraintRight_toLeftOf="@+id/sexBtnFemale"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sexBtnFemale"
         app:layout_constraintTop_toBottomOf="@+id/sexTV"
         android:background="@drawable/btn_sex_male" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sexBtnFemale"
-        android:layout_width="163dp"
-        android:layout_height="39dp"
+        android:textColor="@color/white"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginStart="2dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/Female"
+        app:layout_constraintStart_toEndOf="@id/sexBtnMale"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/sexBtnMale"
         app:layout_constraintTop_toBottomOf="@id/sexTV"
         android:background="@drawable/btn_sex_female" />
@@ -55,13 +63,19 @@
 
   <SeekBar
       android:id="@+id/heightSB"
-      android:layout_width="328dp"
-      android:layout_marginTop="68dp"
-      android:layout_height="5dp"
+      android:layout_width="0dp"
+      android:layout_marginTop="26dp"
+      android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      android:thumbTint="@color/primary"
+      android:progressTint="@color/primary"
+      android:progressBackgroundTint="@color/primary50Transparent"
+      android:progress = "50"
       tools:layout_editor_absoluteX="130dp"
       tools:layout_editor_absoluteY="195dp"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/heightTV"
       />
 
@@ -79,13 +93,19 @@
 
   <SeekBar
       android:id="@+id/ageSB"
-      android:layout_width="328dp"
+      android:layout_width="0dp"
       android:layout_marginTop="26dp"
-      android:layout_height="5dp"
+      android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      android:thumbTint="@color/primary"
+      android:progressTint="@color/primary"
+      android:progressBackgroundTint="@color/primary50Transparent"
+      android:progress = "50"
       tools:layout_editor_absoluteX="130dp"
       tools:layout_editor_absoluteY="195dp"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/ageTV"
       />
 
@@ -103,13 +123,19 @@
 
   <SeekBar
       android:id="@+id/weightSB"
-      android:layout_width="328dp"
+      android:layout_width="0dp"
       android:layout_marginTop="26dp"
-      android:layout_height="5dp"
+      android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      android:thumbTint="@color/primary"
+      android:progressTint="@color/primary"
+      android:progressBackgroundTint="@color/primary50Transparent"
+      android:progress = "50"
       tools:layout_editor_absoluteX="130dp"
       tools:layout_editor_absoluteY="195dp"
       app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/weightTV"
       />
 
@@ -136,16 +162,18 @@
       tools:layout_editor_absoluteX="58dp"
       tools:layout_editor_absoluteY="44dp" />
 
-  <Button
+  <androidx.appcompat.widget.AppCompatButton
       android:id="@+id/calculate"
-      android:layout_width="352dp"
+      android:layout_width="0dp"
       android:layout_height="76dp"
       android:layout_marginStart="16dp"
-      android:layout_marginTop="16dp"
-      android:layout_margin="20dp"
+      android:layout_marginBottom="20dp"
+      android:layout_marginEnd="16dp"
       android:text="@string/calculate"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:textColor="@color/white"
       android:background="@drawable/btn_calculate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
