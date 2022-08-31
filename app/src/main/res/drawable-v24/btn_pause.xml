@@ -4,31 +4,21 @@
 <inset xmlns:android="http://schemas.android.com/apk/res/android"
     android:insetLeft="5dp"
     android:insetTop="5dp"
-    android:insetRight="5dp"
+    android:insetRight="0dp"
     android:insetBottom="5dp">
     <ripple android:color="?attr/colorControlHighlight">
-
         <item>
-
             <shape
                 android:shape="rectangle"
-                android:tint="@color/primary50Transparent"
-
-                >
+                android:tint="@color/primary">
                 <corners
                     android:topLeftRadius="10dp"
-                    android:topRightRadius="10dp"
+                    android:topRightRadius="0dp"
                     android:bottomLeftRadius="10dp"
-                    android:bottomRightRadius="10dp" />
+                    android:bottomRightRadius="0dp" />
                 <solid android:color="@color/primary" />
 
             </shape>
-
         </item>
-
-
     </ripple>
-
 </inset>
-
-

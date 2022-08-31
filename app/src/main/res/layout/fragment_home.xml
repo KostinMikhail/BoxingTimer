@@ -8,58 +8,6 @@
     android:background="@color/timerBG">
 
 
-    <Button
-        android:id="@+id/delete"
-        android:layout_width="245dp"
-        android:layout_height="43dp"
-        android:text="delete"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.978"
-
-        />
-
-    <Button
-        android:id="@+id/btnPause"
-        android:layout_width="167dp"
-        android:layout_height="43dp"
-        android:text="@string/stop"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/text_home"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.573" />
-
-    <Button
-        android:id="@+id/create"
-        android:layout_width="245dp"
-        android:layout_height="43dp"
-        android:text="create"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.915" />
-
-    <Button
-        android:id="@+id/btnResume"
-        android:layout_width="167dp"
-        android:layout_height="44dp"
-        android:text="@string/resume"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/text_home"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.814" />
-
     <TextView
         android:id="@+id/text_home"
         android:layout_width="match_parent"
@@ -103,17 +51,7 @@
         tools:layout_editor_absoluteX="58dp"
         tools:layout_editor_absoluteY="44dp" />
 
-    <Button
-        android:id="@+id/btnStart"
-        android:layout_width="166dp"
-        android:layout_height="43dp"
-        android:text="@string/start"
-        app:layout_constraintBottom_toTopOf="@+id/text_home"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
 
-        app:layout_constraintVertical_bias="0.331" />
 
     <TextView
         android:id="@+id/amountOfRounds"
@@ -129,66 +67,57 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
-    <EditText
-        android:id="@+id/btnRoundTime"
-        android:layout_width="243dp"
-        android:layout_height="55dp"
-        android:ems="10"
-        android:hint="round time"
-        android:inputType="number"
-        android:maxLength="1"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnStart"
+        android:layout_width="0dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="16dp"
+        android:textAllCaps="false"
+        android:text="@string/start"
+        android:background="@drawable/btn_start"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.579" />
-
-
-    <EditText
-        android:id="@+id/btnRestTime"
-        android:layout_width="243dp"
-        android:layout_height="61dp"
-        android:ems="10"
-        android:hint="rest time"
-        android:inputType="number"
-        android:maxLength="1"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.667" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <EditText
-        android:id="@+id/btnRoundAmount"
-        android:layout_width="243dp"
-        android:layout_height="61dp"
-        android:ems="10"
-        android:hint="round amount"
-        android:inputType="number"
-        android:maxLength="1"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.758" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnPause"
+        android:layout_width="0dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="240dp"
 
-    <EditText
-        android:id="@+id/btnProfileName"
-        android:layout_width="243dp"
-        android:layout_height="61dp"
-        android:ems="10"
-        android:hint="profile name"
-        android:inputType="text"
-        android:maxLength="15"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/btn_sex_female"
+        android:text="@string/stop"
+        android:textAllCaps="false"
+        android:textColor="@color/bg2Dark"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/sexBtnFemale"
+        app:layout_constraintRight_toLeftOf="@+id/btnResume"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.849" />
+        app:layout_constraintTop_toBottomOf="@+id/sexTV" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnResume"
+        android:textColor="@color/bg2Dark"
+        android:layout_width="0dp"
+        android:layout_height="76dp"
+
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="2dp"
+        android:text="@string/resume"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:visibility="visible"
+        app:layout_constraintRight_toLeftOf="@+id/btnPause"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnPause"
+        app:layout_constraintTop_toBottomOf="@+id/sexTV"
+        android:background="@drawable/btn_sex_male" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

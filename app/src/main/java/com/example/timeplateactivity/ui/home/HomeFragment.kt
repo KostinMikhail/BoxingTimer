@@ -99,7 +99,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             textView.text = it
 
         }
-        root.setBackgroundResource(R.drawable.blue_gradient)
+
 
         val db = Room.databaseBuilder(
             this.requireContext(),
@@ -149,47 +149,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
         spinnerRefresh()
 
-    /*    binding.nmbr.setOnClickListener {
-            roundTimeString = binding.nmbr.text.toString()
-            val roundTimeString1: Long = roundTimeString!!.toLong()
-            roundTime = roundTimeString1 * 1000
-        }
 
-        binding.nmbr2.setOnClickListener {
-            restTimeString = binding.nmbr2.text.toString()
-            val restTimeString1: Long = restTimeString!!.toLong()
-            restTime = restTimeString1 * 1000
-
-        }
-        binding.nmbr3.setOnClickListener {
-            roundAmountString = binding.nmbr3.text.toString()
-            val roundAmountString1: Int = roundAmountString!!.toInt()
-            makeRounds = roundAmountString1
-        }
-
-        binding.nmbr4.setOnClickListener {
-            profileName = binding.nmbr4.text.toString()
-        }
-*/
-        binding.create.setOnClickListener {
-            userDao.insertAll(Profile(0, profileName, roundTime, restTime, makeRounds, true))
-            Toast.makeText(this.requireContext(), "saved", LENGTH_LONG).show()
-            spinnerRefresh()
-        }
-        binding.delete.setOnClickListener {
-            if (isDeleatableNow) {
-                userDao.delete(currentProfile!!)
-                Toast.makeText(this.requireContext(), getString(R.string.deleted), LENGTH_LONG)
-                    .show()
-                spinnerRefresh()
-            } else {
-                Toast.makeText(
-                    this.requireContext(),
-                    getString(R.string.youCantDeleteThis),
-                    LENGTH_LONG
-                ).show()
-            }
-        }
 
         fun cancelTimer() {
 
@@ -249,14 +209,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val currentRound = setRoundsAmount
         binding.amountOfRounds.text = getString(R.string.showRound) + currentRound
 
-        val spannable = SpannableStringBuilder(getString(R.string.secondsRemaining))
-        spannable.setSpan(
-            ForegroundColorSpan(ContextCompat.getColor(this.requireContext(), R.color.yellow)),
-            0,
-            18,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-        spannable.toString()
+
 
 
         timer = object : CountDownTimer(roundTime, tick) {
@@ -286,7 +239,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 } else {
                     binding.textHome.setText(getString(R.string.done))
-                    binding.root.setBackgroundResource(R.drawable.green_gradient)
+
 
                     setRoundsAmount1 = 1
 //                    binding.amountOfRounds.setText(getString(R.string.startAgain))
@@ -386,7 +339,8 @@ ctrl+p = справка, что запихнуть в скобки
 ***************************
 
 вопросы:
-1)
+1) заменить на кнопке старт надпись на иконку
+отрисовал для неё новый drawable. с иконкой плей посередине? как саму иконку добавить в дровабл? (в ресурсах она есть уже у меня)
 
 14) приложение крашится, когда запускаю таймер и перехожу на новый фрагмент
 ***************************
