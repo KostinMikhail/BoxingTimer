@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.HomeFragment"
+    android:background="@color/timerBG">
 
 
     <Button
@@ -79,7 +80,7 @@
         android:layout_width="71dp"
         android:layout_height="59dp"
         android:text="@string/profile"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/spinner"
         tools:ignore="MissingConstraints"

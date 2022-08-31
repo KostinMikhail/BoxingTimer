@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backGround"
+    android:background="@color/calcBG"
     tools:context=".ui.calc.CalcFragment">
 
     <TextView
@@ -21,13 +21,16 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sexBtnMale"
-        android:textColor="@color/white"
+        android:textColor="@color/bg2Dark"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="2dp"
         android:text="@string/Male"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:textSize="18sp"
         app:layout_constraintRight_toLeftOf="@+id/sexBtnFemale"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/sexBtnFemale"
@@ -36,13 +39,16 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sexBtnFemale"
-        android:textColor="@color/white"
+        android:textColor="@color/bg2Dark"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginStart="2dp"
         android:layout_marginEnd="16dp"
         android:text="@string/Female"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@id/sexBtnMale"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/sexBtnMale"
@@ -151,29 +157,33 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/weightSB" />
 
-  <Spinner
-      android:id="@+id/spinner"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      app:layout_constraintHorizontal_bias="0.669"
-      app:layout_constraintLeft_toRightOf="@id/physicalActivityTV"
-      app:layout_constraintTop_toBottomOf="@+id/weightSB"
-      tools:layout_editor_absoluteX="58dp"
-      tools:layout_editor_absoluteY="44dp" />
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintHorizontal_bias="0.669"
+        app:layout_constraintLeft_toRightOf="@id/physicalActivityTV"
+        app:layout_constraintTop_toBottomOf="@+id/weightSB"
+        tools:layout_editor_absoluteX="58dp"
+        tools:layout_editor_absoluteY="44dp"
+        android:backgroundTint="@color/white" />
 
-  <androidx.appcompat.widget.AppCompatButton
-      android:id="@+id/calculate"
-      android:layout_width="0dp"
-      android:layout_height="76dp"
-      android:layout_marginStart="16dp"
-      android:layout_marginBottom="20dp"
-      android:layout_marginEnd="16dp"
-      android:text="@string/calculate"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      android:textColor="@color/white"
-      android:background="@drawable/btn_calculate" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/calculate"
+        android:layout_width="0dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/calculate"
+        android:textColor="@color/bg2Dark"
+        android:textStyle="bold"
+        android:textSize="27sp"
+        android:textAllCaps="false"
+        android:background="@drawable/btn_calculate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,6 +24,8 @@
     <color name="bg2Dark">#302F2F</color>
     <color name="primary50Transparent">#8CF59B59</color>
     <color name="primary">#F59B59</color>
+    <color name="calcBG">#302e2f</color>
+    <color name="timerBG">#141414</color>
 
 
 </resources>

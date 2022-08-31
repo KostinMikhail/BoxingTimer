@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">timeplate activity</string>
+    <string name="app_name">Боксёрский таймер</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -7,43 +7,43 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">timer</string>
-    <string name="menu_gallery">settings</string>
-    <string name="menu_slideshow">nutrition calculator</string>
+    <string name="timer">Таймер</string>
+    <string name="settings">Настройки</string>
+    <string name="nutrition_calc">Калькулятор калорий</string>
 
 
     <string name="test">ViewBindingSample</string>
-    <string name="noName">не заполнено название</string>
-    <string name="noRoundAmount">не указанно количество раундов</string>
-    <string name="noRestTime">не указанно время отдыха</string>
-    <string name="noRoundTime">не указанно время раунда</string>
+    <string name="noName">Не заполнено название</string>
+    <string name="noRoundAmount">Не указанно количество раундов</string>
+    <string name="noRestTime">Не указанно время отдыха</string>
+    <string name="noRoundTime">Не указанно время раунда</string>
 
-    <string name="saved">сохранено</string>
-    <string name="deleted">удалено</string>
-    <string name="youCantDeleteThis">вы не можете удалить этот режим</string>
-    <string name="secondsRemaining">\"секунд осталось: \"</string>
+    <string name="saved">Сохранено</string>
+    <string name="deleted">Удалено</string>
+    <string name="youCantDeleteThis">Вы не можете удалить этот режим</string>
+    <string name="secondsRemaining">\"Секунд осталось: \"</string>
 
-    <string name="start">старт</string>
-    <string name="profile">режим:</string>
-    <string name="resume">продолжить</string>
-    <string name="stop">стоп</string>
-    <string name="done">конец тренировки</string>
-    <string name="startAgain">начать заного</string>
-    <string name="rest">отдых</string>
-    <string name="resting">"отдых: "</string>
-    <string name="firstRound">первый раунд</string>
-    <string name="getReady">приготовьтесь</string>
-    <string name="secondRemaining">"секунд осталось: "</string>
-    <string name="showRound">"раунд "</string>
-    <string name="restart">рестарт</string>
-    <string name="roundTime">время на раунд</string>
-    <string name="restTime">время на отдых</string>
-    <string name="roundAmount">количество раундов</string>
-    <string name="profileName">название режима</string>
-    <string name="create">создать</string>
-    <string name="delete">удалить</string>
-    <string name="Male">мужской</string>
-    <string name="Female">женский</string>
+    <string name="start">Старт</string>
+    <string name="profile">Режим:</string>
+    <string name="resume">Продолжить</string>
+    <string name="stop">Стоп</string>
+    <string name="done">Конец тренировки</string>
+    <string name="startAgain">Начать заного</string>
+    <string name="rest">Отдых</string>
+    <string name="resting">"Отдых: "</string>
+    <string name="firstRound">Первый раунд</string>
+    <string name="getReady">Приготовьтесь</string>
+    <string name="secondRemaining">"Секунд осталось: "</string>
+    <string name="showRound">"Раунд "</string>
+    <string name="restart">Рестарт</string>
+    <string name="roundTime">Время на раунд</string>
+    <string name="restTime">Время на отдых</string>
+    <string name="roundAmount">Количество раундов</string>
+    <string name="profileName">Название режима</string>
+    <string name="create">Создать</string>
+    <string name="delete">Удалить</string>
+    <string name="Male">Мужской</string>
+    <string name="Female">Женский</string>
     <string name="sex">Пол</string>
     <string name="height">Рост</string>
     <string name="age">Возраст</string>
