@@ -41,12 +41,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     val tick: Long = 1000
     var setRoundsAmount1: Int = 1
     var makeRounds: Int = 0
-    var beforeTime: Long = 5
-
-    var roundTimeString: String? = null
-    var restTimeString: String? = null
-    var roundAmountString: String? = null
-    var profileName: String? = null
 
     var currentRoundTime: Long? = null
     var currentRestTime: Long? = null
@@ -55,6 +49,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     var currentProfile: Profile? = null
 
     var isDeleatableNow: Boolean = false
+    var pauseBtnPushed: Boolean = true
 
 
     private fun playSound() {
@@ -82,24 +77,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        val textView = binding.textHome  //было  val textView : TextView = binding.textHome
+        val textView = binding.timeTV
 
-        val spannable = SpannableStringBuilder(getString(R.string.secondsRemaining))
-        spannable.setSpan(
-            ForegroundColorSpan(ContextCompat.getColor(this.requireContext(), R.color.yellow)),
-            0,
-            7,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-//        spannable.setSpan(RelativeSizeSpan(2f), 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-//        binding.span.setText("hey" + spannable)
 
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
 
         }
-
 
         val db = Room.databaseBuilder(
             this.requireContext(),
@@ -115,8 +100,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             for (list in profiles) {
                 profilesTitles.add(list.profileName)
             }
-
-
 
             binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -144,12 +127,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 profilesTitles
             ).also { adapter ->
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
                 binding.spinner.adapter = adapter
             }
         }
         spinnerRefresh()
-
-
 
         fun cancelTimer() {
 
@@ -157,20 +139,23 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         binding.btnStart.setOnClickListener {
-            //  beforeTimer(beforeTime, tick)                                                               //HERE NEW
-            cancelTimer()
+
+            //cancelTimer()
             roundTimer(roundTime, tick, setRoundsAmount1)
             timerRunning = true
+            binding.btnStart.isVisible = false
             binding.btnPause.isVisible = true
+            binding.btnStop.isVisible = true
             playSound()
 
             if (timerRunning) {
                 binding.btnStart.setOnClickListener {
-                    //    beforeTimer(beforeTime, tick)                                                       //HERE NEW
+
                     cancelTimer()
                     roundTimer(roundTime, tick, 1)
+                    binding.btnStart.isVisible = false
                     binding.btnPause.isVisible = true
-                    binding.btnResume.isVisible = false
+                    binding.btnStop.isVisible = true
                     playSound()
                 }
 
@@ -178,22 +163,46 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             }
 
-            val amountOfRounds: TextView = binding.amountOfRounds
-            amountOfRounds.text = getString(R.string.showRound) + setRoundsAmount1
-        }
-        binding.btnPause.setOnClickListener {
-            cancelTimer()
-            binding.btnStart.setText(getString(R.string.start))
-            binding.btnResume.isVisible = true
+            val amountOfRounds: TextView = binding.roundTV
+            amountOfRounds.text =
+                getString(R.string.showRound) + setRoundsAmount1 + "/" + makeRounds
+            val roundString = amountOfRounds.toString()
+
+
         }
 
-        binding.btnResume.setOnClickListener {
-            if (timerOnRest) {
-                resumeRestTimer()
-            } else {
+//        val spannable = SpannableStringBuilder(getString(roundString))
+//        spannable.setSpan(
+//            ForegroundColorSpan(ContextCompat.getColor(this.requireContext(), R.color.yellow)),
+//            0,
+//            7,
+//            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+//        )
+
+        binding.btnPause.setOnClickListener {
+
+            if (pauseBtnPushed) {
                 cancelTimer()
-                resumeTimer()
+                pauseBtnPushed = false
+                binding.btnPause.setText(R.string.resume)
+            } else {
+                if (timerOnRest) {
+                    resumeRestTimer()
+                    pauseBtnPushed = true
+                    binding.btnPause.setText(R.string.pause)
+                } else {
+                    cancelTimer()
+                    resumeTimer()
+                    pauseBtnPushed = true
+                    binding.btnPause.setText(R.string.pause)
+                }
             }
+        }
+        binding.btnStop.setOnClickListener {
+            cancelTimer()
+            binding.btnStart.isVisible = true
+            binding.btnStop.isVisible = false
+            binding.btnPause.isVisible = false
         }
 
         return root
@@ -207,7 +216,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     fun roundTimer(roundTime: Long, tick: Long, setRoundsAmount: Int) {
 
         val currentRound = setRoundsAmount
-        binding.amountOfRounds.text = getString(R.string.showRound) + currentRound
+        binding.roundTV.text = getString(R.string.showRound) + currentRound
 
 
 
@@ -225,26 +234,25 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 
 
-                binding.textHome.setText(getString(R.string.secondRemaining) + a)
+                binding.timeTV.setText(a)
 
-                //             binding.textHome.setTextColor(rgb(255, 255, 0))
+
             }
 
             override fun onFinish() {
-                binding.amountOfRounds.text = " "
+                binding.roundTV.text = " "
 
                 if (currentRound < makeRounds) {
                     setRoundsAmount1++
                     restTimer(restTime, tick)
 
                 } else {
-                    binding.textHome.setText(getString(R.string.done))
-
-
+                    binding.timeTV.setText(" ")
                     setRoundsAmount1 = 1
-//                    binding.amountOfRounds.setText(getString(R.string.startAgain))
+                    binding.btnStart.isVisible = true
                     binding.btnPause.isVisible = false
-                    binding.btnResume.isVisible = false
+                    binding.btnStop.isVisible = false
+
                 }
             }
         }.start()
@@ -253,7 +261,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     fun restTimer(restTime: Long, tick: Long) {
 
         var currentRound = setRoundsAmount1
-        binding.amountOfRounds.text = getString(R.string.rest)
+        binding.roundTV.text = getString(R.string.rest)
 
         timer = object : CountDownTimer(restTime, tick) {
 
@@ -261,7 +269,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 val rest = Date(restTime)
                 var formatter = SimpleDateFormat("mm:ss")
                 val b = formatter.format(rest)
-                binding.textHome.setText(getString(R.string.secondRemaining) + b)
+                binding.timeTV.setText(b)
                 currentRestTime = restTime
                 timerOnRest = true
             }
@@ -274,29 +282,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     }
 
-    fun beforeTimer(beforeTime: Long, tick: Long) {
 
-        var currentRound = setRoundsAmount1
-        binding.amountOfRounds.text = getString(R.string.firstRound)
-
-        timer = object : CountDownTimer(beforeTime, tick) {
-
-            override fun onTick(beforeTime: Long) {
-                val before = Date(beforeTime)
-                var formatter = SimpleDateFormat("mm:ss")
-                val c = formatter.format(before)
-                binding.textHome.setText(getString(R.string.getReady) + c)
-//                currentRestTime = beforeTime
-//                timerOnRest = true
-            }
-
-            override fun onFinish() {
-//                timerOnRest = false
-                roundTimer(roundTime, tick, currentRound)
-            }
-        }.start()
-
-    }
 }
 
 /*
@@ -341,6 +327,12 @@ ctrl+p = справка, что запихнуть в скобки
 вопросы:
 1) заменить на кнопке старт надпись на иконку
 отрисовал для неё новый drawable. с иконкой плей посередине? как саму иконку добавить в дровабл? (в ресурсах она есть уже у меня)
+2) в хоум фрагменте сделать цифры больше, но что бы они помещались
+3) там же сделать "раунд" поближе
+4) уменьшить расстояние между кнопками
+5) как реализовать вместо спиннера менюшку снизу, которая выскакивает с выбором режимов? "меню режимов"
+6) span для цифр в textView
+
 
 14) приложение крашится, когда запускаю таймер и перехожу на новый фрагмент
 ***************************

@@ -21,7 +21,7 @@
     <string name="saved">Сохранено</string>
     <string name="deleted">Удалено</string>
     <string name="youCantDeleteThis">Вы не можете удалить этот режим</string>
-    <string name="secondsRemaining">\"Секунд осталось: \"</string>
+<!--    <string name="secondsRemaining">\"Секунд осталось: \"</string>-->
 
     <string name="start">Старт</string>
     <string name="profile">Режим:</string>
@@ -50,6 +50,7 @@
     <string name="weight">Вес</string>
     <string name="physicalActivity">Физическая активность</string>
     <string name="calculate">Рассчитать</string>
+    <string name="pause">Пауза</string>
 
 
 </resources>
