@@ -7,10 +7,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.SeekBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import android.widget.Toast.LENGTH_SHORT
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -42,23 +39,39 @@ class CalcFragment : Fragment() {
         _binding = FragmentCalcBinding.inflate(inflater, container, false)
         with(binding) {
 
+            sexBtnMale.setBackgroundResource(R.drawable.btn_sex_male_on)
+
             sexBtnMale.setOnCheckedChangeListener { compoundButton, isChecked ->
                 if (isChecked) {
-                    sexBtnMale.setBackgroundResource(@drawable / btn_sex_male_on)
+                    sexBtnMale.setBackgroundResource(R.drawable.btn_sex_male_on)
+                    sexBtnMale.isChecked = false
+                    sexBtnFemale.setBackgroundResource(R.drawable.btn_sex_female)
+                    sexBtnFemale.isChecked
+                    calcViewModel.setFemale()
                 } else {
-                    sexBtnMale.setBackgroundResource(@drawable / btn_sex_male)
+                    sexBtnMale.setBackgroundResource(R.drawable.btn_sex_male)
+                    sexBtnMale.isChecked
+                    sexBtnFemale.setBackgroundResource(R.drawable.btn_sex_female_on)
+                    sexBtnFemale.isChecked = false
+                    calcViewModel.setMale()
                 }
 
-                //               sexBtnMale.setBackgroundResource(@color/primary50Transparent)
+
             }
-
-
-//            sexBtnMale.setOnClickListener() {
-//
-//                calcViewModel.setMale()
-//            }
-            sexBtnFemale.setOnClickListener() {
-                calcViewModel.setFemale()
+            sexBtnFemale.setOnCheckedChangeListener { compoundButton, isChecked ->
+                if (isChecked) {
+                    sexBtnFemale.setBackgroundResource(R.drawable.btn_sex_female_on)
+                    sexBtnFemale.isChecked = false
+                    sexBtnMale.setBackgroundResource(R.drawable.btn_sex_male)
+                    sexBtnMale.isChecked
+                    calcViewModel.setMale()
+                } else {
+                    sexBtnFemale.setBackgroundResource(R.drawable.btn_sex_female)
+                    sexBtnFemale.isChecked
+                    sexBtnMale.setBackgroundResource(R.drawable.btn_sex_male_on)
+                    sexBtnMale.isChecked = false
+                    calcViewModel.setFemale()
+                }
             }
 
             heightSB.min = 140
@@ -124,10 +137,45 @@ class CalcFragment : Fragment() {
 
             })
 
-            btnCalculate.setOnClickListener() {
+            val trainingActivity = arrayOf("lightActivity", "middleActivity", "heavyActivity")
 
-                test.setText(result)
+            spinner.adapter = ArrayAdapter<String>(
+                requireContext(),
+                android.R.layout.simple_list_item_1,
+                trainingActivity
+            )
+
+            spinner.onItemSelectedListener = object : AdapterView.OnItemClickListener,
+                AdapterView.OnItemSelectedListener {
+
+                override fun onItemClick(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    test.text = trainingActivity.get(position)
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+
+                }
+
             }
+
+
+//            btnCalculate.setOnClickListener() {
+//                test.text =  calcViewModel.weight!!.toString()
+//            }
 
 
         }
