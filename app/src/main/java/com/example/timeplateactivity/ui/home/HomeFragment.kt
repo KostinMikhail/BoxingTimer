@@ -6,7 +6,9 @@ import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Spannable
+import android.text.SpannableString
 import android.text.SpannableStringBuilder
+
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import android.widget.*
 import android.widget.Toast.LENGTH_LONG
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -68,6 +71,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("ResourceAsColor", "SetTextI18n")
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -79,7 +83,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val root: View = binding.root
         val textView = binding.timeTV
 
-
+        binding.timeTV.setText(roundTime.toString())
 
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
@@ -117,9 +121,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     restTime = currentProfile!!.restTime!!
                     makeRounds = currentProfile!!.roundAmount!!
                     isDeleatableNow = currentProfile!!.isDeletable
+
+                    val startTime = Date(roundTime)
+                    var formatter = SimpleDateFormat("mm:ss")
+                    val c = formatter.format(startTime)
+
+
+                    binding.timeTV.setText(c)
+                    //а тут как к нему применить правила спана из вью модели?
+
                 }
 
             }
+
 
             var customSpinnerAdapter = ArrayAdapter(
                 this.requireContext(),
@@ -143,9 +157,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             //cancelTimer()
             roundTimer(roundTime, tick, setRoundsAmount1)
             timerRunning = true
-            binding.btnStart.isVisible = false
-            binding.btnPause.isVisible = true
-            binding.btnStop.isVisible = true
+            binding.groupStart.isGone = true
+            binding.groupPause.isGone = false
+            binding.groupStop.isGone = false
             playSound()
 
             if (timerRunning) {
@@ -153,9 +167,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                     cancelTimer()
                     roundTimer(roundTime, tick, 1)
-                    binding.btnStart.isVisible = false
-                    binding.btnPause.isVisible = true
-                    binding.btnStop.isVisible = true
+                    binding.groupStart.isGone = true
+                    binding.groupPause.isGone = false
+                    binding.groupStop.isGone = false
                     playSound()
                 }
 
@@ -179,6 +193,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 //            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
 //        )
 
+
         binding.btnPause.setOnClickListener {
 
             if (pauseBtnPushed) {
@@ -200,9 +215,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
         binding.btnStop.setOnClickListener {
             cancelTimer()
-            binding.btnStart.isVisible = true
-            binding.btnStop.isVisible = false
-            binding.btnPause.isVisible = false
+            binding.groupStart.isGone = false
+            binding.groupStop.isGone = true
+            binding.groupPause.isGone = true
         }
 
         return root
@@ -231,9 +246,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 currentRoundTime = roundTime
                 whatRound = currentRound
-
-
-
                 binding.timeTV.setText(a)
 
 
@@ -249,9 +261,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 } else {
                     binding.timeTV.setText(" ")
                     setRoundsAmount1 = 1
-                    binding.btnStart.isVisible = true
-                    binding.btnPause.isVisible = false
-                    binding.btnStop.isVisible = false
+                    binding.groupStart.isGone = true
+                    binding.groupPause.isGone = false
+                    binding.groupStop.isGone = false
 
                 }
             }
@@ -288,20 +300,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 /*
 
 1) не использовать "!!", вместо него проверку через "?", через "let" или элвис-оператор ":?"
-2)+ val и var
-3) перенести в хоум вью модель
-4)+ Private val
-5)+ стринги - в ресурсы переделать
-6)+ расставить скобки (ctrl+alt+l)
-7)+ reformat code (ctrl+k для гита)
-8)+ homefragment 85 строчка удалить texthome: texthome, оставить только биндинг
-9) создать фрагмент launch
-10) ViewPager2 - онбординг (индикатор? нижняя фигня с переходом) sharePreferences start Android
-11) написать калькулятор калорий (кастомный seekBar)
-12)+ вместо setOnClickListner заменить на setOnKeyListner
-13) with (binding)
-14) создать livedata sucsessCreateNewTimer, по аналогии с еррором (settingsViewModl)
-15) создать LiveData во вьюМодели и перенести туда спиннерРефреш
+2) перенести в хоум вью модель
+3) создать фрагмент launch
+4) ViewPager2 - онбординг (индикатор? нижняя фигня с переходом) sharePreferences start Android
+5) написать калькулятор калорий (кастомный seekBar)
+6) with (binding)
+7) создать livedata sucsessCreateNewTimer, по аналогии с еррором (settingsViewModl)
+8) создать LiveData во вьюМодели и перенести туда спиннерРефреш
+***************************
 
 calc
 1) action bar - надпись "калькулятор калорий"
@@ -327,27 +333,15 @@ ctrl+p = справка, что запихнуть в скобки
 
 вопросы:
 
-1) поменял кнопки муж/жен на toggleButton, не понял, как им поменять backGroundColor при условии нажато/нет
-2) как сделать надпись спинера снизу от "физическая активность". нужно что бы нажималось там, где нажимается, а выводилось ниже
+1) как сделать надпись спинера снизу от "физическая активность". нужно что бы нажималось там,
+где нажимается, а выводилось ниже
 
-1) заменить на кнопке старт надпись на иконку -
-отрисовал для неё новый drawable. с иконкой плей посередине? как саму иконку добавить в дровабл? (в ресурсах она есть уже у меня)
-ответ: imageView поверх btn, сделать их в группу и через биндинг обращаться к группе
+2) ImageView не хочет быть поверх Кнопки
 
-2) в хоум фрагменте сделать цифры по всей ширине экрана, но что бы они помещались и не съедались
-ответ: autoSizeText
+3) как реализовать вместо спиннера менюшку снизу, которая выскакивает с выбором режимов? "меню режимов"
+Это в таймере в хоум фрагменте
 
-3) там же сделать "раунд" поближе
-ответ: chain style, почитать
-
-4) уменьшить расстояние между кнопками
-
-
-5) как реализовать вместо спиннера менюшку снизу, которая выскакивает с выбором режимов? "меню режимов"
-
-
-6) span для цифр в textView
-https://stackoverflow.com/questions/3282940/set-color-of-textview-span-in-android
+4) span для цифр меня бесит уже, сукамразь
 
 14) приложение крашится, когда запускаю таймер и перехожу на новый фрагмент
 ***************************

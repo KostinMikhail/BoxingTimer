@@ -27,6 +27,7 @@
     <color name="calcBG">#302e2f</color>
     <color name="timerBG">#141414</color>
     <color name="mainActivityInscription">#A3A8B6</color>
+    <color name="invisible">#00A3A8B6</color>
 
 
 </resources>

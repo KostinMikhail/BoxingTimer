@@ -13,9 +13,9 @@
                 android:tint="@color/primary">
                 <corners
                     android:topLeftRadius="00dp"
-                    android:topRightRadius="10dp"
+                    android:topRightRadius="20dp"
                     android:bottomLeftRadius="00dp"
-                    android:bottomRightRadius="10dp" />
+                    android:bottomRightRadius="20dp" />
                 <solid android:color="@color/primary" />
 
             </shape>
