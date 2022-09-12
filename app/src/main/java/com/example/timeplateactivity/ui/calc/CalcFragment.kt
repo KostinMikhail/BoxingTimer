@@ -137,11 +137,11 @@ class CalcFragment : Fragment() {
 
             })
 
-            val trainingActivity = arrayOf("lightActivity", "middleActivity", "heavyActivity")
+            val trainingActivity = arrayOf("light", "middle", "heavy")
 
             spinner.adapter = ArrayAdapter<String>(
                 requireContext(),
-                android.R.layout.simple_list_item_1,
+                R.layout.spinner_view,
                 trainingActivity
             )
 

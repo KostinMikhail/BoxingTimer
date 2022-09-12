@@ -116,6 +116,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     position: Int,
                     id: Long
                 ) {
+
+
                     currentProfile = profiles.get(position)
                     roundTime = currentProfile!!.roundTime!!
                     restTime = currentProfile!!.restTime!!
@@ -140,7 +142,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 android.R.layout.simple_spinner_item,
                 profilesTitles
             ).also { adapter ->
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                adapter.setDropDownViewResource(R.layout.spinner_view)
+
 
                 binding.spinner.adapter = adapter
             }
@@ -153,6 +156,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         binding.btnStart.setOnClickListener {
+
 
             //cancelTimer()
             roundTimer(roundTime, tick, setRoundsAmount1)
@@ -332,14 +336,17 @@ ctrl+p = справка, что запихнуть в скобки
 ***************************
 
 вопросы:
+0) не создаётся новый фрагмент почему-то
+
 
 1) как сделать надпись спинера снизу от "физическая активность". нужно что бы нажималось там,
-где нажимается, а выводилось ниже
+где нажимается, а выводилось ниже и оставить там только стрелочку спинера сверху
 
 2) ImageView не хочет быть поверх Кнопки
 
 3) как реализовать вместо спиннера менюшку снизу, которая выскакивает с выбором режимов? "меню режимов"
 Это в таймере в хоум фрагменте
+
 
 4) span для цифр меня бесит уже, сукамразь
 
