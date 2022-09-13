@@ -2,8 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/btnCloseActionBar"
+        android:icon="@drawable/ic_baseline_close_24"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:title="@string/navigation_drawer_close"
+
+        />
 </menu>

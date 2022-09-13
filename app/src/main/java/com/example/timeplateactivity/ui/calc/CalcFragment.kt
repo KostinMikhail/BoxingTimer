@@ -3,10 +3,7 @@ package com.example.timeplateactivity.ui.calc
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import android.widget.Toast.LENGTH_SHORT
 import androidx.annotation.RequiresApi
@@ -38,6 +35,16 @@ class CalcFragment : Fragment() {
 
         _binding = FragmentCalcBinding.inflate(inflater, container, false)
         with(binding) {
+
+
+            fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+                super.onCreateOptionsMenu(menu, inflater)
+                R.id.btnCloseHeader
+            }
+//            override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//                menuInflater.inflate(R.menu.main, menu)
+//                return super.onCreateOptionsMenu(menu)
+//            }
 
             sexBtnMale.setBackgroundResource(R.drawable.btn_sex_male_on)
 

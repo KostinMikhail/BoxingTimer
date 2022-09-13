@@ -22,4 +22,5 @@
         android:name="com.example.timeplateactivity.ui.calc.CalcFragment"
         android:label="@string/nutrition_calc"
         tools:layout="@layout/fragment_calc" />
+
 </navigation>
