@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.*
 import android.widget.Toast.LENGTH_LONG
 import androidx.annotation.RequiresApi
+import androidx.compose.ui.graphics.BlendMode.Companion.Color
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -139,13 +140,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             var customSpinnerAdapter = ArrayAdapter(
                 this.requireContext(),
-                android.R.layout.simple_spinner_item,
+                R.layout.spinner_view,
                 profilesTitles
             ).also { adapter ->
                 adapter.setDropDownViewResource(R.layout.spinner_view)
 
 
                 binding.spinner.adapter = adapter
+
             }
         }
         spinnerRefresh()
@@ -189,14 +191,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         }
 
-//        val spannable = SpannableStringBuilder(getString(roundString))
+//        val spannable = SpannableStringBuilder()
 //        spannable.setSpan(
-//            ForegroundColorSpan(ContextCompat.getColor(this.requireContext(), R.color.yellow)),
+//            ForegroundColorSpan(ContextCompat.getColor(this.requireContext(), R.color.primary)),
 //            0,
 //            7,
 //            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
 //        )
-
+// и как его применить теперь к тексту?
 
         binding.btnPause.setOnClickListener {
 
@@ -349,6 +351,8 @@ ctrl+p = справка, что запихнуть в скобки
 
 
 4) span для цифр меня бесит уже, сукамразь
+
+5
 
 14) приложение крашится, когда запускаю таймер и перехожу на новый фрагмент
 ***************************

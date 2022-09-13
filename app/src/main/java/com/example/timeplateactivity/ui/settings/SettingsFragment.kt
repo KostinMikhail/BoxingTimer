@@ -1,5 +1,6 @@
 package com.example.timeplateactivity.ui.settings
 
+import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
 import android.view.KeyEvent
@@ -9,11 +10,14 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.timeplateactivity.R
 import com.example.timeplateactivity.databinding.FragmentSettingsBinding
+import java.util.*
+import kotlin.math.min
 
 
 class SettingsFragment : Fragment() {
@@ -43,7 +47,7 @@ class SettingsFragment : Fragment() {
         }
 
         with(binding) {
-            root.setBackgroundResource(R.drawable.blue_gradient)
+
             settingsViewModel?.errorData?.observe(viewLifecycleOwner) {
                 Toast.makeText(this@SettingsFragment.requireContext(), it, Toast.LENGTH_LONG)
                     .show()
@@ -53,15 +57,31 @@ class SettingsFragment : Fragment() {
 
         spinnerRefresh()
 
-        binding.btnRoundTime.setOnKeyListener { view, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                settingsViewModel?.setRoundTime(binding.btnRoundTime.text.toString())
-                binding.btnRoundTime.text.toString()
-                keyBoardCloser(view)
-                true
-            }
-            false
-
+//        binding.btnRoundTime.setOnKeyListener { view, keyCode, event ->
+//            if (keyCode == KeyEvent.KEYCODE_ENTER) {
+//                settingsViewModel?.setRoundTime(binding.btnRoundTime.text.toString())
+//                binding.btnRoundTime.text.toString()
+//                keyBoardCloser(view)
+//                true
+//            }
+//            false
+//
+//        }
+        binding.btnRoundTime.setOnClickListener {
+            val cal = Calendar.getInstance()
+            val timeSetListener =
+                TimePickerDialog.OnTimeSetListener { view: TimePicker?, hour: Int, minute: Int ->
+                    cal.set(Calendar.HOUR_OF_DAY, hour)
+                    cal.set(Calendar.MINUTE, minute)
+                    settingsViewModel?.setRoundTime(binding.btnRoundTime.text.toString())
+                }
+//            TimePickerDialog(
+//                this@SettingsFragment,
+//                timeSetListener,
+//                cal.get(Calendar.HOUR_OF_DAY),
+//                cal.get(Calendar.MINUTE),
+//                true
+//            ).show()
         }
 
         binding.btnRestTime.setOnKeyListener { view, keyCode, event ->
@@ -142,11 +162,15 @@ class SettingsFragment : Fragment() {
 
         var customSpinnerAdapter = ArrayAdapter(
             requireContext(),
-            android.R.layout.simple_spinner_item,
+            R.layout.spinner_view,
             settingsViewModel?.spinnerRefresh() ?: emptyList()
         ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter.setDropDownViewResource(R.layout.spinner_view)
             binding.spinner.adapter = adapter
         }
+
+
     }
+
+
 }

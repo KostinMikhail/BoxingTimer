@@ -6,11 +6,5 @@
     android:textSize="20sp"
     android:gravity="left"
     android:textColor="@color/primary"
-    android:backgroundTint="@color/black"
-    android:backgroundTintMode="@color/black"
-    android:foregroundTint="@color/black"
-    android:foregroundTintMode="@color/black"
-    android:padding="5dip"
-    app:drawableTintMode="@color/black"
-
-    app:drawableTint="@color/black" />
+    android:background="@color/bg2Dark"
+    android:padding="5dip" />
