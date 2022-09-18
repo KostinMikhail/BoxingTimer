@@ -3,10 +3,15 @@ package com.example.timeplateactivity.ui.calc
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import android.view.*
 import android.widget.*
 import android.widget.Toast.LENGTH_SHORT
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.timeplateactivity.R
@@ -36,15 +41,31 @@ class CalcFragment : Fragment() {
         _binding = FragmentCalcBinding.inflate(inflater, container, false)
         with(binding) {
 
+            physicalActivityTV.setOnClickListener() {
+                spinner.performClick()
+            }
+
+
+//            val s = R.string.physicalActivity.toString()
+//            val physicalActivityText = SpannableStringBuilder(s)
+//            physicalActivityText.setSpan(
+//                RelativeSizeSpan(2f), 11, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+//            )
+//
+//                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.primary)),
+//                0,
+//                2,
+//                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+//
+//            physicalActivityTV.setText(physicalActivityText)
+            physicalActivityTV.setText(R.string.physicalActivity)
+
 
             fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
                 super.onCreateOptionsMenu(menu, inflater)
                 R.id.btnCloseHeader
             }
-//            override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//                menuInflater.inflate(R.menu.main, menu)
-//                return super.onCreateOptionsMenu(menu)
-//            }
+
 
             sexBtnMale.setBackgroundResource(R.drawable.btn_sex_male_on)
 
@@ -161,7 +182,7 @@ class CalcFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    test.text = trainingActivity.get(position)
+
                 }
 
                 override fun onItemSelected(
@@ -178,11 +199,6 @@ class CalcFragment : Fragment() {
                 }
 
             }
-
-
-//            btnCalculate.setOnClickListener() {
-//                test.text =  calcViewModel.weight!!.toString()
-//            }
 
 
         }

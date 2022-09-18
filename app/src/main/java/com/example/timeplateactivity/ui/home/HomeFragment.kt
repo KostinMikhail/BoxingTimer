@@ -27,6 +27,7 @@ import com.example.timeplateactivity.R
 import com.example.timeplateactivity.data.repository.AppDatabase
 import com.example.timeplateactivity.data.repository.Profile
 import com.example.timeplateactivity.databinding.FragmentHomeBinding
+import com.example.timeplateactivity.ui.BottomSheetFragment
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -69,10 +70,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         restTimer(currentRestTime!!, tick)
     }
 
+    fun spannable(text: String): Spannable {
+        val spannable = SpannableStringBuilder(text)
+        spannable.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(this.requireContext(), R.color.primary)),
+            0,
+            2,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        return spannable
+    }
+
+
     @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("ResourceAsColor", "SetTextI18n")
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -82,16 +93,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        val textView = binding.timeTV
-
-        binding.timeTV.setText(roundTime.toString())
-
-
-
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-
-        }
 
         val db = Room.databaseBuilder(
             this.requireContext(),
@@ -100,6 +101,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             .build()
 
         val userDao = db.profileDao()
+
+        val bottomSheetFragment = BottomSheetFragment()
+
 
         fun spinnerRefresh() {
             val profiles: List<Profile> = userDao.getAll()
@@ -132,8 +136,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     val c = formatter.format(startTime)
 
 
-                    binding.timeTV.setText(c)
-                    //а тут как к нему применить правила спана из вью модели?
+                    binding.timeTV.setText(spannable(c))
+
 
                 }
 
@@ -193,31 +197,27 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         }
 
-//        val spannable = SpannableStringBuilder()
-//        spannable.setSpan(
-//            ForegroundColorSpan(ContextCompat.getColor(this.requireContext(), R.color.primary)),
-//            0,
-//            7,
-//            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-//        )
-// и как его применить теперь к тексту?
 
         binding.btnPause.setOnClickListener {
 
             if (pauseBtnPushed) {
                 cancelTimer()
                 pauseBtnPushed = false
-                binding.btnPause.setText(R.string.resume)
+                binding.imgPause.isGone = true
+                binding.imgPlayPause.isGone = false
             } else {
                 if (timerOnRest) {
                     resumeRestTimer()
                     pauseBtnPushed = true
-                    binding.btnPause.setText(R.string.pause)
+                    binding.imgPause.isGone = false
+                    binding.imgPlayPause.isGone = true
                 } else {
                     cancelTimer()
                     resumeTimer()
                     pauseBtnPushed = true
-                    binding.btnPause.setText(R.string.pause)
+                    binding.imgPause.isGone = false
+                    binding.imgPlayPause.isGone = true
+
                 }
             }
         }
@@ -226,6 +226,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             binding.groupStart.isGone = false
             binding.groupStop.isGone = true
             binding.groupPause.isGone = true
+            binding.imgPlayPause.isGone = true
         }
 
         return root
@@ -254,8 +255,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 currentRoundTime = roundTime
                 whatRound = currentRound
-                binding.timeTV.setText(a)
-
+                binding.timeTV.setText(spannable(a))
 
             }
 
@@ -289,10 +289,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 val rest = Date(restTime)
                 var formatter = SimpleDateFormat("mm:ss")
                 val b = formatter.format(rest)
-                binding.timeTV.setText(b)
+                val spannable = SpannableStringBuilder(b)
+                spannable.setSpan(
+                    ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.primary)),
+                    0,
+                    2,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                binding.timeTV.setText(spannable)
                 currentRestTime = restTime
                 timerOnRest = true
             }
+
 
             override fun onFinish() {
                 timerOnRest = false
@@ -303,32 +311,51 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     }
 
+    override fun onStop() {
+        super.onStop()
+    }
+
+    fun test(value: Int, name: String): Unit {
+        return
+    }
 
 }
 
 /*
 вопросы:
-0) не создаётся новый фрагмент почему-то
+
+1) span для треугльничка в текствью (CalcFragment) как сделать его меньще?
 
 
-1) как сделать надпись спинера снизу от "физическая активность". нужно что бы нажималось там,
-где нажимается, а выводилось ниже и оставить там только стрелочку спинера сверху
+1)подогнать размеры под дизайн
+2)посмотреть про функции и классы в котлин, понять базу
+жизненный цикл активити и фрагмента, вызов класса, что вовзращает функция
 
-2) ImageView не хочет быть поверх Кнопки
 
 3) как реализовать вместо спиннера менюшку снизу, которая выскакивает с выбором режимов? "меню режимов"
 Это в таймере в хоум фрагменте
 3.1) по нажатию на spinner (он должен быть TextView, с выводимым режимом, а не спиннер) должна открываться
 менюшка выбора режимов
+Ответ: https://developer.android.com/reference/com/google/android/material/bottomsheet/BottomSheetDialogFragment
+сделать кастомный диалог, сверстать для него xml
 
-4) span для цифр меня бесит уже, сукамразь
 
 5) когда открываю боковую меню - добавил туда крестик. как сделать, что бы он цеплялся к концу этого меню
-как повесить на него "закрытие" этой вьюхи и переход к уже выбранному фрагменту
+как повесить на него "закрытие" этой вьюхи и переход к уже выбранному фрагменту. и где вообще
+редактируется то, что там находится в коде? мне нужно добавить туда textView с названием режима
+что бы он показывал текущий режим
+ответ: гуглить drawer android
+либо создавать новый фрагмент
 
 6) как вытащить градиент (меняющийся фон в таймере) из фигмы?
+ответ: создать две xml с градиентами, создать имджвью и передать их туда
 
 7) как убрать actionBar из фрагмента HomeFragment
+ответ: загуглить, как его убрать с определённой вьюхи
+
+8) как перенести настройки в боковое меню
+ответ: гуглить drawer android
+
 
 14) приложение крашится, когда запускаю таймер и перехожу на новый фрагмент
 ***************************

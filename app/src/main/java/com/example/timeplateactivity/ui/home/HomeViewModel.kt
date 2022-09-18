@@ -16,7 +16,7 @@ import com.example.timeplateactivity.R
 class HomeViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = " "
+        value = "05:00"
     }
     val text: LiveData<String> = _text
 
