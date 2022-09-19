@@ -37,9 +37,11 @@ class MainActivity : AppCompatActivity() {
             userDao.insertAll(Profile(0, "mma", 5000, 2000, 3, true))
             userDao.insertAll(Profile(0, "box", 4000, 2000, 3, true))
             userDao.insertAll(Profile(0, "interval", 3000, 2000, 3, true))
+
         } else {
 
         }
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -57,6 +59,8 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

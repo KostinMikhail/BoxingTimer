@@ -18,6 +18,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="Theme.TransparentSystemBars" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
@@ -26,4 +27,10 @@
     <style name="Theme.TimeplateActivity.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.TimeplateActivity.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+
+    </style>
 </resources>

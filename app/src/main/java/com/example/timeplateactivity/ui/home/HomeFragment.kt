@@ -8,7 +8,6 @@ import android.os.CountDownTimer
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
-
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
@@ -89,6 +88,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -173,6 +173,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             binding.groupPause.isGone = false
             binding.groupStop.isGone = false
             playSound()
+            binding.greenBG.isGone = false
+
+//            if (currentRoundTime  <= 2)
+//                binding.greenBG.isGone = true
+//                binding.yellowBG.isGone = false
+
 
             if (timerRunning) {
                 binding.btnStart.setOnClickListener {
@@ -183,6 +189,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     binding.groupPause.isGone = false
                     binding.groupStop.isGone = false
                     playSound()
+                    binding.greenBG.isGone = false
                 }
 
             } else {
@@ -193,7 +200,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             amountOfRounds.text =
                 getString(R.string.showRound) + setRoundsAmount1 + "/" + makeRounds
             val roundString = amountOfRounds.toString()
-
+            //сделать, что бы раунды показывались всегда через слэш, даже во время отдыха
 
         }
 
@@ -227,6 +234,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             binding.groupStop.isGone = true
             binding.groupPause.isGone = true
             binding.imgPlayPause.isGone = true
+            binding.groupBG.isGone = true
         }
 
         return root
@@ -272,7 +280,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     binding.groupStart.isGone = true
                     binding.groupPause.isGone = false
                     binding.groupStop.isGone = false
-
+                    binding.groupBG.isGone = true
                 }
             }
         }.start()
@@ -305,6 +313,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             override fun onFinish() {
                 timerOnRest = false
                 roundTimer(roundTime, tick, currentRound)
+
             }
         }.start()
 
@@ -326,10 +335,28 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
 1) span для треугльничка в текствью (CalcFragment) как сделать его меньще?
 
+2) к вопросу № 3!  почему мой BottomSheetFragment не видит элементы, которые есть у меня в bottomsheet_fragment?
+не могу к ним обращаться в классе
 
-1)подогнать размеры под дизайн
+3) к вопросу № 4! у меня есть nav_header_main, нужно сделать его биндинг в мэйнактивити и оттуда уже управлять
+его элементами. как это сделать?
+
+4) прописываю условия смены цветов BackGround у таймера. Блоки if else, как ему передать условия
+ текущего значения currentRoundTime? типо если оно меньше 3 - меняешь цвет, если меньше 1 - ещё раз меняешь
+
+5) к вопросу № 7! supportActionBar?.hide() самое нормальное, что нашёл, но он применяется только
+в мэйн активити и ничего не делает
+
+6) почему калькулятор не считает, а выдаёт null?
+как в спиннер в калькуляторе передать string значения, а не перечислять? использовать не arrayAdapter?
+
+
+Задачи:
+
+1)подогнать размеры под дизайн, сделать что бы раунд отображался всегда через / с количеством оставшихся раундов
 2)посмотреть про функции и классы в котлин, понять базу
 жизненный цикл активити и фрагмента, вызов класса, что вовзращает функция
+3
 
 
 3) как реализовать вместо спиннера менюшку снизу, которая выскакивает с выбором режимов? "меню режимов"
@@ -340,15 +367,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 сделать кастомный диалог, сверстать для него xml
 
 
-5) когда открываю боковую меню - добавил туда крестик. как сделать, что бы он цеплялся к концу этого меню
+4) когда открываю боковую меню - добавил туда крестик. как сделать, что бы он цеплялся к концу этого меню
 как повесить на него "закрытие" этой вьюхи и переход к уже выбранному фрагменту. и где вообще
 редактируется то, что там находится в коде? мне нужно добавить туда textView с названием режима
 что бы он показывал текущий режим
 ответ: гуглить drawer android
 либо создавать новый фрагмент
 
-6) как вытащить градиент (меняющийся фон в таймере) из фигмы?
-ответ: создать две xml с градиентами, создать имджвью и передать их туда
 
 7) как убрать actionBar из фрагмента HomeFragment
 ответ: загуглить, как его убрать с определённой вьюхи

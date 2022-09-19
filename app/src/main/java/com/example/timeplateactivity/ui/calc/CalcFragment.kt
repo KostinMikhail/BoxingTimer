@@ -41,6 +41,13 @@ class CalcFragment : Fragment() {
         _binding = FragmentCalcBinding.inflate(inflater, container, false)
         with(binding) {
 
+
+//            btnCalculate.setOnClickListener(){
+//                calcViewModel.calc().toString()
+//                val a : String = calcViewModel.calc().toString()
+//
+//            }
+
             physicalActivityTV.setOnClickListener() {
                 spinner.performClick()
             }

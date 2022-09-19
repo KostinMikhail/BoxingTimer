@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
     android:id="@+id/calcActionBar"
-        android:title="zzzzzzzzzzzzzzz"
+        android:title="why i need this"
         android:icon="@drawable/ic_baseline_close_24"
     app:showAsAction="always"
 

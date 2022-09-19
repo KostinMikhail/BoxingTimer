@@ -5,8 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment"
-    android:background="@color/timerBG">
+    android:background="@color/timerBG"
 
+    >
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:constraint_referenced_ids="greenBG, yellowBG, redBG"
+        android:id="@+id/groupBG"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/greenBG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/green_bg"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/yellowBG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/yellow_bg"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/redBG"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/red_bg"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/profile"
