@@ -1,7 +1,10 @@
 package com.example.timeplateactivity
 
 import android.os.Bundle
+import android.preference.PreferenceActivity
 import android.view.Menu
+import android.widget.ImageButton
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -11,10 +14,12 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import com.example.timeplateactivity.databinding.ActivityMainBinding
 import androidx.room.Room
 import com.example.timeplateactivity.data.repository.AppDatabase
 import com.example.timeplateactivity.data.repository.Profile
+import com.example.timeplateactivity.databinding.NavHeaderMainBinding
 
 
 class MainActivity : AppCompatActivity() {
@@ -52,6 +57,9 @@ class MainActivity : AppCompatActivity() {
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
 
+
+
+
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home, R.id.nav_settings, R.id.nav_calc
@@ -60,7 +68,10 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-
+//        val closeImg = binding.drawerLayout.findViewById<ImageButton>(R.id.btnCloseHeader)
+//        closeImg.setOnClickListener{
+//            Toast.makeText(this,"hello", Toast.LENGTH_LONG).show()
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

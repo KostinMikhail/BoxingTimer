@@ -53,18 +53,7 @@ class CalcFragment : Fragment() {
             }
 
 
-//            val s = R.string.physicalActivity.toString()
-//            val physicalActivityText = SpannableStringBuilder(s)
-//            physicalActivityText.setSpan(
-//                RelativeSizeSpan(2f), 11, 12, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-//            )
-//
-//                ForegroundColorSpan(ContextCompat.getColor(requireContext(), R.color.primary)),
-//                0,
-//                2,
-//                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-//
-//            physicalActivityTV.setText(physicalActivityText)
+
             physicalActivityTV.setText(R.string.physicalActivity)
 
 
@@ -172,7 +161,8 @@ class CalcFragment : Fragment() {
 
             })
 
-            val trainingActivity = arrayOf("light", "middle", "heavy")
+            val trainingActivity =
+                arrayOf(resources.getString(R.string.physicalActivity), "middle", "heavy")
 
             spinner.adapter = ArrayAdapter<String>(
                 requireContext(),

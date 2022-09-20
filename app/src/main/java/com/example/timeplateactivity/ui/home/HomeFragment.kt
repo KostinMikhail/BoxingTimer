@@ -17,11 +17,13 @@ import android.widget.Toast.LENGTH_LONG
 import androidx.annotation.RequiresApi
 import androidx.compose.ui.graphics.BlendMode.Companion.Color
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
+import com.example.timeplateactivity.MainActivity
 import com.example.timeplateactivity.R
 import com.example.timeplateactivity.data.repository.AppDatabase
 import com.example.timeplateactivity.data.repository.Profile
@@ -93,6 +95,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             ViewModelProvider(this).get(HomeViewModel::class.java)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+//        (requireActivity() as MainActivity).supportActionBar?.hide()
 
         val db = Room.databaseBuilder(
             this.requireContext(),
@@ -166,7 +170,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.btnStart.setOnClickListener {
 
 
-            //cancelTimer()
+            cancelTimer()
             roundTimer(roundTime, tick, setRoundsAmount1)
             timerRunning = true
             binding.groupStart.isGone = true
@@ -175,26 +179,24 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             playSound()
             binding.greenBG.isGone = false
 
-//            if (currentRoundTime  <= 2)
-//                binding.greenBG.isGone = true
-//                binding.yellowBG.isGone = false
+//            binding.greenBG.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.yellow_bg, null))
 
 
-            if (timerRunning) {
-                binding.btnStart.setOnClickListener {
-
-                    cancelTimer()
-                    roundTimer(roundTime, tick, 1)
-                    binding.groupStart.isGone = true
-                    binding.groupPause.isGone = false
-                    binding.groupStop.isGone = false
-                    playSound()
-                    binding.greenBG.isGone = false
-                }
-
-            } else {
-
-            }
+//            if (timerRunning) {
+//                binding.btnStart.setOnClickListener {
+//
+//                    cancelTimer()
+//                    roundTimer(roundTime, tick, 1)
+//                    binding.groupStart.isGone = true
+//                    binding.groupPause.isGone = false
+//                    binding.groupStop.isGone = false
+//                    playSound()
+//                    binding.greenBG.isGone = false
+//                }
+//
+//            } else {
+//
+//            }
 
             val amountOfRounds: TextView = binding.roundTV
             amountOfRounds.text =
@@ -264,6 +266,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 currentRoundTime = roundTime
                 whatRound = currentRound
                 binding.timeTV.setText(spannable(a))
+                when {
+                    currentRoundTime!! <= 3 ->
+                        binding.greenBG.setImageDrawable(
+                            ResourcesCompat.getDrawable(
+                                resources,
+                                R.drawable.yellow_bg,
+                                null
+                            )
+                        )
+                }
 
             }
 
@@ -313,7 +325,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             override fun onFinish() {
                 timerOnRest = false
                 roundTimer(roundTime, tick, currentRound)
-
+//TODO кнопки должны меняться на старт
             }
         }.start()
 
@@ -334,18 +346,28 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 вопросы:
 
 1) span для треугльничка в текствью (CalcFragment) как сделать его меньще?
+ответ: лучше сделать новый текствью с нужным размером
 
 2) к вопросу № 3!  почему мой BottomSheetFragment не видит элементы, которые есть у меня в bottomsheet_fragment?
 не могу к ним обращаться в классе
+Ответ: был указан не тот класс, теперь можно обращатсья к этим элементам.
+Подсказка: как вариант передавать информацию между активити через Instanse
+Подсказка: как передать информацию из фрагмента в диалог
 
 3) к вопросу № 4! у меня есть nav_header_main, нужно сделать его биндинг в мэйнактивити и оттуда уже управлять
 его элементами. как это сделать?
+ответ: попробовать https://stackoverflow.com/questions/42220041/how-to-intent-image-button-in-navigation-drawer-header
+Подсказка: попробовать гуглить "управление Header" или Image Button In Navigation Drawer Header
 
 4) прописываю условия смены цветов BackGround у таймера. Блоки if else, как ему передать условия
  текущего значения currentRoundTime? типо если оно меньше 3 - меняешь цвет, если меньше 1 - ещё раз меняешь
+ Ответ: сделать 1 ImgView и просто менять у него ресурс BG, если он не нужен - прописывать ему isGone
+ блок When 267 строчка, разобраться с вьюхами и мб заработает
+
 
 5) к вопросу № 7! supportActionBar?.hide() самое нормальное, что нашёл, но он применяется только
 в мэйн активити и ничего не делает
+Ответ: гуглить
 
 6) почему калькулятор не считает, а выдаёт null?
 как в спиннер в калькуляторе передать string значения, а не перечислять? использовать не arrayAdapter?

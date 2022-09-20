@@ -24,11 +24,11 @@ class CalcViewModel : ViewModel() {
     }
 
     fun calc() {
-        if (isMale) {
-            result = weight!! * 10 + 6.25 * height!! - 5 * age!! + 5 * activity!!
+        result = if (isMale) {
+            weight!! * 10 + 6.25 * height!! - 5 * age!! + 5 * activity!!
 
         } else {
-            result = weight!! * 10 + 6.25 * height!! - 5 * age!! - 161 * activity!!
+            weight!! * 10 + 6.25 * height!! - 5 * age!! - 161 * activity!!
         }
 
     }

@@ -37,9 +37,9 @@ import com.example.timeplateactivity.databinding.SpinnerViewBinding.inflate
 import com.example.timeplateactivity.ui.home.HomeViewModel
 
 
-class BottomSheetFragment : BottomSheetDialogFragment(/*R.layout.bottomsheet_fragment*/) {
+class BottomSheetFragment : BottomSheetDialogFragment() {
 
-    private var _binding: BottomSheetFragment? = null
+    private var _binding: BottomsheetFragmentBinding? = null
 
     private val binding get() = _binding!!
 
@@ -55,15 +55,15 @@ class BottomSheetFragment : BottomSheetDialogFragment(/*R.layout.bottomsheet_fra
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //       _binding = BottomsheetFragmentBinding.inflate(inflater, container, false)
+        _binding = BottomsheetFragmentBinding.inflate(inflater, container, false)
 
 
-        return null
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.logo
 
     }
 
