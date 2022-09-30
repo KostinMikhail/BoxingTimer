@@ -162,7 +162,11 @@ class CalcFragment : Fragment() {
             })
 
             val trainingActivity =
-                arrayOf(resources.getString(R.string.physicalActivity), "middle", "heavy")
+                arrayOf(
+                    resources.getString(R.string.lightActivity),
+                    resources.getString(R.string.middleActivity),
+                    resources.getString(R.string.heavyActivity)
+                )
 
             spinner.adapter = ArrayAdapter<String>(
                 requireContext(),

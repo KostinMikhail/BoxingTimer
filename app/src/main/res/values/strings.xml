@@ -53,7 +53,7 @@
     <string name="pause">Пауза</string>
     <string name="lightActivity">Минимальная</string>
     <string name="middleActivity">Умеренная</string>
-    <string name="havyActivity">Активная</string>
+    <string name="heavyActivity">Активная</string>
 
 
 </resources>
