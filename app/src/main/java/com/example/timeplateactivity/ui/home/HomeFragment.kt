@@ -23,13 +23,14 @@ import com.example.timeplateactivity.R
 import com.example.timeplateactivity.data.repository.AppDatabase
 import com.example.timeplateactivity.data.repository.Profile
 import com.example.timeplateactivity.databinding.FragmentHomeBinding
-import com.example.timeplateactivity.ui.ActionBottom
-import com.example.timeplateactivity.ui.BottomSheetFragment
+import com.example.timeplateactivity.ui.BottomSheet.ActionBottom
+import com.example.timeplateactivity.ui.BottomSheet.BottomSheetFragment
+import com.example.timeplateactivity.ui.BottomSheet.ItemClickListener
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -246,7 +247,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btn.setOnClickListener { openBottomSheet() }
+        binding.profile.setOnClickListener { openBottomSheet() }
     }
 
     fun openBottomSheet() {
@@ -354,10 +355,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         return
     }
 
+    override fun onItemClick(item: String?) {
+
+    }
+
 }
 
 /*
 вопросы:
+1) в bottomsheet_fragment как сделать фон диалога прозрачным?
+
 
 1) span для треугльничка в текствью (CalcFragment) как сделать его меньще?
 ответ: лучше сделать новый текствью с нужным размером
