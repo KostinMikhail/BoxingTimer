@@ -20,6 +20,7 @@ import androidx.room.Room
 import com.example.timeplateactivity.data.repository.AppDatabase
 import com.example.timeplateactivity.data.repository.Profile
 import com.example.timeplateactivity.databinding.NavHeaderMainBinding
+import com.example.timeplateactivity.ui.home.HomeFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -51,7 +52,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.appBarMain.toolbar)
-
+/////////////////////////////////////////////////////////////////////////////////////////////////
+        val fragmentOne = HomeFragment()
+        var tr = supportFragmentManager.beginTransaction()
+//        tr.replace(R.id.drawer_layout, fragmentOne)
+            .commit()
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView

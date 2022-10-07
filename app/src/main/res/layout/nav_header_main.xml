@@ -22,17 +22,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/btnCloseHeader"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="140dp"
-        app:layout_constraintStart_toEndOf="@+id/icon"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/invisible"
-        android:src="@drawable/ic_baseline_close_24"
-        app:tint="@color/backGround" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,28 +6,24 @@ import android.os.Build
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Spannable
-import android.text.SpannableString
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import android.widget.Toast.LENGTH_LONG
 import androidx.annotation.RequiresApi
-import androidx.compose.ui.graphics.BlendMode.Companion.Color
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
-import com.example.timeplateactivity.MainActivity
 import com.example.timeplateactivity.R
 import com.example.timeplateactivity.data.repository.AppDatabase
 import com.example.timeplateactivity.data.repository.Profile
 import com.example.timeplateactivity.databinding.FragmentHomeBinding
+import com.example.timeplateactivity.ui.ActionBottom
 import com.example.timeplateactivity.ui.BottomSheetFragment
 import java.text.SimpleDateFormat
 import java.util.*
@@ -96,7 +92,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        (requireActivity() as MainActivity).supportActionBar?.hide()
 
         val db = Room.databaseBuilder(
             this.requireContext(),
@@ -182,21 +177,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 //            binding.greenBG.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.yellow_bg, null))
 
 
-//            if (timerRunning) {
-//                binding.btnStart.setOnClickListener {
-//
-//                    cancelTimer()
-//                    roundTimer(roundTime, tick, 1)
-//                    binding.groupStart.isGone = true
-//                    binding.groupPause.isGone = false
-//                    binding.groupStop.isGone = false
-//                    playSound()
-//                    binding.greenBG.isGone = false
-//                }
-//
-//            } else {
-//
-//            }
+            if (timerRunning) {
+                binding.btnStart.setOnClickListener {
+
+                    cancelTimer()
+                    roundTimer(roundTime, tick, 1)
+                    binding.groupStart.isGone = true
+                    binding.groupPause.isGone = false
+                    binding.groupStop.isGone = false
+                    playSound()
+                    binding.greenBG.isGone = false
+                }
+
+            } else {
+
+            }
 
             val amountOfRounds: TextView = binding.roundTV
             amountOfRounds.text =
@@ -237,9 +232,28 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             binding.groupPause.isGone = true
             binding.imgPlayPause.isGone = true
             binding.groupBG.isGone = true
+            setRoundsAmount1 = 1
         }
 
+
+
+
+
+
+
         return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.btn.setOnClickListener { openBottomSheet() }
+    }
+
+    fun openBottomSheet() {
+        val addPhotoBottomDialogFragment = ActionBottom.newInstance(this)
+        addPhotoBottomDialogFragment.show(
+            childFragmentManager, ActionBottom.TAG
+        )
     }
 
     override fun onDestroyView() {
@@ -289,9 +303,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 } else {
                     binding.timeTV.setText(" ")
                     setRoundsAmount1 = 1
-                    binding.groupStart.isGone = true
-                    binding.groupPause.isGone = false
-                    binding.groupStop.isGone = false
+                    binding.groupStart.isGone = false
+                    binding.groupPause.isGone = true
+                    binding.groupStop.isGone = true
                     binding.groupBG.isGone = true
                 }
             }

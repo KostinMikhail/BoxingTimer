@@ -59,7 +59,7 @@ class CalcFragment : Fragment() {
 
             fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
                 super.onCreateOptionsMenu(menu, inflater)
-                R.id.btnCloseHeader
+           //     R.id.btnCloseHeader
             }
 
 
