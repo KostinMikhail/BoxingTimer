@@ -364,6 +364,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
 /*
 вопросы:
 1) в bottomsheet_fragment как сделать фон диалога прозрачным?
+2) как в bottomsheet закинуть мой список режимов?
 
 
 1) span для треугльничка в текствью (CalcFragment) как сделать его меньще?

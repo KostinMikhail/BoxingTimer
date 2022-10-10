@@ -29,5 +29,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/icon_light" />
 
+    <ListView
+        android:id="@+id/profilesList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/logo"
+
+        >
+
+    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
