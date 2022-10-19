@@ -40,9 +40,9 @@ class MainActivity : AppCompatActivity() {
         val userDao = db.profileDao()
         val profiles: List<Profile> = userDao.getAll()
         if (profiles.size == 0) {
-            userDao.insertAll(Profile(0, "mma", 5000, 2000, 3, true))
-            userDao.insertAll(Profile(0, "box", 4000, 2000, 3, true))
-            userDao.insertAll(Profile(0, "interval", 3000, 2000, 3, true))
+            userDao.insertAll(Profile(0, "mma", 300000, 60000, 3, true))
+            userDao.insertAll(Profile(0, "box", 180000, 60000, 5, true))
+            userDao.insertAll(Profile(0, "interval", 60000, 20000, 10, true))
 
         } else {
 

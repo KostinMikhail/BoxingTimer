@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/dialog_bg">
+    android:background="@drawable/dialog_bg"
+
+    >
 
 
     <TextView
@@ -29,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/icon_light" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/profilesList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,6 +39,6 @@
 
         >
 
-    </ListView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

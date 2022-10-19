@@ -102,15 +102,14 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
 
         val userDao = db.profileDao()
 
-        val bottomSheetFragment = BottomSheetFragment()
-
-
         fun spinnerRefresh() {
             val profiles: List<Profile> = userDao.getAll()
             val profilesTitles: ArrayList<String?> = arrayListOf()
             for (list in profiles) {
                 profilesTitles.add(list.profileName)
             }
+
+            //    val bottomSheetFragment = BottomSheetFragment.newInstance(profilesTitles)
 
             binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -157,6 +156,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
             }
         }
         spinnerRefresh()
+
+
 
         fun cancelTimer() {
 
@@ -247,7 +248,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.profile.setOnClickListener { openBottomSheet() }
+        // binding.profile.setOnClickListener { openBottomSheet() }
     }
 
     fun openBottomSheet() {
@@ -365,6 +366,11 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
 вопросы:
 1) в bottomsheet_fragment как сделать фон диалога прозрачным?
 2) как в bottomsheet закинуть мой список режимов?
+
+
+3) hide white corners bottomsheet dialog
+посмотреть newInstance
+почитать parslize(parceble)
 
 
 1) span для треугльничка в текствью (CalcFragment) как сделать его меньще?

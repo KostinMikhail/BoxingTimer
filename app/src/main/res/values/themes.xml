@@ -33,4 +33,9 @@
         <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
 
     </style>
+
+    <style name="BottomSheetDialogStyle" parent="Theme.MaterialComponents.BottomSheetDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+
+    </style>
 </resources>
