@@ -86,6 +86,16 @@ class SettingsFragment : Fragment() {
             ).show()
         }
 
+        binding.numPickerMin.minValue = 0
+        binding.numPickerMin.maxValue = 59
+        binding.numPickerSec.minValue = 0
+        binding.numPickerSec.maxValue = 59
+
+
+
+
+
+
         binding.btnRestTime.setOnKeyListener { view, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 settingsViewModel?.setRestTime(binding.btnRestTime.text.toString())

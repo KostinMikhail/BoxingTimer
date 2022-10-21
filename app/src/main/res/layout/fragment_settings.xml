@@ -37,6 +37,26 @@
 
         tools:layout_editor_absoluteY="44dp" />
 
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:id="@+id/numPickerMin"
+        app:layout_constraintBottom_toTopOf="@+id/btnRoundTime"
+        app:layout_constraintStart_toStartOf="parent"
+
+        />
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:id="@+id/numPickerSec"
+        app:layout_constraintBottom_toTopOf="@+id/btnRoundTime"
+        app:layout_constraintStart_toEndOf="@+id/numPickerMin"
+
+        />
+
     <TextView
         android:id="@+id/btnRoundTime"
         android:layout_width="137dp"
