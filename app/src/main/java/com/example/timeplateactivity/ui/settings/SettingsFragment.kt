@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.timeplateactivity.R
 import com.example.timeplateactivity.databinding.FragmentSettingsBinding
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.min
 
@@ -73,15 +74,16 @@ class SettingsFragment : Fragment() {
                 TimePickerDialog.OnTimeSetListener { view: TimePicker?, hour: Int, minute: Int ->
                     cal.set(Calendar.HOUR_OF_DAY, hour)
                     cal.set(Calendar.MINUTE, minute)
-                    settingsViewModel?.setRoundTime(binding.btnRoundTime.text.toString())
+                    //     settingsViewModel?.setRoundTime(binding.btnRoundTime.text = SimpleDateFormat("mm:ss").format(cal.time)
+
                 }
-//            TimePickerDialog(
-//                this@SettingsFragment,
-//                timeSetListener,
-//                cal.get(Calendar.HOUR_OF_DAY),
-//                cal.get(Calendar.MINUTE),
-//                true
-//            ).show()
+            TimePickerDialog(
+                this.requireContext(),
+                timeSetListener,
+                cal.get(Calendar.HOUR_OF_DAY),
+                cal.get(Calendar.MINUTE),
+                true
+            ).show()
         }
 
         binding.btnRestTime.setOnKeyListener { view, keyCode, event ->
