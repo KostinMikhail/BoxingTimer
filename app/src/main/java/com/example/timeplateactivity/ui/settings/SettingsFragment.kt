@@ -12,6 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TimePicker
 import android.widget.Toast
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.timeplateactivity.R
@@ -28,6 +29,10 @@ class SettingsFragment : Fragment() {
 
     private val binding get() = _binding!!
     private var settingsViewModel: SettingsViewModel? = null
+
+    var timePickerMin = 0
+    var timePickerSec = 0
+    var roundTime = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,6 +63,11 @@ class SettingsFragment : Fragment() {
 
         spinnerRefresh()
 
+        binding.numPickerMin.minValue = 0
+        binding.numPickerMin.maxValue = 59
+        binding.numPickerSec.minValue = 0
+        binding.numPickerSec.maxValue = 59
+
 //        binding.btnRoundTime.setOnKeyListener { view, keyCode, event ->
 //            if (keyCode == KeyEvent.KEYCODE_ENTER) {
 //                settingsViewModel?.setRoundTime(binding.btnRoundTime.text.toString())
@@ -68,33 +78,28 @@ class SettingsFragment : Fragment() {
 //            false
 //
 //        }
-        binding.btnRoundTime.setOnClickListener {
-            val cal = Calendar.getInstance()
-            val timeSetListener =
-                TimePickerDialog.OnTimeSetListener { view: TimePicker?, hour: Int, minute: Int ->
-                    cal.set(Calendar.HOUR_OF_DAY, hour)
-                    cal.set(Calendar.MINUTE, minute)
-                    //     settingsViewModel?.setRoundTime(binding.btnRoundTime.text = SimpleDateFormat("mm:ss").format(cal.time)
 
-                }
-            TimePickerDialog(
-                this.requireContext(),
-                timeSetListener,
-                cal.get(Calendar.HOUR_OF_DAY),
-                cal.get(Calendar.MINUTE),
-                true
-            ).show()
+
+        binding.btnRoundTime.setOnClickListener {
+            binding.numPickers.isGone = false
+
+            binding.numPickerMin.setOnValueChangedListener { numPickerMin, oldVal, newVal ->
+                timePickerMin = numPickerMin.value
+
+            }
+
+            binding.numPickerSec.setOnValueChangedListener { numPickerSec, oldVal, newVal ->
+                timePickerSec = numPickerSec.value
+
+            }
+
+            roundTime = timePickerMin * 60 * 1000 + timePickerSec * 1000
+
         }
 
-        binding.numPickerMin.minValue = 0
-        binding.numPickerMin.maxValue = 59
-        binding.numPickerSec.minValue = 0
-        binding.numPickerSec.maxValue = 59
-
-
-
-
-
+        binding.save.setOnClickListener {
+            settingsViewModel?.setRoundTime(roundTime.toString())
+        }
 
         binding.btnRestTime.setOnKeyListener { view, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {

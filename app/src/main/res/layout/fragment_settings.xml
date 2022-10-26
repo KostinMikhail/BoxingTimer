@@ -37,15 +37,20 @@
 
         tools:layout_editor_absoluteY="44dp" />
 
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:constraint_referenced_ids="numPickerMin, numPickerSec"
+        android:id="@+id/numPickers"
+        android:visibility="gone" />
+
     <NumberPicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:id="@+id/numPickerMin"
         app:layout_constraintBottom_toTopOf="@+id/btnRoundTime"
-        app:layout_constraintStart_toStartOf="parent"
-
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <NumberPicker
         android:layout_width="wrap_content"
@@ -67,6 +72,18 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/btnRoundTime1"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:text="@string/saved"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/btnRoundTime1"
+
+        app:layout_constraintStart_toEndOf="@id/btnRoundTime"
+
+        app:layout_constraintVertical_bias="0.915" />
 
     <EditText
         android:id="@+id/btnRoundTime1"

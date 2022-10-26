@@ -36,8 +36,8 @@
     <string name="secondRemaining">"Секунд осталось: "</string>
     <string name="showRound">"Раунд "</string>
     <string name="restart">Рестарт</string>
-    <string name="roundTime">Время на раунд</string>
-    <string name="restTime">Время на отдых</string>
+    <string name="roundTime">Время раунда</string>
+    <string name="restTime">Время отдыха</string>
     <string name="roundAmount">Количество раундов</string>
     <string name="profileName">Название режима</string>
     <string name="create">Создать</string>
