@@ -25,6 +25,7 @@
 
     <string name="start">Старт</string>
     <string name="profile">Режим:</string>
+    <string name="deleteProfile">Удалить режим:</string>
     <string name="resume">Продолжить</string>
     <string name="stop">Стоп</string>
     <string name="done">Конец тренировки</string>

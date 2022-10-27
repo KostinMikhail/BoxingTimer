@@ -30,8 +30,8 @@ class SettingsFragment : Fragment() {
     private val binding get() = _binding!!
     private var settingsViewModel: SettingsViewModel? = null
 
-    var timePickerMin: Long = 13
-    var timePickerSec: Long = 13
+    var timePickerMin: Long = 0
+    var timePickerSec: Long = 0
     var roundTime: Long = 0
 
     override fun onCreateView(
@@ -68,43 +68,26 @@ class SettingsFragment : Fragment() {
         binding.numPickerSec.minValue = 0
         binding.numPickerSec.maxValue = 59
 
-//        binding.btnRoundTime.setOnKeyListener { view, keyCode, event ->
-//            if (keyCode == KeyEvent.KEYCODE_ENTER) {
-//                settingsViewModel?.setRoundTime(binding.btnRoundTime.text.toString())
-//                binding.btnRoundTime.text.toString()
-//                keyBoardCloser(view)
-//                true
-//            }
-//            false
-//
-//        }
-
 
         binding.btnRoundTime.setOnClickListener {
             binding.numPickers.isGone = false
 
             binding.numPickerMin.setOnValueChangedListener { numPickerMin, oldVal, newVal ->
-                //  timePickerMin = numPickerMin.value
-
                 val pickedTimeMin: Long = numPickerMin.value.toLong()
                 timePickerMin = pickedTimeMin * 60
-
             }
 
             binding.numPickerSec.setOnValueChangedListener { numPickerSec, oldVal, newVal ->
-                //    timePickerSec = numPickerSec.value
                 val pickedTimeSec: Long = numPickerSec.value.toLong()
                 timePickerSec = pickedTimeSec
             }
-
-            // roundTime = timePickerMin
-
         }
-        /*
-        val roundTimeString1: Long = roundTimeString.toLong()
-        roundTime = roundTimeString1 * 1000
-        this.roundTimeString = roundTimeString
-        */
+
+
+
+
+
+
 
         binding.save.setOnClickListener {
             roundTime = timePickerMin + timePickerSec

@@ -4,59 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.settings.SettingsFragment"
-    android:background="@color/bg2Dark">
+    android:background="@color/bg2Dark"
+    tools:context=".ui.settings.SettingsFragment">
 
     <TextView
         android:id="@+id/profile"
-        android:layout_width="71dp"
-        android:layout_height="59dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
         android:text="@string/profile"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/spinner"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="-1dp"
-
-
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:textColor="@color/yellow"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
         android:backgroundTint="@color/primary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.669"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/yellow"
+        app:layout_constraintLeft_toRightOf="@id/profile"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="58dp"
-
         tools:layout_editor_absoluteY="44dp" />
 
+    <Button
+        android:id="@+id/delete"
+        android:layout_marginTop="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete"
+        android:visibility="visible"
+        android:textColor="@color/timerBG"
+        android:backgroundTint="@color/primary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/spinner" />
+
+
     <androidx.constraintlayout.widget.Group
+        android:id="@+id/numPickers"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:constraint_referenced_ids="numPickerMin, numPickerSec"
-        android:id="@+id/numPickers"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:constraint_referenced_ids="numPickerMin, numPickerSec" />
 
     <NumberPicker
+        android:id="@+id/numPickerMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:id="@+id/numPickerMin"
         app:layout_constraintBottom_toTopOf="@+id/btnRoundTime"
         app:layout_constraintStart_toStartOf="parent" />
 
     <NumberPicker
+        android:id="@+id/numPickerSec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:id="@+id/numPickerSec"
         app:layout_constraintBottom_toTopOf="@+id/btnRoundTime"
         app:layout_constraintStart_toEndOf="@+id/numPickerMin"
 
@@ -68,35 +76,30 @@
         android:layout_height="23dp"
         android:layout_marginStart="16dp"
         android:text="@string/roundTime"
-        android:textSize="14sp"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/btnRoundTime1"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/save"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:text="@string/saved"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/btnRoundTime1"
-
-        app:layout_constraintStart_toEndOf="@id/btnRoundTime"
-
-        app:layout_constraintVertical_bias="0.915" />
-
-    <EditText
-        android:id="@+id/btnRoundTime1"
-        android:layout_width="243dp"
-        android:layout_height="55dp"
-        android:ems="10"
-        android:hint="@string/roundTime"
-        android:inputType="time"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.579" />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="420dp"
+
+        android:textColor="@color/timerBG"
+        android:backgroundTint="@color/primary"
+        android:text="@string/saved"
+        android:visibility="visible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="btnRoundTime"
+        app:layout_constraintVertical_bias="0.915" />
+
+
 
     <EditText
         android:id="@+id/btnRestTime"
@@ -146,25 +149,14 @@
         android:layout_height="43dp"
         android:text="@string/create"
         android:visibility="visible"
+        android:textColor="@color/timerBG"
+        android:backgroundTint="@color/primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.915" />
-
-    <Button
-        android:id="@+id/delete"
-        android:layout_width="245dp"
-        android:layout_height="43dp"
-        android:text="@string/delete"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.978" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
