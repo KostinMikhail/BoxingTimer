@@ -30,9 +30,9 @@ class SettingsFragment : Fragment() {
     private val binding get() = _binding!!
     private var settingsViewModel: SettingsViewModel? = null
 
-    var timePickerMin = 0
-    var timePickerSec = 0
-    var roundTime = 0
+    var timePickerMin: Long = 13
+    var timePickerSec: Long = 13
+    var roundTime: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -84,20 +84,31 @@ class SettingsFragment : Fragment() {
             binding.numPickers.isGone = false
 
             binding.numPickerMin.setOnValueChangedListener { numPickerMin, oldVal, newVal ->
-                timePickerMin = numPickerMin.value
+                //  timePickerMin = numPickerMin.value
+
+                val pickedTimeMin: Long = numPickerMin.value.toLong()
+                timePickerMin = pickedTimeMin * 60
 
             }
 
             binding.numPickerSec.setOnValueChangedListener { numPickerSec, oldVal, newVal ->
-                timePickerSec = numPickerSec.value
-
+                //    timePickerSec = numPickerSec.value
+                val pickedTimeSec: Long = numPickerSec.value.toLong()
+                timePickerSec = pickedTimeSec
             }
 
-            roundTime = timePickerMin * 60 * 1000 + timePickerSec * 1000
+            // roundTime = timePickerMin
 
         }
+        /*
+        val roundTimeString1: Long = roundTimeString.toLong()
+        roundTime = roundTimeString1 * 1000
+        this.roundTimeString = roundTimeString
+        */
 
         binding.save.setOnClickListener {
+            roundTime = timePickerMin + timePickerSec
+            binding.btnRoundTime.setText(roundTime.toString())
             settingsViewModel?.setRoundTime(roundTime.toString())
         }
 
