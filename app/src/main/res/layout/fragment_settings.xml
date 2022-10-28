@@ -23,8 +23,8 @@
         android:id="@+id/spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/primary"
         android:textColor="@color/yellow"
         app:layout_constraintLeft_toRightOf="@id/profile"
@@ -34,89 +34,109 @@
 
     <Button
         android:id="@+id/delete"
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/delete"
-        android:visibility="visible"
-        android:textColor="@color/timerBG"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@color/primary"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/spinner" />
+        android:text="@string/delete"
+        android:textColor="@color/timerBG"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@id/spinner"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/numPickers"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
         app:constraint_referenced_ids="numPickerMin, numPickerSec" />
 
     <NumberPicker
         android:id="@+id/numPickerMin"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnRoundTime"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/save"
+        app:layout_constraintRight_toLeftOf="@+id/numPickerSec"
+        style="@android:style/Widget.Material.NumberPicker"
+        app:layout_constraintTop_toBottomOf="@+id/delete"
+
+
+        tools:targetApi="n" />
 
     <NumberPicker
         android:id="@+id/numPickerSec"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnRoundTime"
-        app:layout_constraintStart_toEndOf="@+id/numPickerMin"
+        android:layout_height="0dp"
+
+        app:layout_constraintTop_toBottomOf="@+id/delete"
+        app:layout_constraintBottom_toTopOf="@+id/save"
+
+        app:layout_constraintLeft_toRightOf="@+id/numPickerMin"
+
 
         />
+
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="420dp"
+        android:backgroundTint="@color/primary"
+        android:text="@string/saved"
+        android:textColor="@color/timerBG"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/btnRoundTime"
         android:layout_width="137dp"
         android:layout_height="23dp"
         android:layout_marginStart="16dp"
+        android:layout_marginBottom="130dp"
         android:text="@string/roundTime"
         android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/create"
+        app:layout_constraintStart_toEndOf="@id/save"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.579" />
 
-    <Button
-        android:id="@+id/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        />
 
-        android:layout_marginTop="420dp"
-
-        android:textColor="@color/timerBG"
-        android:backgroundTint="@color/primary"
-        android:text="@string/saved"
-        android:visibility="visible"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="btnRoundTime"
-        app:layout_constraintVertical_bias="0.915" />
-
-
-
-    <EditText
+    <TextView
         android:id="@+id/btnRestTime"
-        android:layout_width="243dp"
-        android:layout_height="61dp"
-        android:ems="10"
-        android:hint="@string/restTime"
-        android:inputType="number"
-        android:maxLength="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="137dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="130dp"
+        android:text="@string/restTime"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/btnRoundTime"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.667" />
+
+        />
+
+    <TextView
+        android:id="@+id/btnRoundAmount"
+        android:layout_width="137dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="130dp"
+        android:text="@string/restTime"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/btnRestTime"
+        app:layout_constraintStart_toStartOf="parent"
+
+        />
+
 
     <EditText
-        android:id="@+id/btnRoundAmount"
+        android:id="@+id/btnRoundAmount1"
         android:layout_width="243dp"
         android:layout_height="61dp"
         android:ems="10"
@@ -133,6 +153,7 @@
         android:id="@+id/btnProfileName"
         android:layout_width="243dp"
         android:layout_height="61dp"
+        android:autofillHints="name"
         android:ems="10"
         android:hint="@string/profileName"
         android:inputType="text"
@@ -147,10 +168,10 @@
         android:id="@+id/create"
         android:layout_width="245dp"
         android:layout_height="43dp"
-        android:text="@string/create"
-        android:visibility="visible"
-        android:textColor="@color/timerBG"
         android:backgroundTint="@color/primary"
+        android:text="@string/create"
+        android:textColor="@color/timerBG"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
