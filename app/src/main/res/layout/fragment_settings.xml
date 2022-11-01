@@ -59,11 +59,13 @@
         android:layout_marginStart="16dp"
         app:layout_constraintBottom_toTopOf="@+id/save"
         app:layout_constraintRight_toLeftOf="@+id/numPickerSec"
-        style="@android:style/Widget.Material.NumberPicker"
+
+
         app:layout_constraintTop_toBottomOf="@+id/delete"
 
 
         tools:targetApi="n" />
+
 
     <NumberPicker
         android:id="@+id/numPickerSec"

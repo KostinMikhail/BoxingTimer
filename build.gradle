@@ -40,7 +40,7 @@ subprojects {
         }
     }
 }
-//закоментил эту залупу т.к. с ней ничего не хотело запускаться. хз чё это откуда и зачем
+
 /*task clean(type: Delete) {
     delete rootProject.buildDir
 }*/

@@ -19,7 +19,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
- /*   вот с этой залупой ничего не запускается
+ /*
  signingConfigs {
         // We use a bundled debug keystore, to allow debug builds from CI to be upgradable
         debug {
@@ -106,6 +106,7 @@ dependencies {
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.0.0"
 
+    implementation 'cn.carbswang.android:NumberPickerView:1.2.0'
 
 
 
