@@ -145,10 +145,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
 
             var customSpinnerAdapter = ArrayAdapter(
                 this.requireContext(),
-                R.layout.spinner_view,
+                R.layout.spinner_view_home,
                 profilesTitles
             ).also { adapter ->
-                adapter.setDropDownViewResource(R.layout.spinner_view)
+                adapter.setDropDownViewResource(R.layout.spinner_view_home)
 
 
                 binding.spinner.adapter = adapter
@@ -156,8 +156,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
             }
         }
         spinnerRefresh()
-
-
 
         fun cancelTimer() {
 

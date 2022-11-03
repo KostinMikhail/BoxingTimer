@@ -59,6 +59,8 @@ class SettingsViewModel(private val context: Context, private val db: AppDatabas
             return
         }
 
+
+
         profileDao?.insertAll(
             Profile(
                 uid = 0,

@@ -42,12 +42,6 @@ class CalcFragment : Fragment() {
         with(binding) {
 
 
-//            btnCalculate.setOnClickListener(){
-//                calcViewModel.calc().toString()
-//                val a : String = calcViewModel.calc().toString()
-//
-//            }
-
             physicalActivityTV.setOnClickListener() {
                 spinner.performClick()
             }

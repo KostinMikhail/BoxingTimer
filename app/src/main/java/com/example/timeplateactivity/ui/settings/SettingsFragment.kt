@@ -34,6 +34,7 @@ class SettingsFragment : Fragment() {
     var timePickerSec: Long = 0
     var roundTime: Long = 0
     var restTime: Long = 0
+    var roundPicker: Int = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,17 +77,35 @@ class SettingsFragment : Fragment() {
             binding.numPickerMin.setOnValueChangedListener { numPickerMin, oldVal, newVal ->
                 val pickedTimeMin: Long = numPickerMin.value.toLong()
                 timePickerMin = pickedTimeMin * 60
+                roundTime = timePickerMin + timePickerSec
+                if (roundTime > 0) {
+                    binding.save.setBackgroundResource(R.drawable.btn_calculate_on)
+                }
             }
 
             binding.numPickerSec.setOnValueChangedListener { numPickerSec, oldVal, newVal ->
                 val pickedTimeSec: Long = numPickerSec.value.toLong()
                 timePickerSec = pickedTimeSec
-            }
-            binding.save.setOnClickListener {
                 roundTime = timePickerMin + timePickerSec
-                // binding.btnRoundTime.setText(roundTime.toString())
-                settingsViewModel?.setRoundTime(roundTime.toString())
+                if (roundTime > 0) {
+                    binding.save.setBackgroundResource(R.drawable.btn_calculate_on)
+                }
             }
+
+
+
+            binding.save.setOnClickListener {
+
+                settingsViewModel?.setRoundTime(roundTime.toString())
+                Toast.makeText(
+                    this.requireContext(),
+                    resources.getString(R.string.saved),
+                    Toast.LENGTH_SHORT
+                ).show()
+                binding.numPickers.isGone = true
+                binding.save.setBackgroundResource(R.drawable.btn_calculate)
+            }
+
         }
 
         binding.btnRestTime.setOnClickListener {
@@ -103,36 +122,34 @@ class SettingsFragment : Fragment() {
             }
             binding.save.setOnClickListener {
                 restTime = timePickerMin + timePickerSec
-                // binding.btnRestTime.setText(roundTime.toString())
                 settingsViewModel?.setRestTime(restTime.toString())
+                Toast.makeText(
+                    this.requireContext(),
+                    resources.getString(R.string.saved),
+                    Toast.LENGTH_SHORT
+                ).show()
+                binding.numPickers.isGone = true
             }
         }
 
 
+        binding.btnRoundAmount.setOnClickListener {
 
-
-
-
-
-        binding.btnRestTime.setOnKeyListener { view, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                settingsViewModel?.setRestTime(binding.btnRestTime.text.toString())
-                binding.btnRestTime.text.toString()
-                keyBoardCloser(view)
-                true
+            binding.numPickers.isGone = false
+            binding.numPickerMin.setOnValueChangedListener { numPickerMin, oldVal, newVal ->
+                val pickedRoundAmount: Int = numPickerMin.value
+                roundPicker = pickedRoundAmount
             }
-            false
 
-        }
-        binding.btnRoundAmount.setOnKeyListener { view, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER) {
-                settingsViewModel?.setRoundAmount(binding.btnRoundAmount.text.toString())
-                binding.btnRoundAmount.text.toString()
-                keyBoardCloser(view)
-                true
+            binding.save.setOnClickListener {
+                settingsViewModel?.setRoundAmount(roundPicker.toString())
+                Toast.makeText(
+                    this.requireContext(),
+                    resources.getString(R.string.saved),
+                    Toast.LENGTH_SHORT
+                ).show()
+                binding.numPickers.isGone = true
             }
-            false
-
         }
 
         binding.btnProfileName.setOnKeyListener { view, keyCode, event ->
@@ -148,12 +165,11 @@ class SettingsFragment : Fragment() {
 
         binding.create.setOnClickListener {
             settingsViewModel?.createNewTimerError()
-
+            binding.create.isChecked = false
         }
 
         binding.delete.setOnClickListener {
             settingsViewModel?.deleteTimer()
-
         }
 
         return binding.root
