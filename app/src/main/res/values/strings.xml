@@ -22,11 +22,12 @@
     <string name="save">Сохранить</string>
     <string name="deleted">Удалено</string>
     <string name="youCantDeleteThis">Вы не можете удалить этот режим</string>
-<!--    <string name="secondsRemaining">\"Секунд осталось: \"</string>-->
+
 
     <string name="start">Старт</string>
     <string name="profile">Режим:</string>
-    <string name="deleteProfile">Удалить режим:</string>
+    <string name="deleteProfile">Удалить режим</string>
+    <string name="createProfile">Создать режим</string>
     <string name="resume">Продолжить</string>
     <string name="stop">Стоп</string>
     <string name="done">Конец тренировки</string>
@@ -56,6 +57,8 @@
     <string name="lightActivity">Минимальная</string>
     <string name="middleActivity">Умеренная</string>
     <string name="heavyActivity">Активная</string>
+    <string name="min">Минуты</string>
+    <string name="sec">Секунды</string>
 
 
 </resources>

@@ -40,9 +40,9 @@ class MainActivity : AppCompatActivity() {
         val userDao = db.profileDao()
         val profiles: List<Profile> = userDao.getAll()
         if (profiles.size == 0) {
-            userDao.insertAll(Profile(0, "mma", 300000, 60000, 3, true))
-            userDao.insertAll(Profile(0, "box", 180000, 60000, 5, true))
-            userDao.insertAll(Profile(0, "interval", 60000, 20000, 10, true))
+            userDao.insertAll(Profile(0, "MMA", 300000, 60000, 3, true))
+            userDao.insertAll(Profile(0, "Boxing", 180000, 60000, 5, true))
+            userDao.insertAll(Profile(0, "Interval", 60000, 20000, 10, true))
 
         } else {
 
@@ -52,12 +52,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.appBarMain.toolbar)
-/////////////////////////////////////////////////////////////////////////////////////////////////
+
         val fragmentOne = HomeFragment()
         var tr = supportFragmentManager.beginTransaction()
-//        tr.replace(R.id.drawer_layout, fragmentOne)
             .commit()
-/////////////////////////////////////////////////////////////////////////////////////////////////
+
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
@@ -74,10 +73,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-//        val closeImg = binding.drawerLayout.findViewById<ImageButton>(R.id.btnCloseHeader)
-//        closeImg.setOnClickListener{
-//            Toast.makeText(this,"hello", Toast.LENGTH_LONG).show()
-//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

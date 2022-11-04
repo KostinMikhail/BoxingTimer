@@ -7,19 +7,47 @@
     android:background="@color/bg2Dark"
     tools:context=".ui.settings.SettingsFragment">
 
-    <TextView
-        android:id="@+id/profile"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnDeleteProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="18dp"
+        android:background="@drawable/btn_calculate_on"
         android:text="@string/deleteProfile"
-        android:textColor="@color/white"
-        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:textColor="@color/bg2Dark"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCreateProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/btn_calculate_on"
+        android:text="@string/createProfile"
+        android:textAllCaps="false"
+        android:textColor="@color/bg2Dark"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnDeleteProfile" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/delteElements"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="spinner, btnDelete" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/createElements"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="btnProfileName, btnRoundTime, btnRestTime, btnRoundAmount, create, roundAmountText, roundRestText, roundTimeText" />
 
     <Spinner
         android:id="@+id/spinner"
@@ -29,20 +57,21 @@
         android:layout_marginTop="16dp"
         android:backgroundTint="@color/primary"
         android:textColor="@color/yellow"
-        app:layout_constraintLeft_toRightOf="@id/profile"
+        app:layout_constraintLeft_toRightOf="@id/btnDeleteProfile"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="58dp"
         tools:layout_editor_absoluteY="44dp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/delete"
+        android:id="@+id/btnDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/primary"
+        android:background="@drawable/btn_calculate_on"
         android:text="@string/delete"
-        android:textColor="@color/timerBG"
+        android:textColor="@color/bg2Dark"
         android:visibility="visible"
+        android:textAllCaps="false"
         app:layout_constraintStart_toEndOf="@id/spinner"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,65 +80,91 @@
         android:id="@+id/numPickers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="numPickerMin, numPickerSec, save"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:constraint_referenced_ids="numPickerMin, numPickerSec, save, minTv, secTv"
+
+        />
+
+    <TextView
+        android:id="@+id/minTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/min"
+        android:textColor="@color/grey"
+        app:layout_constraintBottom_toTopOf="@+id/numPickerMin"
+        app:layout_constraintEnd_toEndOf="@+id/numPickerMin"
+        app:layout_constraintStart_toStartOf="@+id/numPickerMin"
+        app:layout_constraintTop_toBottomOf="@+id/btnCreateProfile" />
+
+    <TextView
+        android:id="@+id/secTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sec"
+        android:textColor="@color/grey"
+        app:layout_constraintBottom_toTopOf="@+id/numPickerSec"
+        app:layout_constraintEnd_toEndOf="@+id/numPickerSec"
+        app:layout_constraintStart_toStartOf="@+id/numPickerSec"
+        app:layout_constraintTop_toBottomOf="@+id/btnCreateProfile" />
 
     <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/numPickerMin"
-        android:layout_width="173dp"
+        android:layout_width="0dp"
         android:layout_height="236dp"
         android:layout_centerInParent="true"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@+id/save"
+        app:layout_constraintEnd_toStartOf="@+id/numPickerSec"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        app:layout_constraintTop_toBottomOf="@+id/minTv"
         app:np_dividerColor="@color/invisible"
-        app:np_formatter=""
         app:np_height="180dp"
         app:np_max="59"
         app:np_min="0"
         app:np_selectedTextColor="@color/primary"
+        app:np_selectedTextSize="50sp"
         app:np_textColor="@color/primary"
-        app:np_textSize="25dp"
-        app:np_value="1"
+        app:np_textSize="40sp"
+        app:np_value="0"
         app:np_width="64dp" />
 
     <com.shawnlin.numberpicker.NumberPicker
         android:id="@+id/numPickerSec"
-        android:layout_width="229dp"
-        android:layout_height="231dp"
+        android:layout_width="0dp"
+        android:layout_height="236dp"
         android:layout_centerInParent="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@+id/save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/numPickerMin"
-        app:layout_constraintTop_toBottomOf="@+id/spinner"
+        app:layout_constraintTop_toBottomOf="@+id/secTv"
         app:np_dividerColor="@color/invisible"
-        app:np_formatter=""
         app:np_height="180dp"
         app:np_max="59"
         app:np_min="0"
         app:np_selectedTextColor="@color/primary"
+        app:np_selectedTextSize="50sp"
         app:np_textColor="@color/primary"
-        app:np_textSize="25dp"
-        app:np_value="1"
+        app:np_textSize="40sp"
+        app:np_value="0"
         app:np_width="64dp" />
 
     <androidx.appcompat.widget.AppCompatToggleButton
         android:id="@+id/save"
         android:layout_width="0dp"
         android:layout_height="76dp"
-        android:textOn="@string/save"
-        android:textOff="@string/save"
-        android:textColor="@color/timerBG"
-        android:visibility="visible"
         android:background="@drawable/btn_calculate"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numPickerMin"
         android:textAllCaps="false"
-        />
+        android:textColor="@color/timerBG"
+        android:textOff="@string/save"
+        android:textOn="@string/save"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/btnProfileName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numPickerMin" />
+
 
     <EditText
         android:id="@+id/btnProfileName"
@@ -117,28 +172,43 @@
         android:layout_height="61dp"
         android:layout_marginStart="16dp"
         android:autofillHints="name"
+        android:backgroundTint="@color/white"
         android:ems="10"
         android:hint="@string/profileName"
         android:inputType="text"
-        android:textColor="@color/white"
         android:maxLength="15"
+        android:textColor="@color/white"
+        android:textColorHint="@color/grey"
         android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/btnRoundTime"/>
+        app:layout_constraintBottom_toTopOf="@+id/btnRoundTime"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnRoundTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:background="@color/invisible"
         android:text="@string/roundTime"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/btnRestTime"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/invisible"
 
+        />
+
+    <TextView
+        android:id="@+id/roundTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:textAllCaps="false"
+        android:textColor="@color/primary"
+        android:textSize="25sp"
+        android:text="10minutes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnRestTime"
 
         />
 
@@ -147,13 +217,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/restTime"
-        android:textColor="@color/white"
         android:background="@color/invisible"
+        android:text="@string/restTime"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/btnRoundAmount"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/roundRestText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:textAllCaps="false"
+        android:textColor="@color/primary"
+        android:textSize="25sp"
+        android:text="5minutes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnRoundAmount"
+
         />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -161,32 +244,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/roundAmount"
-        android:textColor="@color/white"
         android:background="@color/invisible"
+        android:text="@string/roundAmount"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/create"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/roundAmountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:textAllCaps="false"
+        android:textColor="@color/primary"
+        android:textSize="25sp"
+        android:text="3rounds"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/create"
+
         />
-
-
 
 
     <androidx.appcompat.widget.AppCompatToggleButton
         android:id="@+id/create"
         android:layout_width="0dp"
         android:layout_height="43dp"
-        android:textOn="@string/create"
-        android:textOff="@string/create"
-        android:textColor="@color/timerBG"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/btn_calculate"
         android:textAllCaps="false"
-         />
+        android:textColor="@color/timerBG"
+        android:textOff="@string/create"
+        android:textOn="@string/create"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

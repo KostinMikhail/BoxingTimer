@@ -65,6 +65,14 @@ class SettingsFragment : Fragment() {
 
         spinnerRefresh()
 
+        fun timeFormat() {
+            var x: Long = 0
+            val startTime = Date(x)
+            var formatter = SimpleDateFormat("mm:ss")
+            val c = formatter.format(startTime)
+        }
+
+
         binding.numPickerMin.minValue = 0
         binding.numPickerMin.maxValue = 59
         binding.numPickerSec.minValue = 0
@@ -122,6 +130,13 @@ class SettingsFragment : Fragment() {
             }
             binding.save.setOnClickListener {
                 restTime = timePickerMin + timePickerSec
+
+                val startTime = Date(restTime)
+                val formatter = SimpleDateFormat("mm:ss")
+                val c = formatter.format(startTime)
+                binding.roundRestText.setText(c)
+
+
                 settingsViewModel?.setRestTime(restTime.toString())
                 Toast.makeText(
                     this.requireContext(),
@@ -131,6 +146,7 @@ class SettingsFragment : Fragment() {
                 binding.numPickers.isGone = true
             }
         }
+
 
 
         binding.btnRoundAmount.setOnClickListener {
@@ -168,8 +184,18 @@ class SettingsFragment : Fragment() {
             binding.create.isChecked = false
         }
 
-        binding.delete.setOnClickListener {
+        binding.btnDelete.setOnClickListener {
             settingsViewModel?.deleteTimer()
+        }
+
+        binding.btnDeleteProfile.setOnClickListener {
+            binding.delteElements.isGone = false
+            binding.createElements.isGone = true
+            binding.numPickers.isGone = true
+        }
+        binding.btnCreateProfile.setOnClickListener {
+            binding.delteElements.isGone = true
+            binding.createElements.isGone = false
         }
 
         return binding.root
