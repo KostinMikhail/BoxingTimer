@@ -206,7 +206,7 @@
         android:textAllCaps="false"
         android:textColor="@color/primary"
         android:textSize="25sp"
-        android:text="10minutes"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/btnRestTime"
 
@@ -233,7 +233,7 @@
         android:textAllCaps="false"
         android:textColor="@color/primary"
         android:textSize="25sp"
-        android:text="5minutes"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/btnRoundAmount"
 
@@ -260,7 +260,6 @@
         android:textAllCaps="false"
         android:textColor="@color/primary"
         android:textSize="25sp"
-        android:text="3rounds"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/create"
 
@@ -271,7 +270,7 @@
         android:id="@+id/create"
         android:layout_width="0dp"
         android:layout_height="43dp"
-        android:background="@drawable/btn_calculate"
+        android:background="@drawable/btn_calculate_on"
         android:textAllCaps="false"
         android:textColor="@color/timerBG"
         android:textOff="@string/create"

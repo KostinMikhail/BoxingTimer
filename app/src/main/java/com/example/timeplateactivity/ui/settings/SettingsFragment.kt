@@ -3,6 +3,7 @@ package com.example.timeplateactivity.ui.settings
 import android.app.TimePickerDialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
@@ -62,7 +63,7 @@ class SettingsFragment : Fragment() {
             }
         }
 
-
+        fun sum(a: Int, b: Int) {}
         spinnerRefresh()
 
         fun timeFormat() {
@@ -90,7 +91,6 @@ class SettingsFragment : Fragment() {
                     binding.save.setBackgroundResource(R.drawable.btn_calculate_on)
                 }
             }
-
             binding.numPickerSec.setOnValueChangedListener { numPickerSec, oldVal, newVal ->
                 val pickedTimeSec: Long = numPickerSec.value.toLong()
                 timePickerSec = pickedTimeSec
@@ -99,12 +99,14 @@ class SettingsFragment : Fragment() {
                     binding.save.setBackgroundResource(R.drawable.btn_calculate_on)
                 }
             }
-
-
-
             binding.save.setOnClickListener {
-
                 settingsViewModel?.setRoundTime(roundTime.toString())
+                var roundTimeShow = timePickerMin * 1000 + timePickerSec * 1000
+                val startTime = Date(roundTimeShow)
+                val formatter = SimpleDateFormat("mm:ss")
+                val c = formatter.format(startTime)
+                binding.roundTimeText.setText(c)
+                binding.save.setBackgroundResource(R.drawable.btn_calculate)
                 Toast.makeText(
                     this.requireContext(),
                     resources.getString(R.string.saved),
@@ -112,8 +114,11 @@ class SettingsFragment : Fragment() {
                 ).show()
                 binding.numPickers.isGone = true
                 binding.save.setBackgroundResource(R.drawable.btn_calculate)
+                binding.numPickerMin.value = 0
+                binding.numPickerSec.value = 0
+                timePickerMin = 0
+                timePickerSec = 0
             }
-
         }
 
         binding.btnRestTime.setOnClickListener {
@@ -122,20 +127,32 @@ class SettingsFragment : Fragment() {
             binding.numPickerMin.setOnValueChangedListener { numPickerMin, oldVal, newVal ->
                 val pickedTimeMin: Long = numPickerMin.value.toLong()
                 timePickerMin = pickedTimeMin * 60
+                restTime = timePickerMin + timePickerSec
+                if (restTime > 0) {
+                    binding.save.setBackgroundResource(R.drawable.btn_calculate_on)
+                }
             }
 
             binding.numPickerSec.setOnValueChangedListener { numPickerSec, oldVal, newVal ->
                 val pickedTimeSec: Long = numPickerSec.value.toLong()
                 timePickerSec = pickedTimeSec
+                restTime = timePickerMin + timePickerSec
+                if (restTime > 0) {
+                    binding.save.setBackgroundResource(R.drawable.btn_calculate_on)
+                }
             }
             binding.save.setOnClickListener {
                 restTime = timePickerMin + timePickerSec
-
-                val startTime = Date(restTime)
+                var restTimeShow = timePickerMin * 1000 + timePickerSec * 1000
+                val startTime = Date(restTimeShow)
                 val formatter = SimpleDateFormat("mm:ss")
                 val c = formatter.format(startTime)
                 binding.roundRestText.setText(c)
-
+                binding.save.setBackgroundResource(R.drawable.btn_calculate)
+                binding.numPickerMin.value = 0
+                binding.numPickerSec.value = 0
+                timePickerMin = 0
+                timePickerSec = 0
 
                 settingsViewModel?.setRestTime(restTime.toString())
                 Toast.makeText(
@@ -147,17 +164,22 @@ class SettingsFragment : Fragment() {
             }
         }
 
-
-
         binding.btnRoundAmount.setOnClickListener {
 
-            binding.numPickers.isGone = false
+            binding.numPickers.isGone = true
+            binding.numPickerMin.isGone = false
+            binding.save.isGone = false
             binding.numPickerMin.setOnValueChangedListener { numPickerMin, oldVal, newVal ->
                 val pickedRoundAmount: Int = numPickerMin.value
                 roundPicker = pickedRoundAmount
+                if (roundPicker > 0) {
+                    binding.save.setBackgroundResource(R.drawable.btn_calculate_on)
+                }
             }
 
             binding.save.setOnClickListener {
+                binding.roundAmountText.setText(roundPicker.toString())
+
                 settingsViewModel?.setRoundAmount(roundPicker.toString())
                 Toast.makeText(
                     this.requireContext(),
@@ -165,10 +187,16 @@ class SettingsFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
                 binding.numPickers.isGone = true
+                binding.numPickerMin.value = 0
+                timePickerMin = 0
+                binding.save.setBackgroundResource(R.drawable.btn_calculate)
             }
         }
-
+        binding.btnProfileName.setOnClickListener {
+            binding.numPickers.isGone = true
+        }
         binding.btnProfileName.setOnKeyListener { view, keyCode, event ->
+
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 settingsViewModel?.setNewProfileName(binding.btnProfileName.text.toString())
 
@@ -181,21 +209,26 @@ class SettingsFragment : Fragment() {
 
         binding.create.setOnClickListener {
             settingsViewModel?.createNewTimerError()
-            binding.create.isChecked = false
+
         }
 
         binding.btnDelete.setOnClickListener {
             settingsViewModel?.deleteTimer()
+
         }
 
         binding.btnDeleteProfile.setOnClickListener {
             binding.delteElements.isGone = false
             binding.createElements.isGone = true
             binding.numPickers.isGone = true
+            binding.btnCreateProfile.setBackgroundResource(R.drawable.btn_calculate_on)
+            binding.btnDeleteProfile.setBackgroundResource(R.drawable.btn_calculate)
         }
         binding.btnCreateProfile.setOnClickListener {
             binding.delteElements.isGone = true
             binding.createElements.isGone = false
+            binding.btnCreateProfile.setBackgroundResource(R.drawable.btn_calculate)
+            binding.btnDeleteProfile.setBackgroundResource(R.drawable.btn_calculate_on)
         }
 
         return binding.root
