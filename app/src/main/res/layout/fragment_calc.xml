@@ -80,7 +80,7 @@
       android:thumbTint="@color/primary"
       android:progressTint="@color/primary"
       android:progressBackgroundTint="@color/primary50Transparent"
-      android:progress="170"
+      android:progress="175"
       tools:layout_editor_absoluteX="130dp"
       tools:layout_editor_absoluteY="195dp"
       app:layout_constraintStart_toStartOf="parent"

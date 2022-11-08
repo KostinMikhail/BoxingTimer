@@ -9,11 +9,11 @@ import com.example.timeplateactivity.databinding.FragmentCalcBinding
 class CalcViewModel : ViewModel() {
 
     var isMale: Boolean = true
-    var height: Int? = null
-    var age: Int? = null
-    var weight: Int? = null
-    var activity: Int? = null
-    var result: Double? = null
+    var height: Int? = 177
+    var age: Int? = 28
+    var weight: Int? = 77
+    var activity: Int? = 2
+    var result: String? = null
 
     fun setMale() {
         isMale = true
@@ -24,22 +24,14 @@ class CalcViewModel : ViewModel() {
     }
 
     fun calc() {
-        result = if (isMale) {
-            weight!! * 10 + 6.25 * height!! - 5 * age!! + 5 * activity!!
+        if (isMale) {
 
+            result = (weight!! * 10 + 6.25 * height!! - 5 * age!! + 5 * activity!!).toString()
         } else {
-            weight!! * 10 + 6.25 * height!! - 5 * age!! - 161 * activity!!
+            result = (weight!! * 10 + 6.25 * height!! - 5 * age!! + 5 * activity!!).toString()
         }
 
     }
-
-
-//    private val _text = MutableLiveData<String>().apply {
-//        value = "nutriton calculator here"
-//    }
-//
-//
-//    val text: LiveData<String> = _text
 
 
 }

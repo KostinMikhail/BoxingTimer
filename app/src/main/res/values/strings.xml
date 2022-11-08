@@ -56,7 +56,7 @@
     <string name="pause">Пауза</string>
     <string name="lightActivity">Минимальная</string>
     <string name="middleActivity">Умеренная</string>
-    <string name="heavyActivity">Активная</string>
+    <string name="heavyActivity">Высокая</string>
     <string name="min">Минуты</string>
     <string name="sec">Секунды</string>
 

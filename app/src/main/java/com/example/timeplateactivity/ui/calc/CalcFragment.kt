@@ -26,7 +26,7 @@ class CalcFragment : Fragment() {
 
     private var calcViewModel: CalcViewModel? = null
 
-    val result = calcViewModel?.calc().toString()
+    //var result = calcViewModel?.calc().toString()
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ResourceAsColor")
@@ -42,6 +42,14 @@ class CalcFragment : Fragment() {
         with(binding) {
 
 
+            binding.btnCalculate.setOnClickListener {
+                var result = calcViewModel.calc().toString()
+
+
+                binding.test.setText(result)
+            }
+
+
             physicalActivityTV.setOnClickListener() {
                 spinner.performClick()
             }
@@ -53,7 +61,7 @@ class CalcFragment : Fragment() {
 
             fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
                 super.onCreateOptionsMenu(menu, inflater)
-           //     R.id.btnCloseHeader
+
             }
 
 
