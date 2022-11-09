@@ -21,11 +21,11 @@ class HomeViewModel : ViewModel() {
     val text: LiveData<String> = _text
 
 
-    //тут я создаю правила для спана
+
     @SuppressLint("ResourceAsColor")
     fun timerSpan() {
         val timerSpan =
-            SpannableStringBuilder(null) //как тут поставить ничего, типо сюда будет приходить текст? мб null
+            SpannableStringBuilder(null)
         val orangeColor = ForegroundColorSpan(R.color.primary)
         timerSpan.setSpan(orangeColor, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 

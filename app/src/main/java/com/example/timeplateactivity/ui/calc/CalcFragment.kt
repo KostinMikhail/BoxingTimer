@@ -12,6 +12,7 @@ import android.widget.*
 import android.widget.Toast.LENGTH_SHORT
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.timeplateactivity.R
@@ -25,8 +26,13 @@ class CalcFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var calcViewModel: CalcViewModel? = null
+    var isMale: Boolean = true
+    var height: Int? = null
+    var age: Int? = null
+    var weight: Int? = null
+    var physicalActivity: Double = 1.2
+    var result: Int = 2000
 
-    //var result = calcViewModel?.calc().toString()
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ResourceAsColor")
@@ -41,12 +47,48 @@ class CalcFragment : Fragment() {
         _binding = FragmentCalcBinding.inflate(inflater, container, false)
         with(binding) {
 
+            fun calc() {
+                if (isMale) {
+                    result =
+                        ((weight!! * 10 + 6.25 * height!! - 5 * age!! + 5) * physicalActivity).toInt()
+                } else {
+                    result =
+                        ((weight!! * 10 + 6.25 * height!! - 5 * age!! - 161) * physicalActivity).toInt()
+                }
 
+            }
+//TODO
             binding.btnCalculate.setOnClickListener {
-                var result = calcViewModel.calc().toString()
+
+                if (weight == null) {
+                    Toast.makeText(requireContext(), "weight", Toast.LENGTH_SHORT).show()
+
+                }
+                if (height == null) {
+                    Toast.makeText(requireContext(), "height", Toast.LENGTH_SHORT).show()
+
+                }
+                if (age == null) {
+                    Toast.makeText(requireContext(), "age", Toast.LENGTH_SHORT).show()
+
+                } else {
+                    calc()
+                    binding.resultTV.setText(result.toString() + "\n" + "калорий в день")
+                }
 
 
-                binding.test.setText(result)
+//                when (weight) {
+//                    null -> {
+//                        Toast.makeText(requireContext(), "hey", Toast.LENGTH_SHORT).show()
+//
+//                    }
+//
+//                    else -> {
+//                        calc()
+//                        binding.resultTV.setText(result.toString() + "\n" + "калорий в день")
+//                    }
+//                }
+
             }
 
 
@@ -68,18 +110,21 @@ class CalcFragment : Fragment() {
             sexBtnMale.setBackgroundResource(R.drawable.btn_sex_male_on)
 
             sexBtnMale.setOnCheckedChangeListener { compoundButton, isChecked ->
+
                 if (isChecked) {
                     sexBtnMale.setBackgroundResource(R.drawable.btn_sex_male_on)
                     sexBtnMale.isChecked = false
                     sexBtnFemale.setBackgroundResource(R.drawable.btn_sex_female)
                     sexBtnFemale.isChecked
                     calcViewModel.setFemale()
+                    isMale = true
                 } else {
                     sexBtnMale.setBackgroundResource(R.drawable.btn_sex_male)
                     sexBtnMale.isChecked
                     sexBtnFemale.setBackgroundResource(R.drawable.btn_sex_female_on)
                     sexBtnFemale.isChecked = false
                     calcViewModel.setMale()
+                    isMale = false
                 }
 
 
@@ -91,12 +136,16 @@ class CalcFragment : Fragment() {
                     sexBtnMale.setBackgroundResource(R.drawable.btn_sex_male)
                     sexBtnMale.isChecked
                     calcViewModel.setMale()
+                    isMale = false
+
                 } else {
                     sexBtnFemale.setBackgroundResource(R.drawable.btn_sex_female)
                     sexBtnFemale.isChecked
                     sexBtnMale.setBackgroundResource(R.drawable.btn_sex_male_on)
                     sexBtnMale.isChecked = false
                     calcViewModel.setFemale()
+                    isMale = true
+
                 }
             }
 
@@ -109,8 +158,8 @@ class CalcFragment : Fragment() {
                     progress: Int,
                     fromUser: Boolean
                 ) {
-                    calcViewModel.height = progress
-
+                    height = progress
+                    binding.heightTV.setText("Рост: " + height)
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -130,7 +179,8 @@ class CalcFragment : Fragment() {
                     progress: Int,
                     fromUser: Boolean
                 ) {
-                    calcViewModel.age = progress
+                    age = progress
+                    binding.ageTV.setText("Возраст: " + age)
 
                 }
 
@@ -151,8 +201,8 @@ class CalcFragment : Fragment() {
                     progress: Int,
                     fromUser: Boolean
                 ) {
-                    calcViewModel.weight = progress
-
+                    weight = progress
+                    binding.weightTV.setText("Вес: " + weight)
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -186,6 +236,7 @@ class CalcFragment : Fragment() {
                     id: Long
                 ) {
 
+
                 }
 
                 override fun onItemSelected(
@@ -194,6 +245,11 @@ class CalcFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
+                    when (position) {
+                        0 -> physicalActivity = 1.2
+                        1 -> physicalActivity = 1.375
+                        2 -> physicalActivity = 1.6375
+                    }
 
                 }
 

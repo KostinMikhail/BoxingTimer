@@ -109,7 +109,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
                 profilesTitles.add(list.profileName)
             }
 
-            //    val bottomSheetFragment = BottomSheetFragment.newInstance(profilesTitles)
+
 
             binding.spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -174,7 +174,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
             playSound()
             binding.greenBG.isGone = false
 
-//            binding.greenBG.setImageDrawable(ResourcesCompat.getDrawable(resources, R.drawable.yellow_bg, null))
+
 
 
             if (timerRunning) {
@@ -246,7 +246,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // binding.profile.setOnClickListener { openBottomSheet() }
+
     }
 
     fun openBottomSheet() {
@@ -455,6 +455,4 @@ ctrl+p = справка, что запихнуть в скобки
 ***************************
 ППР:
 
-1) 15.09 приложение
-2) 20.09 собесы
  */
