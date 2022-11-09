@@ -49,8 +49,11 @@
     <string name="Female">Женский</string>
     <string name="sex">Пол</string>
     <string name="height">Рост</string>
+    <string name="noHeight">Не указан рост</string>
     <string name="age">Возраст</string>
+    <string name="noAge">Не указан возраст</string>
     <string name="weight">Вес</string>
+    <string name="noWeight">Не указан вес</string>
     <string name="physicalActivity">Физическая активность  ▼</string>
     <string name="calculate">Рассчитать</string>
     <string name="pause">Пауза</string>

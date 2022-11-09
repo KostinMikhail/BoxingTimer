@@ -57,37 +57,39 @@ class CalcFragment : Fragment() {
                 }
 
             }
-//TODO
+
+            fun isBtnRdy() {
+                if (height != null) {
+                    if (age != null) {
+                        if (weight != null) {
+                            binding.btnCalculate.setBackgroundResource(R.drawable.btn_calculate_on)
+                        }
+                    }
+                }
+            }
             binding.btnCalculate.setOnClickListener {
 
-                if (weight == null) {
-                    Toast.makeText(requireContext(), "weight", Toast.LENGTH_SHORT).show()
-
-                }
                 if (height == null) {
-                    Toast.makeText(requireContext(), "height", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), R.string.noHeight, Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
 
                 }
+
                 if (age == null) {
-                    Toast.makeText(requireContext(), "age", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), R.string.noAge, Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+
+                }
+                if (weight == null) {
+                    Toast.makeText(requireContext(), R.string.noWeight, Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
 
                 } else {
                     calc()
+                    binding.btnCalculate.setBackgroundResource(R.drawable.btn_calculate_on)
                     binding.resultTV.setText(result.toString() + "\n" + "калорий в день")
                 }
 
-
-//                when (weight) {
-//                    null -> {
-//                        Toast.makeText(requireContext(), "hey", Toast.LENGTH_SHORT).show()
-//
-//                    }
-//
-//                    else -> {
-//                        calc()
-//                        binding.resultTV.setText(result.toString() + "\n" + "калорий в день")
-//                    }
-//                }
 
             }
 
@@ -160,12 +162,14 @@ class CalcFragment : Fragment() {
                 ) {
                     height = progress
                     binding.heightTV.setText("Рост: " + height)
+
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {
                 }
 
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    isBtnRdy()
                 }
 
             })
@@ -188,6 +192,7 @@ class CalcFragment : Fragment() {
                 }
 
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    isBtnRdy()
                 }
 
             })
@@ -203,12 +208,14 @@ class CalcFragment : Fragment() {
                 ) {
                     weight = progress
                     binding.weightTV.setText("Вес: " + weight)
+
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {
                 }
 
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    isBtnRdy()
                 }
 
             })
