@@ -136,7 +136,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
 
 
                     binding.timeTV.setText(spannable(c))
-
+                    binding.roundTV.setText("Раунд " + "1/" + makeRounds)
 
                 }
 
@@ -233,6 +233,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
             binding.imgPlayPause.isGone = true
             binding.groupBG.isGone = true
             setRoundsAmount1 = 1
+            val startTime = Date(roundTime)
+            var formatter = SimpleDateFormat("mm:ss")
+            val c = formatter.format(startTime)
+            binding.timeTV.setText(spannable(c))
         }
 
 
@@ -264,7 +268,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
     fun roundTimer(roundTime: Long, tick: Long, setRoundsAmount: Int) {
 
         val currentRound = setRoundsAmount
-        binding.roundTV.text = getString(R.string.showRound) + currentRound
+        binding.roundTV.text = getString(R.string.showRound) + setRoundsAmount1 + "/" + makeRounds
 
 
 
@@ -281,7 +285,15 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
                 whatRound = currentRound
                 binding.timeTV.setText(spannable(a))
                 when {
-                    currentRoundTime!! <= 3 ->
+                    currentRoundTime!! <= 10000 ->
+                        binding.greenBG.setImageDrawable(
+                            ResourcesCompat.getDrawable(
+                                resources,
+                                R.drawable.red_bg,
+                                null
+                            )
+                        )
+                    currentRoundTime!! <= 60000 ->
                         binding.greenBG.setImageDrawable(
                             ResourcesCompat.getDrawable(
                                 resources,
@@ -289,6 +301,15 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
                                 null
                             )
                         )
+                    currentRoundTime!! >= 60000 ->
+                        binding.greenBG.setImageDrawable(
+                            ResourcesCompat.getDrawable(
+                                resources,
+                                R.drawable.green_bg,
+                                null
+                            )
+                        )
+
                 }
 
             }
@@ -315,7 +336,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
     fun restTimer(restTime: Long, tick: Long) {
 
         var currentRound = setRoundsAmount1
-        binding.roundTV.text = getString(R.string.rest)
+        binding.roundTV.text = getString(R.string.rest) + " " + setRoundsAmount1 + "/" + makeRounds
 
         timer = object : CountDownTimer(restTime, tick) {
 
@@ -333,6 +354,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
                 binding.timeTV.setText(spannable)
                 currentRestTime = restTime
                 timerOnRest = true
+                
             }
 
 

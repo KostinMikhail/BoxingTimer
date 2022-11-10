@@ -132,8 +132,8 @@
 
     <ImageView
         android:id="@+id/imgStart"
-        android:layout_width="34dp"
-        android:layout_height="36dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_baseline_play_arrow_24"
         app:layout_constraintStart_toStartOf="@id/btnStart"
@@ -153,8 +153,8 @@
 
     <ImageView
         android:id="@+id/imgStop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/ic_baseline_stop_24"
         app:layout_constraintStart_toStartOf="@id/btnStop"
         app:layout_constraintEnd_toEndOf="@id/btnStop"
@@ -193,8 +193,8 @@
 
     <ImageView
         android:id="@+id/imgPause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/ic_baseline_pause_24"
         app:layout_constraintStart_toStartOf="@id/btnPause"
         app:layout_constraintEnd_toEndOf="@id/btnPause"
@@ -206,8 +206,8 @@
 
     <ImageView
         android:id="@+id/imgPlayPause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/ic_baseline_play_arrow_24"
         app:layout_constraintStart_toStartOf="@id/btnPause"
         app:layout_constraintEnd_toEndOf="@id/btnPause"

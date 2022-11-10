@@ -107,11 +107,11 @@ class SettingsFragment : Fragment() {
                 val c = formatter.format(startTime)
                 binding.roundTimeText.setText(c)
                 binding.save.setBackgroundResource(R.drawable.btn_calculate)
-                Toast.makeText(
-                    this.requireContext(),
-                    resources.getString(R.string.saved),
-                    Toast.LENGTH_SHORT
-                ).show()
+//                Toast.makeText(
+//                    this.requireContext(),
+//                    resources.getString(R.string.saved),
+//                    Toast.LENGTH_SHORT
+//                ).show()
                 binding.numPickers.isGone = true
                 binding.save.setBackgroundResource(R.drawable.btn_calculate)
                 binding.numPickerMin.value = 0
@@ -155,11 +155,11 @@ class SettingsFragment : Fragment() {
                 timePickerSec = 0
 
                 settingsViewModel?.setRestTime(restTime.toString())
-                Toast.makeText(
-                    this.requireContext(),
-                    resources.getString(R.string.saved),
-                    Toast.LENGTH_SHORT
-                ).show()
+//                Toast.makeText(
+//                    this.requireContext(),
+//                    resources.getString(R.string.saved),
+//                    Toast.LENGTH_SHORT
+//                ).show()
                 binding.numPickers.isGone = true
             }
         }
@@ -181,11 +181,11 @@ class SettingsFragment : Fragment() {
                 binding.roundAmountText.setText(roundPicker.toString())
 
                 settingsViewModel?.setRoundAmount(roundPicker.toString())
-                Toast.makeText(
-                    this.requireContext(),
-                    resources.getString(R.string.saved),
-                    Toast.LENGTH_SHORT
-                ).show()
+//                Toast.makeText(
+//                    this.requireContext(),
+//                    resources.getString(R.string.saved),
+//                    Toast.LENGTH_SHORT
+//                ).show()
                 binding.numPickers.isGone = true
                 binding.numPickerMin.value = 0
                 timePickerMin = 0
