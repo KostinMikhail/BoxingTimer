@@ -1,6 +1,7 @@
 package com.example.timeplateactivity.ui.home
 
 import android.annotation.SuppressLint
+import android.media.AudioDescriptor
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
@@ -19,6 +20,7 @@ import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
+import androidx.viewpager2.widget.ViewPager2
 import com.example.timeplateactivity.R
 import com.example.timeplateactivity.data.repository.AppDatabase
 import com.example.timeplateactivity.data.repository.Profile
@@ -26,6 +28,8 @@ import com.example.timeplateactivity.databinding.FragmentHomeBinding
 import com.example.timeplateactivity.ui.BottomSheet.ActionBottom
 import com.example.timeplateactivity.ui.BottomSheet.BottomSheetFragment
 import com.example.timeplateactivity.ui.BottomSheet.ItemClickListener
+import com.example.timeplateactivity.ui.onboarding.ViewPagerAdapter
+import me.relex.circleindicator.CircleIndicator3
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -49,6 +53,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
     var currentProfile: Profile? = null
     var isDeleatableNow: Boolean = false
     var pauseBtnPushed: Boolean = true
+    private var imagesList = mutableListOf<Int>()
 
     private fun playSound() {
         val mediaPlayer = MediaPlayer.create(this.requireContext(), R.raw.gongsound)
@@ -96,6 +101,14 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
             .build()
 
         val userDao = db.profileDao()
+
+        postToList()
+
+        binding.viewPager2.adapter = ViewPagerAdapter(imagesList)
+        binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+        val indicator: CircleIndicator3 = binding.indicator
+        indicator.setViewPager(binding.viewPager2)
 
         fun spinnerRefresh() {
             val profiles: List<Profile> = userDao.getAll()
@@ -216,6 +229,18 @@ class HomeFragment : Fragment(R.layout.fragment_home), ItemClickListener {
         }
         return root
     }
+
+    private fun addToList(image: Int) {
+        imagesList.add(image)
+    }
+
+    private fun postToList() {
+        for (i in 1..3)
+            addToList(R.drawable.ob1)
+        addToList(R.drawable.ob2)
+        addToList(R.drawable.ob3)
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -45,9 +45,7 @@ class MainActivity : AppCompatActivity() {
             userDao.insertAll(Profile(0, "Interval", 60000, 20000, 10, true))
 
         } else {
-
         }
-
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -57,13 +55,9 @@ class MainActivity : AppCompatActivity() {
         var tr = supportFragmentManager.beginTransaction()
             .commit()
 
-
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-
-
-
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -72,7 +66,6 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -83,6 +76,7 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        
     }
 
 }
