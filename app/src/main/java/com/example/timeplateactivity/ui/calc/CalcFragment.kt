@@ -20,9 +20,7 @@ import com.example.timeplateactivity.databinding.FragmentCalcBinding
 
 class CalcFragment : Fragment() {
 
-
     private var _binding: FragmentCalcBinding? = null
-
     private val binding get() = _binding!!
 
     private var calcViewModel: CalcViewModel? = null
@@ -32,7 +30,6 @@ class CalcFragment : Fragment() {
     var weight: Int? = null
     var physicalActivity: Double = 1.2
     var result: Int = 2000
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ResourceAsColor")
@@ -89,16 +86,11 @@ class CalcFragment : Fragment() {
                     binding.btnCalculate.setBackgroundResource(R.drawable.btn_calculate_on)
                     binding.resultTV.setText(result.toString() + "\n" + "калорий в день")
                 }
-
-
             }
-
 
             physicalActivityTV.setOnClickListener() {
                 spinner.performClick()
             }
-
-
 
             physicalActivityTV.setText(R.string.physicalActivity)
 
@@ -107,7 +99,6 @@ class CalcFragment : Fragment() {
                 super.onCreateOptionsMenu(menu, inflater)
 
             }
-
 
             sexBtnMale.setBackgroundResource(R.drawable.btn_sex_male_on)
 
@@ -128,8 +119,6 @@ class CalcFragment : Fragment() {
                     calcViewModel.setMale()
                     isMale = false
                 }
-
-
             }
             sexBtnFemale.setOnCheckedChangeListener { compoundButton, isChecked ->
                 if (isChecked) {
@@ -243,7 +232,6 @@ class CalcFragment : Fragment() {
                     id: Long
                 ) {
 
-
                 }
 
                 override fun onItemSelected(
@@ -263,15 +251,10 @@ class CalcFragment : Fragment() {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
 
                 }
-
             }
-
-
         }
 
-
         return binding.root
-
 
     }
 

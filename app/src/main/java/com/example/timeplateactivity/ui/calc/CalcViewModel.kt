@@ -13,7 +13,7 @@ class CalcViewModel : ViewModel() {
     var age: Int? = 28
     var weight: Int? = 77
     var activity: Int? = 2
-    var result: String? = null
+    var sum: String? = null
 
     fun setMale() {
         isMale = true
@@ -26,12 +26,10 @@ class CalcViewModel : ViewModel() {
     fun calc() {
         if (isMale) {
 
-            result = "4" //(weight!! * 10 + 6.25 * height!! - 5 * age!! + 5 * activity!!).toString()
+            sum = (weight!! * 10 + 6.25 * height!! - 5 * age!! + 5 * activity!!).toString()
         } else {
-            result = "3"//(weight!! * 10 + 6.25 * height!! - 5 * age!! + 5 * activity!!).toString()
+            sum = (weight!! * 10 + 6.25 * height!! - 5 * age!! + 5 * activity!!).toString()
         }
         return
     }
-
-
 }

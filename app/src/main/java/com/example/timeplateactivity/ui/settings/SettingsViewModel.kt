@@ -18,26 +18,21 @@ class SettingsViewModel(private val context: Context, private val db: AppDatabas
     var roundTime: Long = 0
     var restTime: Long = 0
     var makeRounds: Int = 0
-
     var roundTimeString: String? = null
     var restTimeString: String? = null
     var roundAmountString: String? = null
     var profileName: String? = null
-
     var currentProfile: Profile? = null
-
     var isDeleatableNow: Boolean = false
 
     private val _errorData = MutableLiveData<String>()
     val errorData: LiveData<String> = _errorData
 
     private var profileDao: ProfileDao? = null
-
     private val _timerSuccsessCreated = MutableLiveData<String>()
     val timerSuccsessCreated: LiveData<String> = _timerSuccsessCreated
 
     init {
-
         profileDao = db?.profileDao()
     }
 
@@ -58,8 +53,6 @@ class SettingsViewModel(private val context: Context, private val db: AppDatabas
             _errorData.value = context?.getString(R.string.noRoundTime)
             return
         }
-
-
 
         profileDao?.insertAll(
             Profile(
@@ -132,8 +125,6 @@ class SettingsViewModel(private val context: Context, private val db: AppDatabas
         makeRounds = currentProfile?.roundAmount ?: 0
         isDeleatableNow = currentProfile?.isDeletable == true
     }
-
-
 }
 
 
