@@ -62,6 +62,8 @@
     <string name="heavyActivity">Высокая</string>
     <string name="min">Минуты</string>
     <string name="sec">Секунды</string>
+    <string name="next">Далее</string>
+    <string name="finish">Готово</string>
 
 
 </resources>

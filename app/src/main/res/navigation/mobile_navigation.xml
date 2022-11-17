@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.timeplateactivity.ui.home.HomeFragment"
+        android:name="com.kostlin.timeplateactivity.ui.home.HomeFragment"
         android:label="@string/timer"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.example.timeplateactivity.ui.settings.SettingsFragment"
+        android:name="com.kostlin.timeplateactivity.ui.settings.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/nav_calc"
-        android:name="com.example.timeplateactivity.ui.calc.CalcFragment"
+        android:name="com.kostlin.timeplateactivity.ui.calc.CalcFragment"
         android:label="@string/nutrition_calc"
         tools:layout="@layout/fragment_calc" />
 

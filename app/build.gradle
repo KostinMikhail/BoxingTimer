@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -11,7 +12,7 @@ android {
 
     defaultConfig {
 
-        applicationId "com.example.timeplateactivity"
+        applicationId "com.kostlin.timeplateactivity"
         minSdk 21
         targetSdk 31
         versionCode 1
@@ -107,6 +108,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.0.0"
 
     implementation 'io.github.ShawnLin013:number-picker:2.4.13'
+
+
 
 
 }
