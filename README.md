@@ -1,5 +1,6 @@
 # BoxingTimer
-Великолепный таймер для ваших тренировок
+Великолепный таймер для ваших тренировок.
+
 ссылка на Google Play:
 https://play.google.com/store/apps/details?id=com.kostlin.timeplateactivity
 
